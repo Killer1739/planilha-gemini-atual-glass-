@@ -211,12 +211,14 @@
             </div>
 
             <nav class="nav-menu flex-1">
-                <ul class="flex flex-col gap-2 font-medium">
-                    <li><a class="nav-item active flex items-center gap-4 p-3 rounded-2xl" data-target="view-painel" data-title="Visão Geral"><i class="fa-solid fa-border-all w-5 text-center"></i> Painel</a></li>
-                    <li><a class="nav-item flex items-center gap-4 p-3 rounded-2xl" data-target="view-despesas" data-title="Gerenciamento de Despesas"><i class="fa-solid fa-arrow-trend-down w-5 text-center"></i> Despesas</a></li>
-                    <li><a class="nav-item flex items-center gap-4 p-3 rounded-2xl" data-target="view-ganhos" data-title="Relatório de Ganhos"><i class="fa-solid fa-arrow-trend-up w-5 text-center"></i> Ganhos</a></li>
-                    <li><a class="nav-item flex items-center gap-4 p-3 rounded-2xl" data-target="view-cartoes" data-title="Gerenciar Cartões"><i class="fa-regular fa-credit-card w-5 text-center"></i> Cartões</a></li>
-                    <li><a class="nav-item flex items-center gap-4 p-3 rounded-2xl" data-target="view-metas" data-title="Metas & Objetivos"><i class="fa-solid fa-bullseye w-5 text-center"></i> Metas</a></li>
+                <ul class="flex flex-col gap-1.5 font-medium">
+                    <li><a class="nav-item active flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-painel" data-title="Visão Geral"><i class="fa-solid fa-border-all w-5 text-center"></i> Painel</a></li>
+                    <li><a class="nav-item flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-despesas" data-title="Gerenciamento de Despesas"><i class="fa-solid fa-arrow-trend-down w-5 text-center"></i> Despesas</a></li>
+                    <li><a class="nav-item flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-ganhos" data-title="Relatório de Ganhos"><i class="fa-solid fa-arrow-trend-up w-5 text-center"></i> Ganhos</a></li>
+                    <li><a class="nav-item flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-cartoes" data-title="Gerenciar Cartões"><i class="fa-regular fa-credit-card w-5 text-center"></i> Cartões</a></li>
+                    <li><a class="nav-item flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-metas" data-title="Metas & Objetivos"><i class="fa-solid fa-bullseye w-5 text-center"></i> Metas</a></li>
+                    <li><a class="nav-item flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-assinaturas" data-title="Assinaturas & Fixas"><i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i> Assinaturas</a></li>
+                    <li><a class="nav-item flex items-center gap-3.5 p-3 rounded-2xl text-sm" data-target="view-orcamentos" data-title="Orçamentos & Limites"><i class="fa-solid fa-sliders w-5 text-center"></i> Orçamentos</a></li>
                 </ul>
             </nav>
         </aside>
@@ -320,6 +322,24 @@
                     </div>
                 </section>
 
+                <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4">Gastos por Categoria</h3>
+                        <div class="relative h-64 w-full flex justify-center items-center">
+                            <canvas id="categoryChart"></canvas>
+                            <div id="chartEmptyState" class="absolute inset-0 flex items-center justify-center bg-black/10 dark:bg-black/60 backdrop-blur-sm rounded-xl transition-opacity duration-300">
+                                <p class="text-sm opacity-70">Adicione gastos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6">
+                        <h3 class="text-lg font-bold mb-4">Evolução Mensal (Barras)</h3>
+                        <div class="relative h-64 w-full">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
                 <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="glass-panel p-6 lg:col-span-2">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -355,25 +375,6 @@
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="raioXCardsContainer"></div>
-                        </div>
-                    </div>
-
-                    <div class="glass-panel p-6 lg:col-span-1 flex flex-col justify-between">
-                        <h3 class="text-lg font-bold mb-4">Gastos por Categoria</h3>
-                        <div class="relative h-64 w-full flex justify-center items-center">
-                            <canvas id="categoryChart"></canvas>
-                            <div id="chartEmptyState" class="absolute inset-0 flex items-center justify-center bg-black/10 dark:bg-black/60 backdrop-blur-sm rounded-xl transition-opacity duration-300">
-                                <p class="text-sm opacity-70">Adicione gastos</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 lg:col-span-2">
-                        <h3 class="text-lg font-bold mb-4">Evolução Mensal (Barras)</h3>
-                        <div class="relative h-64 w-full">
-                            <canvas id="timelineChart"></canvas>
                         </div>
                     </div>
 
@@ -517,6 +518,70 @@
                         </div>
                         <h3 class="font-bold text-lg mb-1">Nenhuma meta cadastrada</h3>
                         <p class="text-sm opacity-70">Crie seu primeiro objetivo (ex: Viagem, Carro Novo, Reserva de Emergência) e comece a poupar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 VIEW 6: ASSINATURAS & FIXAS (Item 1)
+            ================================================ -->
+            <div id="view-assinaturas" class="view-section flex-col gap-6 w-full">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Assinaturas & Despesas Fixas</h2>
+                        <p class="text-sm opacity-70">Monitore serviços recorrentes (Netflix, Spotify, Aluguel, Academia)</p>
+                    </div>
+                    <button id="openNewSubscriptionModalBtn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-plus"></i> Nova Despesa Fixa
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-panel p-6 flex flex-col justify-between">
+                        <span class="text-sm font-medium opacity-70">Total Comprometido / Mês</span>
+                        <h2 class="text-2xl lg:text-3xl font-bold text-indigo-400 mt-2" id="totalSubscriptionsDisplay">R$ 0,00</h2>
+                        <p class="text-xs opacity-60 mt-1">Soma de todas as contas e assinaturas recorrentes ativas</p>
+                    </div>
+                    <div class="glass-panel p-6 flex flex-col justify-between">
+                        <span class="text-sm font-medium opacity-70">Serviços Ativos</span>
+                        <h2 class="text-2xl lg:text-3xl font-bold text-emerald-400 mt-2" id="activeSubscriptionsCountDisplay">0</h2>
+                        <p class="text-xs opacity-60 mt-1">Lançamentos fixos recorrentes programados</p>
+                    </div>
+                    <div class="glass-panel p-6 flex flex-col justify-between">
+                        <span class="text-sm font-medium opacity-70">Impacto na Renda</span>
+                        <h2 class="text-2xl lg:text-3xl font-bold text-amber-400 mt-2" id="subscriptionsIncomeImpactDisplay">0%</h2>
+                        <p class="text-xs opacity-60 mt-1">Porcentagem da renda comprometida com fixas</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6">
+                    <h3 class="text-lg font-bold mb-4">Lista de Assinaturas e Contas Fixas</h3>
+                    <div class="overflow-y-auto pr-2" style="max-height: 400px;">
+                        <ul id="subscriptionsList" class="space-y-3">
+                            <li class="text-center opacity-50 py-10" id="emptySubscriptionsMsg">
+                                <i class="fa-solid fa-file-invoice-dollar text-3xl mb-3 opacity-30"></i>
+                                <p>Nenhuma assinatura ou despesa fixa cadastrada.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 VIEW 7: ORÇAMENTOS & LIMITES (Item 2)
+            ================================================ -->
+            <div id="view-orcamentos" class="view-section flex-col gap-6 w-full">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Orçamentos & Limites por Categoria</h2>
+                        <p class="text-sm opacity-70">Defina tetos de gastos mensais para evitar estouros no orçamento</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6">
+                    <h3 class="text-lg font-bold mb-4">Configurar Tetos de Gastos por Categoria</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="budgetsConfigGrid">
+                        <!-- Dynamic items -->
                     </div>
                 </div>
             </div>
@@ -763,6 +828,39 @@
         </div>
     </div>
 
+    <!-- MODAL: NOVA ASSINATURA / FIXA -->
+    <div id="novaAssinaturaModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="glass-panel w-full max-w-md p-6 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Nova Despesa Fixa / Assinatura</h3>
+                <button id="closeNewSubscriptionModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <form id="addSubscriptionForm" class="space-y-4">
+                <div>
+                    <input type="text" id="subNameInput" required placeholder="Nome (Ex: Netflix, Academia, Aluguel)" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 opacity-50">R$</span>
+                        <input type="number" id="subValInput" required min="0.01" step="0.01" placeholder="Valor Mensal" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <select id="subCategoryInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                            <option value="Lazer">🎮 Lazer</option>
+                            <option value="Moradia">🏡 Moradia</option>
+                            <option value="Saúde">🩺 Saúde</option>
+                            <option value="Outros">📦 Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Assinatura</button>
+            </form>
+        </div>
+    </div>
+
     <div id="categoryModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
         <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300">
             <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold">Nova Categoria</h3><button id="closeModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-xl"></i></button></div>
@@ -837,6 +935,7 @@
             },
             cards: [],
             goals: [],
+            categoryBudgets: {},
             months: {}
         };
 
@@ -861,6 +960,7 @@
                     },
                     cards: [],
                     goals: [],
+                    categoryBudgets: {},
                     months: {}
                 };
                 renderUserProfileBox();
@@ -950,6 +1050,7 @@
                     },
                     cards: [],
                     goals: [],
+                    categoryBudgets: {},
                     months: {}
                 };
                 saveDB();
@@ -985,6 +1086,7 @@
                 },
                 cards: [],
                 goals: [],
+                categoryBudgets: {},
                 months: {}
             };
             renderUserProfileBox();
@@ -1012,6 +1114,8 @@
                 if(targetId === 'view-ganhos') updateGainsTabView();
                 if(targetId === 'view-cartoes') renderCardsView();
                 if(targetId === 'view-metas') renderGoalsView();
+                if(targetId === 'view-assinaturas') renderSubscriptionsView();
+                if(targetId === 'view-orcamentos') renderBudgetsView();
             });
         });
 
@@ -1044,6 +1148,16 @@
         document.getElementById('closeNewGoalModalBtn').addEventListener('click', () => {
             novaMetaModal.classList.add('opacity-0');
             setTimeout(() => novaMetaModal.classList.add('hidden'), 300);
+        });
+
+        const novaAssinaturaModal = document.getElementById('novaAssinaturaModal');
+        document.getElementById('openNewSubscriptionModalBtn').addEventListener('click', () => {
+            novaAssinaturaModal.classList.remove('hidden');
+            setTimeout(() => novaAssinaturaModal.classList.remove('opacity-0'), 10);
+        });
+        document.getElementById('closeNewSubscriptionModalBtn').addEventListener('click', () => {
+            novaAssinaturaModal.classList.add('opacity-0');
+            setTimeout(() => novaAssinaturaModal.classList.add('hidden'), 300);
         });
 
         let currentMonth = new Date().toISOString().slice(0, 7);
@@ -1081,6 +1195,7 @@
         const addExpenseForm = document.getElementById('addExpenseForm');
         const addCardForm = document.getElementById('addCardForm');
         const addGoalForm = document.getElementById('addGoalForm');
+        const addSubscriptionForm = document.getElementById('addSubscriptionForm');
         const timeInput = document.getElementById('timeInput');
         const dateInput = document.getElementById('dateInput');
         const searchInput = document.getElementById('searchInput');
@@ -1149,7 +1264,6 @@
 
             let lowerText = text.toLowerCase();
 
-            // Detect installments (e.g. "3x", "parcelado em 3x", "vezes 3")
             let installments = 1;
             const instRegex1 = /(\d+)\s*x/i;
             const instRegex2 = /parcelado(?:\s+em)?\s*(\d+)/i;
@@ -1190,7 +1304,6 @@
             let category = "Outros";
             let type = "expense";
 
-            // Expanded Keywords Dictionary
             const gainKeywords = ["salario", "salário", "pix", "recebi", "ganho", "freela", "vendas", "venda", "cashback", "dividendo", "rendimento", "bônus", "13º"];
             if (gainKeywords.some(kw => lowerText.includes(kw))) {
                 type = "gain";
@@ -1213,7 +1326,6 @@
                 }
             }
 
-            // Payment Method & Credit Card matching
             let paymentMethod = 'Pix';
             if (type === 'expense') {
                 const hasCardMention = /(cartão|cartao|crédito|credito)/i.test(lowerText);
@@ -1319,6 +1431,7 @@
 
             if (!dbData.cards) dbData.cards = [];
             if (!dbData.goals) dbData.goals = [];
+            if (!dbData.categoryBudgets) dbData.categoryBudgets = {};
 
             timeInput.addEventListener('focus', () => { isTimeInputFocused = true; });
             timeInput.addEventListener('blur', () => { if(!timeInput.value) isTimeInputFocused = false; });
@@ -1330,7 +1443,6 @@
                 }
             }, 1000);
 
-            // AI Quick Input Form Listener
             document.getElementById('quickAiForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const input = document.getElementById('quickAiInput');
@@ -1445,6 +1557,13 @@
                 addGoal();
                 novaMetaModal.classList.add('opacity-0');
                 setTimeout(() => novaMetaModal.classList.add('hidden'), 300);
+            });
+
+            addSubscriptionForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                addSubscription();
+                novaAssinaturaModal.classList.add('opacity-0');
+                setTimeout(() => novaAssinaturaModal.classList.add('hidden'), 300);
             });
 
             const contribTypeDeposit = document.getElementById('contribTypeDeposit');
@@ -1700,6 +1819,152 @@
             showNotification('expense', 'Meta Removida', 'O objetivo foi excluído.');
         }
 
+        // --- ITEM 1: ASSINATURAS & FIXAS LOGIC ---
+        function addSubscription() {
+            const name = document.getElementById('subNameInput').value.trim();
+            const val = parseFloat(document.getElementById('subValInput').value);
+            const category = document.getElementById('subCategoryInput').value;
+
+            if (!name || isNaN(val) || val <= 0) return;
+
+            ensureMonthExists(currentMonth);
+            const expObj = {
+                id: generateId(),
+                recurrenceId: generateId(),
+                typeItem: 'expense',
+                description: name,
+                category: category,
+                paymentMethod: 'Débito',
+                date: `${currentMonth}-01`,
+                time: '08:00:00',
+                value: val,
+                type: dbData.categories[category] || 'wants',
+                recurrent: true,
+                createdAt: Date.now()
+            };
+
+            dbData.months[currentMonth].expenses.push(expObj);
+            saveDB();
+
+            document.getElementById('subNameInput').value = '';
+            document.getElementById('subValInput').value = '';
+            renderSubscriptionsView();
+            updateDashboard();
+            showNotification('gain', 'Assinatura Adicionada!', `"${name}" programada como despesa fixa mensal.`);
+        }
+
+        function renderSubscriptionsView() {
+            ensureMonthExists(currentMonth);
+            const m = dbData.months[currentMonth];
+            const recurrentExpenses = (m.expenses || []).filter(e => e.recurrent);
+
+            const listContainer = document.getElementById('subscriptionsList');
+            const emptyMsg = document.getElementById('emptySubscriptionsMsg');
+            listContainer.querySelectorAll('.sub-item').forEach(el => el.remove());
+
+            let totalSubs = 0;
+            recurrentExpenses.forEach(exp => { totalSubs += exp.value; });
+
+            document.getElementById('totalSubscriptionsDisplay').textContent = formatCurrency(totalSubs);
+            document.getElementById('activeSubscriptionsCountDisplay').textContent = recurrentExpenses.length;
+            
+            const income = getMonthTotalIncome(currentMonth);
+            const impact = income > 0 ? ((totalSubs / income) * 100).toFixed(1) : 0;
+            document.getElementById('subscriptionsIncomeImpactDisplay').textContent = `${impact}%`;
+
+            if (recurrentExpenses.length === 0) {
+                emptyMsg.style.display = 'block';
+                return;
+            }
+            emptyMsg.style.display = 'none';
+
+            recurrentExpenses.forEach(exp => {
+                const li = document.createElement('li');
+                li.className = 'sub-item flex justify-between items-center p-4 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl border border-black/10 dark:border-white/10 transition';
+                li.innerHTML = `
+                    <div class="flex items-center gap-4 overflow-hidden">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="font-bold text-sm truncate">${exp.description}</h4>
+                            <p class="text-xs opacity-70">${categoryIcons[exp.category] || '📁'} ${exp.category} • Recorrência Mensal Ativa</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 shrink-0">
+                        <span class="font-bold text-rose-500 text-sm">${formatCurrency(exp.value)}</span>
+                        <button onclick="removeItem('${exp.id}', 'expense')" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center"><i class="fa-solid fa-trash text-xs"></i></button>
+                    </div>
+                `;
+                listContainer.appendChild(li);
+            });
+        }
+
+        // --- ITEM 2: ORÇAMENTOS & LIMITES POR CATEGORIA LOGIC ---
+        function renderBudgetsView() {
+            const grid = document.getElementById('budgetsConfigGrid');
+            grid.innerHTML = '';
+            ensureMonthExists(currentMonth);
+            const m = dbData.months[currentMonth];
+
+            let spentByCategory = {};
+            (m.expenses || []).forEach(e => {
+                spentByCategory[e.category] = (spentByCategory[e.category] || 0) + e.value;
+            });
+
+            if (!dbData.categoryBudgets) dbData.categoryBudgets = {};
+
+            Object.keys(dbData.categories).forEach(cat => {
+                const limit = dbData.categoryBudgets[cat] || 0;
+                const spent = spentByCategory[cat] || 0;
+                const pct = limit > 0 ? Math.min((spent / limit) * 100, 100) : 0;
+                const isExceeded = limit > 0 && spent > limit;
+
+                const card = document.createElement('div');
+                card.className = 'glass-panel p-5 flex flex-col justify-between gap-4';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-xl">${categoryIcons[cat] || '📁'}</span>
+                                <h4 class="font-bold text-sm">${cat}</h4>
+                            </div>
+                            <span class="text-xs px-2 py-0.5 rounded-full font-semibold ${isExceeded ? 'bg-rose-500/20 text-rose-500' : 'bg-black/5 dark:bg-white/5 opacity-70'}">${isExceeded ? 'Estourado!' : `${pct.toFixed(0)}%`}</span>
+                        </div>
+                        <div class="space-y-1.5 my-3">
+                            <div class="flex justify-between text-xs opacity-70">
+                                <span>Gasto: <strong class="${isExceeded ? 'text-rose-500' : ''}">${formatCurrency(spent)}</strong></span>
+                                <span>Teto: <strong>${limit > 0 ? formatCurrency(limit) : 'Não definido'}</strong></span>
+                            </div>
+                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2 overflow-hidden">
+                                <div class="h-full rounded-full transition-all duration-500 ${isExceeded ? 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)]' : 'bg-indigo-500'}" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 pt-2 border-t border-black/10 dark:border-white/10">
+                        <input type="number" id="budgetInput_${cat}" min="0" step="50" value="${limit > 0 ? limit : ''}" placeholder="Definir teto (R$)" class="w-full px-3 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-xs outline-none focus:border-indigo-500">
+                        <button onclick="saveCategoryBudget('${cat}')" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shrink-0">Salvar</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.saveCategoryBudget = function(categoryName) {
+            const inputVal = parseFloat(document.getElementById(`budgetInput_${categoryName}`).value);
+            if (!dbData.categoryBudgets) dbData.categoryBudgets = {};
+            
+            if (isNaN(inputVal) || inputVal <= 0) {
+                delete dbData.categoryBudgets[categoryName];
+                showNotification('expense', 'Teto Removido', `Limite de gastos para "${categoryName}" foi limpo.`);
+            } else {
+                dbData.categoryBudgets[categoryName] = inputVal;
+                showNotification('gain', 'Teto Salvo!', `Limite de ${formatCurrency(inputVal)} definido para "${categoryName}".`);
+            }
+            saveDB();
+            renderBudgetsView();
+        }
+
         function renderGoalsView() {
             const grid = document.getElementById('goalsGrid');
             const emptyMsg = document.getElementById('emptyGoalsMsg');
@@ -1921,6 +2186,8 @@
             updateGainsTabView();
             renderCardsView();
             renderGoalsView();
+            renderSubscriptionsView();
+            renderBudgetsView();
             if (activeSubTab === 'raiox') renderRaioXView();
             const stats = calculateStats();
             updateKPIs(stats); update503020(stats); updateDynamicStatus(stats);
@@ -2371,7 +2638,7 @@
         function importData(e) {
             const file = e.target.files[0]; if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(event) { try { const parsed = JSON.parse(event.target.result); if (parsed.categories && parsed.months) { dbData = parsed; if(!dbData.cards) dbData.cards = []; if(!dbData.goals) dbData.goals = []; saveDB(); setupCategorySelect(); setupPaymentMethodsSelect(); setDefaultDateForCurrentMonth(); ensureMonthExists(currentMonth); updateDashboard(); } } catch(err) { } };
+            reader.onload = function(event) { try { const parsed = JSON.parse(event.target.result); if (parsed.categories && parsed.months) { dbData = parsed; if(!dbData.cards) dbData.cards = []; if(!dbData.goals) dbData.goals = []; if(!dbData.categoryBudgets) dbData.categoryBudgets = {}; saveDB(); setupCategorySelect(); setupPaymentMethodsSelect(); setDefaultDateForCurrentMonth(); ensureMonthExists(currentMonth); updateDashboard(); } } catch(err) { } };
             reader.readAsText(file);
         }
 
