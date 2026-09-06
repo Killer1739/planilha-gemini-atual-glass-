@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Financeiro Pessoal | Liquid Glass</title>
     
-    <!-- Tailwind, Chart.js, FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,6 +35,7 @@
             --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.06);
             --text-main: #0f172a;
             --text-muted: #64748b;
+            --dropdown-bg: rgba(255, 255, 255, 0.94);
             --transition: all 0.3s ease;
         }
 
@@ -46,6 +46,7 @@
             --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.4);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
+            --dropdown-bg: rgba(12, 17, 30, 0.94);
         }
 
         body {
@@ -90,6 +91,14 @@
         }
         .glass-panel:hover {
             border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        /* High blur and opaque backing for profile dropdown menu */
+        #userDropdownMenu {
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            background: var(--dropdown-bg);
+            border: 1px solid var(--glass-border);
         }
 
         ::-webkit-scrollbar { width: 6px; }
@@ -178,7 +187,7 @@
                     <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
                 </div>
                 
-                <!-- PROFILE SWITCHER DROPDOWN -->
+                <!-- PROFILE SWITCHER DROPDOWN (HIGH BLUR) -->
                 <div id="userDropdownMenu" class="absolute top-full left-0 right-0 mt-2 glass-panel p-2 hidden z-50 flex flex-col gap-1 shadow-2xl">
                     <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider opacity-60">Alternar Perfil</div>
                     <div id="profilesListContainer" class="flex flex-col gap-1 max-h-40 overflow-y-auto">
@@ -935,29 +944,27 @@
 
         window.deleteProfile = function(id) {
             if (Object.keys(profilesData.list).length <= 1) {
-                alert("Você precisa ter pelo menos um perfil cadastrado.");
+                showNotification('expense', 'Aviso', 'Você precisa ter pelo menos um perfil.');
                 return;
             }
-            if (confirm("Tem certeza que deseja excluir este perfil e todos os seus dados financeiros?")) {
-                delete profilesData.list[id];
-                localStorage.removeItem(getProfileDbKey(id));
-                currentProfileId = Object.keys(profilesData.list)[0];
-                saveProfiles();
-                
-                dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
-                    categories: {
-                        'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
-                        'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
-                        'Dívidas': 'savings', 'Outros': 'wants'
-                    },
-                    cards: [],
-                    goals: [],
-                    months: {}
-                };
-                renderUserProfileBox();
-                updateDashboard();
-                showNotification('expense', 'Perfil Excluído', 'O perfil foi removido.');
-            }
+            delete profilesData.list[id];
+            localStorage.removeItem(getProfileDbKey(id));
+            currentProfileId = Object.keys(profilesData.list)[0];
+            saveProfiles();
+            
+            dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
+                categories: {
+                    'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
+                    'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
+                    'Dívidas': 'savings', 'Outros': 'wants'
+                },
+                cards: [],
+                goals: [],
+                months: {}
+            };
+            renderUserProfileBox();
+            updateDashboard();
+            showNotification('expense', 'Perfil Excluído', 'O perfil foi removido.');
         };
 
         // --- NAVIGATION & VIEWS ---
@@ -1020,7 +1027,7 @@
         let raioXTab = 'expense';
         let isPrivacyMode = false;
         let isTimeInputFocused = false;
-        let contribMode = 'deposit'; // 'deposit' or 'withdraw'
+        let contribMode = 'deposit';
 
         let chartInstance = null;
         let timelineChartInstance = null;
