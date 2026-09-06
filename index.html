@@ -636,7 +636,31 @@
                         <option value="🌟">🌟 Estrela</option>
                     </select>
                 </div>
+                <div>
+                    <label class="block text-xs opacity-70 mb-1">Senha de Acesso (Opcional)</label>
+                    <input type="password" id="profilePasswordInput" placeholder="Deixe em branco sem senha..." class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
+                </div>
                 <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Salvar Perfil</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PROFILE LOGIN / PASSWORD VERIFICATION MODAL -->
+    <div id="profileLoginModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[120] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300 text-center">
+            <div id="loginAvatarDisplay" class="w-16 h-16 rounded-2xl bg-indigo-600/20 text-indigo-500 flex items-center justify-center text-3xl mx-auto mb-3 shadow-[0_0_20px_rgba(79,70,229,0.3)]">👤</div>
+            <h3 id="loginProfileTitle" class="text-lg font-bold mb-1">Entrar no Perfil</h3>
+            <p class="text-xs opacity-70 mb-5">Digite a senha cadastrada para acessar</p>
+            
+            <form id="profileLoginForm" class="space-y-4">
+                <input type="hidden" id="loginTargetProfileId">
+                <div class="relative">
+                    <input type="password" id="loginPasswordInput" required placeholder="Senha de acesso..." class="w-full px-4 py-3 bg-black/10 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition text-center font-bold tracking-widest">
+                </div>
+                <div class="flex gap-2">
+                    <button type="button" id="closeLoginModal" class="flex-1 py-3 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 rounded-2xl font-semibold text-xs transition">Cancelar</button>
+                    <button type="submit" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Desbloquear</button>
+                </div>
             </form>
         </div>
     </div>
@@ -925,11 +949,11 @@
             setTheme(!isDark);
         });
 
-        // --- USER PROFILES SYSTEM ---
+        // --- USER PROFILES & PASSWORD LOGIN SYSTEM ---
         let profilesData = JSON.parse(localStorage.getItem('findash_profiles')) || {
             currentId: 'default',
             list: {
-                'default': { id: 'default', name: 'Meu Perfil', avatar: '👤' }
+                'default': { id: 'default', name: 'Meu Perfil', avatar: '👤', password: '' }
             }
         };
 
@@ -965,26 +989,71 @@
 
         window.switchProfile = function(profileId) {
             if (profilesData.list[profileId]) {
-                currentProfileId = profileId;
-                saveProfiles();
-                dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
-                    categories: {
-                        'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
-                        'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
-                        'Dívidas': 'savings', 'Outros': 'wants'
-                    },
-                    cards: [],
-                    goals: [],
-                    categoryBudgets: {},
-                    months: {}
-                };
-                renderUserProfileBox();
-                setDefaultDateForCurrentMonth();
-                ensureMonthExists(currentMonth);
-                updateDashboard();
-                showNotification('gain', 'Perfil Alterado', `Agora visualizando: ${profilesData.list[profileId].name}`);
+                if (profileId === currentProfileId) return; // already active
+
+                const profile = profilesData.list[profileId];
+                if (profile.password && profile.password.trim() !== '') {
+                    // Open password verification modal
+                    document.getElementById('loginTargetProfileId').value = profileId;
+                    document.getElementById('loginProfileTitle').textContent = `Entrar em ${profile.name}`;
+                    document.getElementById('loginAvatarDisplay').textContent = profile.avatar;
+                    document.getElementById('loginPasswordInput').value = '';
+                    
+                    const loginModal = document.getElementById('profileLoginModal');
+                    loginModal.classList.remove('hidden');
+                    setTimeout(() => loginModal.classList.remove('opacity-0'), 10);
+                    document.getElementById('loginPasswordInput').focus();
+                } else {
+                    executeProfileSwitch(profileId);
+                }
             }
         };
+
+        function executeProfileSwitch(profileId) {
+            currentProfileId = profileId;
+            saveProfiles();
+            dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
+                categories: {
+                    'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
+                    'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
+                    'Dívidas': 'savings', 'Outros': 'wants'
+                },
+                cards: [],
+                goals: [],
+                categoryBudgets: {},
+                months: {}
+            };
+            renderUserProfileBox();
+            setDefaultDateForCurrentMonth();
+            ensureMonthExists(currentMonth);
+            updateDashboard();
+            showNotification('gain', 'Perfil Alterado', `Agora visualizando: ${profilesData.list[profileId].name}`);
+        }
+
+        // Login Modal Form Event Listener
+        document.getElementById('profileLoginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const targetId = document.getElementById('loginTargetProfileId').value;
+            const enteredPass = document.getElementById('loginPasswordInput').value;
+            const profile = profilesData.list[targetId];
+
+            if (profile && profile.password === enteredPass) {
+                const loginModal = document.getElementById('profileLoginModal');
+                loginModal.classList.add('opacity-0');
+                setTimeout(() => loginModal.classList.add('hidden'), 300);
+                executeProfileSwitch(targetId);
+            } else {
+                showNotification('expense', 'Senha Incorreta', 'A senha informada não confere com este perfil.');
+                document.getElementById('loginPasswordInput').value = '';
+                document.getElementById('loginPasswordInput').focus();
+            }
+        });
+
+        document.getElementById('closeLoginModal').addEventListener('click', () => {
+            const loginModal = document.getElementById('profileLoginModal');
+            loginModal.classList.add('opacity-0');
+            setTimeout(() => loginModal.classList.add('hidden'), 300);
+        });
 
         function renderUserProfileBox() {
             const current = profilesData.list[currentProfileId] || { name: 'Meu Perfil', avatar: '👤' };
@@ -995,14 +1064,16 @@
             container.innerHTML = '';
             Object.values(profilesData.list).forEach(p => {
                 const isActive = p.id === currentProfileId;
+                const hasPassword = p.password && p.password.trim() !== '';
                 const item = document.createElement('div');
                 item.className = `flex items-center justify-between p-2 rounded-xl cursor-pointer transition ${isActive ? 'bg-indigo-500/20 text-indigo-500 font-semibold border border-indigo-500/30' : 'hover:bg-black/5 dark:hover:bg-white/5 opacity-80'}`;
                 item.innerHTML = `
                     <div class="flex items-center gap-2 overflow-hidden w-full" onclick="switchProfile('${p.id}')">
                         <span class="text-sm">${p.avatar}</span>
                         <span class="text-xs truncate">${p.name}</span>
+                        ${hasPassword ? '<i class="fa-solid fa-lock text-[9px] opacity-60 ml-auto"></i>' : ''}
                     </div>
-                    ${Object.keys(profilesData.list).length > 1 ? `<button onclick="event.stopPropagation(); deleteProfile('${p.id}')" class="text-xs opacity-50 hover:text-rose-500 p-1"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                    ${Object.keys(profilesData.list).length > 1 ? `<button onclick="event.stopPropagation(); deleteProfile('${p.id}')" class="text-xs opacity-50 hover:text-rose-500 p-1 ml-1"><i class="fa-solid fa-trash-can"></i></button>` : ''}
                 `;
                 container.appendChild(item);
             });
@@ -1025,6 +1096,7 @@
             document.getElementById('profileModalMode').value = 'create';
             document.getElementById('profileNameInput').value = '';
             document.getElementById('profileAvatarInput').value = '👤';
+            document.getElementById('profilePasswordInput').value = '';
             profileModal.classList.remove('hidden');
             setTimeout(() => profileModal.classList.remove('opacity-0'), 10);
         });
@@ -1035,6 +1107,7 @@
             document.getElementById('profileModalMode').value = 'edit';
             document.getElementById('profileNameInput').value = current.name;
             document.getElementById('profileAvatarInput').value = current.avatar;
+            document.getElementById('profilePasswordInput').value = current.password || '';
             profileModal.classList.remove('hidden');
             setTimeout(() => profileModal.classList.remove('opacity-0'), 10);
         });
@@ -1049,12 +1122,13 @@
             const mode = document.getElementById('profileModalMode').value;
             const name = document.getElementById('profileNameInput').value.trim();
             const avatar = document.getElementById('profileAvatarInput').value;
+            const password = document.getElementById('profilePasswordInput').value;
 
             if (!name) return;
 
             if (mode === 'create') {
                 const newId = generateId();
-                profilesData.list[newId] = { id: newId, name, avatar };
+                profilesData.list[newId] = { id: newId, name, avatar, password };
                 currentProfileId = newId;
                 saveProfiles();
                 dbData = {
@@ -1073,8 +1147,9 @@
             } else {
                 profilesData.list[currentProfileId].name = name;
                 profilesData.list[currentProfileId].avatar = avatar;
+                profilesData.list[currentProfileId].password = password;
                 saveProfiles();
-                showNotification('gain', 'Perfil Atualizado!', 'Alterações salvas com sucesso.');
+                showNotification('gain', 'Perfil Atualizado!', 'Alterações e senha salvas com sucesso.');
             }
 
             profileModal.classList.add('opacity-0');
@@ -2353,7 +2428,7 @@
                 emptyFullGainsMsg.style.display = 'none';
                 gains.forEach(item => {
                     const li = document.createElement('li');
-                    li.className = 'gain-tab-item flex justify-between items-center p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl border border-transparent hover:border-black/10 dark:border-white/10 transition-colors';
+                    li.className = 'gain-tab-item flex justify-between items-center p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl border border-transparent hover:border-black/10 dark:hover:border-white/10 transition-colors';
                     const dateTimeStr = (item.date ? item.date.split('-').reverse().join('/') : '') + (item.time ? ` • 🕒 ${item.time.slice(0, 5)}` : '');
                     const subtitle = `${categoryIcons[item.category] || '📁'} ${item.category} • ${dateTimeStr}`;
 
