@@ -100,13 +100,13 @@
         input, select, button { transition: var(--transition); }
         
         .sidebar {
-            width: 260px;
+            width: 280px;
             height: 100vh;
             position: fixed;
-            padding: 32px 24px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 24px;
             border-radius: 0 32px 32px 0;
             z-index: 50;
         }
@@ -129,7 +129,7 @@
         }
 
         .main-content {
-            margin-left: 260px;
+            margin-left: 280px;
             padding: 32px;
             min-height: 100vh;
         }
@@ -148,9 +148,8 @@
 
         @media (max-width: 1024px) {
             .sidebar {
-                width: 100%; height: auto; position: relative; border-radius: 0 0 32px 32px; flex-direction: row; justify-content: space-between; align-items: center; padding: 16px 24px; gap: 16px;
+                width: 100%; height: auto; position: relative; border-radius: 0 0 32px 32px; flex-direction: column; padding: 16px; gap: 16px;
             }
-            .nav-menu { display: none; }
             .main-content { margin-left: 0; padding: 16px; }
         }
     </style>
@@ -165,14 +164,44 @@
 
     <div class="flex flex-col lg:flex-row w-full max-w-[1600px] mx-auto">
         
-        <!-- SIDEBAR -->
         <aside class="sidebar glass-panel">
-            <div class="flex items-center gap-3 text-xl font-bold">
-                <div class="bg-indigo-600/90 text-white p-2.5 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)]">
+            <!-- USER PROFILE BOX (TOP) -->
+            <div class="relative">
+                <div id="userProfileTrigger" class="flex items-center justify-between p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 cursor-pointer hover:border-indigo-500/50 transition">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div id="currentUserAvatar" class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-500 flex items-center justify-center font-bold text-lg shrink-0">👤</div>
+                        <div class="overflow-hidden">
+                            <h4 id="currentUserName" class="text-sm font-bold truncate">Meu Perfil</h4>
+                            <p class="text-[10px] opacity-70">Conta Ativa</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
+                </div>
+                
+                <!-- PROFILE SWITCHER DROPDOWN -->
+                <div id="userDropdownMenu" class="absolute top-full left-0 right-0 mt-2 glass-panel p-2 hidden z-50 flex flex-col gap-1 shadow-2xl">
+                    <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider opacity-60">Alternar Perfil</div>
+                    <div id="profilesListContainer" class="flex flex-col gap-1 max-h-40 overflow-y-auto">
+                        <!-- Dynamic items -->
+                    </div>
+                    <div class="border-t border-black/10 dark:border-white/10 pt-1 mt-1 flex flex-col gap-1">
+                        <button id="openNewProfileModal" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/5 flex items-center gap-2 text-indigo-500 transition">
+                            <i class="fa-solid fa-user-plus"></i> Novo Perfil
+                        </button>
+                        <button id="openEditProfileModal" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/5 flex items-center gap-2 transition">
+                            <i class="fa-solid fa-user-pen"></i> Editar Perfil
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 text-xl font-bold px-1">
+                <div class="bg-indigo-600/95 text-white p-2.5 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)]">
                     <i class="fa-solid fa-chart-pie"></i>
                 </div>
                 <span>FinDash</span>
             </div>
+
             <nav class="nav-menu flex-1">
                 <ul class="flex flex-col gap-2 font-medium">
                     <li><a class="nav-item active flex items-center gap-4 p-3 rounded-2xl" data-target="view-painel" data-title="Visão Geral"><i class="fa-solid fa-border-all w-5 text-center"></i> Painel</a></li>
@@ -186,7 +215,6 @@
 
         <main class="main-content flex-1 flex flex-col gap-6">
             
-            <!-- HEADER -->
             <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-2">
                 <div>
                     <h1 id="page-title" class="text-3xl font-bold mb-1">Visão Geral</h1>
@@ -201,7 +229,6 @@
                     </div>
 
                     <div class="flex items-center gap-2 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
-                        <!-- Theme Toggle Button -->
                         <button id="themeToggleBtn" title="Alternar Tema (Claro/Escuro)" class="p-2.5 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
                         <button id="historyBtn" title="Histórico" class="p-2.5 rounded-xl hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-chart-column"></i></button>
                         <button id="clearMonthBtn" title="Limpar mês" class="p-2.5 rounded-xl hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash"></i></button>
@@ -305,10 +332,11 @@
                         </div>
 
                         <div id="raioXView" class="hidden flex-col gap-4 py-2">
-                            <!-- Toggle switch inside Raio-X -->
-                            <div class="flex gap-2 bg-black/5 dark:bg-white/5 p-1.5 rounded-2xl w-fit font-medium">
-                                <button type="button" id="raioXTabExpense" class="px-4 py-1.5 rounded-xl bg-rose-500 text-white text-xs transition shadow-sm">Despesas</button>
-                                <button type="button" id="raioXTabGain" class="px-4 py-1.5 rounded-xl opacity-70 text-xs transition hover:opacity-100">Ganhos</button>
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex gap-2 bg-black/5 dark:bg-white/5 p-1.5 rounded-2xl w-fit font-medium">
+                                    <button type="button" id="raioXTabExpense" class="px-4 py-1.5 rounded-xl bg-rose-500 text-white text-xs transition shadow-sm">Despesas</button>
+                                    <button type="button" id="raioXTabGain" class="px-4 py-1.5 rounded-xl opacity-70 text-xs transition hover:opacity-100">Ganhos</button>
+                                </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="raioXCardsContainer"></div>
                         </div>
@@ -436,19 +464,131 @@
             <!-- ==============================================
                  VIEW 5: METAS 
             ================================================ -->
-            <div id="view-metas" class="view-section flex-col justify-center items-center h-[70vh] w-full">
-                <div class="glass-panel p-12 flex flex-col items-center justify-center text-center max-w-lg w-full">
-                    <div class="w-20 h-20 bg-cyan-500/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(6,182,212,0.2)]">
-                        <i class="fa-solid fa-bullseye text-4xl text-cyan-500"></i>
+            <div id="view-metas" class="view-section flex-col gap-6 w-full">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-bold">Metas & Objetivos</h2>
+                        <p class="text-sm opacity-70">Construa seu futuro e acompanhe suas conquistas de longo prazo</p>
                     </div>
-                    <h2 class="text-2xl font-bold mb-3">Metas Inteligentes</h2>
-                    <p class="opacity-70">Prepare-se para criar objetivos de longo prazo (carro, viagens, reserva) e ver barras de progresso reais conforme você poupa dinheiro.</p>
+                    <button id="openNewGoalModalBtn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-plus"></i> Nova Meta
+                    </button>
+                </div>
+
+                <div id="goalsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="glass-panel p-10 col-span-full text-center opacity-50" id="emptyGoalsMsg">
+                        <div class="w-16 h-16 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                            <i class="fa-solid fa-bullseye text-2xl text-cyan-500"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1">Nenhuma meta cadastrada</h3>
+                        <p class="text-sm opacity-70">Crie seu primeiro objetivo (ex: Viagem, Carro Novo, Reserva de Emergência) e comece a poupar.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="hidden"><canvas id="savingsChart"></canvas><div id="savingsChartEmptyState"></div></div>
 
         </main>
+    </div>
+
+    <!-- MODAL: GERENCIAR PERFIL -->
+    <div id="profileModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="profileModalTitle" class="text-xl font-bold">Novo Perfil</h3>
+                <button id="closeProfileModal" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="profileForm" class="space-y-4">
+                <input type="hidden" id="profileModalMode" value="create">
+                <div>
+                    <label class="block text-xs opacity-70 mb-1">Nome do Perfil / Conta</label>
+                    <input type="text" id="profileNameInput" required placeholder="Ex: Finanças da Família, Pessoal..." class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                </div>
+                <div>
+                    <label class="block text-xs opacity-70 mb-1">Avatar / Ícone</label>
+                    <select id="profileAvatarInput" class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                        <option value="👤">👤 Pessoa</option>
+                        <option value="💼">💼 Trabalho</option>
+                        <option value="🏠">🏠 Família</option>
+                        <option value="🚀">🚀 Negócios</option>
+                        <option value="💎">💎 Investidor</option>
+                        <option value="🌟">🌟 Estrela</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Perfil</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: NOVA META -->
+    <div id="novaMetaModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="glass-panel w-full max-w-md p-6 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Criar Nova Meta</h3>
+                <button id="closeNewGoalModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <form id="addGoalForm" class="space-y-4">
+                <div>
+                    <input type="text" id="goalTitleInput" required placeholder="Título da Meta (Ex: Viagem para Europa)" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 opacity-50">R$</span>
+                        <input type="number" id="goalTargetInput" required min="1" step="0.01" placeholder="Valor Alvo" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 opacity-50">R$</span>
+                        <input type="number" id="goalCurrentInput" min="0" step="0.01" value="0" placeholder="Já guardado" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs opacity-70 mb-1">Prazo Limite</label>
+                        <input type="date" id="goalDeadlineInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none [color-scheme:dark]">
+                    </div>
+                    <div>
+                        <label class="block text-xs opacity-70 mb-1">Ícone / Categoria</label>
+                        <select id="goalIconInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                            <option value="✈️">✈️ Viagem</option>
+                            <option value="🚗">🚗 Veículo</option>
+                            <option value="🏠">🏠 Imóvel</option>
+                            <option value="🛡️">🛡️ Reserva</option>
+                            <option value="💻">💻 Eletrônico</option>
+                            <option value="🎓">🎓 Educação</option>
+                            <option value="🎁">🎁 Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Meta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: DEPOSITAR / RETIRAR DE META -->
+    <div id="contribuirMetaModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold" id="contribModalTitle">Movimentar Meta</h3>
+                <button id="closeContribModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <form id="contribGoalForm" class="space-y-4">
+                <input type="hidden" id="contribGoalId">
+                <div class="flex gap-2 bg-black/5 dark:bg-white/5 p-1 rounded-xl mb-4 font-medium">
+                    <button type="button" id="contribTypeDeposit" class="flex-1 py-1.5 rounded-lg bg-emerald-500 text-white text-xs transition shadow-sm">Depositar</button>
+                    <button type="button" id="contribTypeWithdraw" class="flex-1 py-1.5 rounded-lg opacity-70 text-xs transition hover:opacity-100">Retirar</button>
+                </div>
+                <div class="relative">
+                    <span class="absolute left-4 top-3 opacity-50">R$</span>
+                    <input type="number" id="contribValInput" required min="0.01" step="0.01" placeholder="0.00" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Confirmar Movimentação</button>
+            </form>
+        </div>
     </div>
 
     <!-- MODAL: NOVO CARTÃO -->
@@ -637,6 +777,189 @@
             setTheme(!isDark);
         });
 
+        // --- USER PROFILES SYSTEM ---
+        let profilesData = JSON.parse(localStorage.getItem('findash_profiles')) || {
+            currentId: 'default',
+            list: {
+                'default': { id: 'default', name: 'Meu Perfil', avatar: '👤' }
+            }
+        };
+
+        let currentProfileId = profilesData.currentId || 'default';
+        if (!profilesData.list[currentProfileId]) {
+            currentProfileId = Object.keys(profilesData.list)[0] || 'default';
+        }
+
+        function getProfileDbKey(profileId) {
+            return 'findash_db_' + profileId;
+        }
+
+        let dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
+            categories: {
+                'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
+                'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
+                'Dívidas': 'savings', 'Outros': 'wants'
+            },
+            cards: [],
+            goals: [],
+            months: {}
+        };
+
+        function saveDB() {
+            localStorage.setItem(getProfileDbKey(currentProfileId), JSON.stringify(dbData));
+        }
+
+        function saveProfiles() {
+            profilesData.currentId = currentProfileId;
+            localStorage.setItem('findash_profiles', JSON.stringify(profilesData));
+        }
+
+        window.switchProfile = function(profileId) {
+            if (profilesData.list[profileId]) {
+                currentProfileId = profileId;
+                saveProfiles();
+                dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
+                    categories: {
+                        'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
+                        'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
+                        'Dívidas': 'savings', 'Outros': 'wants'
+                    },
+                    cards: [],
+                    goals: [],
+                    months: {}
+                };
+                renderUserProfileBox();
+                setDefaultDateForCurrentMonth();
+                ensureMonthExists(currentMonth);
+                updateDashboard();
+                showNotification('gain', 'Perfil Alterado', `Agora visualizando: ${profilesData.list[profileId].name}`);
+            }
+        };
+
+        function renderUserProfileBox() {
+            const current = profilesData.list[currentProfileId] || { name: 'Meu Perfil', avatar: '👤' };
+            document.getElementById('currentUserName').textContent = current.name;
+            document.getElementById('currentUserAvatar').textContent = current.avatar;
+
+            const container = document.getElementById('profilesListContainer');
+            container.innerHTML = '';
+            Object.values(profilesData.list).forEach(p => {
+                const isActive = p.id === currentProfileId;
+                const item = document.createElement('div');
+                item.className = `flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition ${isActive ? 'bg-indigo-500/20 text-indigo-500 font-semibold border border-indigo-500/30' : 'hover:bg-black/5 dark:hover:bg-white/5 opacity-80'}`;
+                item.innerHTML = `
+                    <div class="flex items-center gap-2.5 overflow-hidden w-full" onclick="switchProfile('${p.id}')">
+                        <span class="text-base">${p.avatar}</span>
+                        <span class="text-xs truncate">${p.name}</span>
+                    </div>
+                    ${Object.keys(profilesData.list).length > 1 ? `<button onclick="event.stopPropagation(); deleteProfile('${p.id}')" class="text-xs opacity-50 hover:text-rose-500 p-1"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Profile Modal triggers
+        const profileModal = document.getElementById('profileModal');
+        const userDropdownMenu = document.getElementById('userDropdownMenu');
+
+        document.getElementById('userProfileTrigger').addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdownMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', () => {
+            userDropdownMenu.classList.add('hidden');
+        });
+
+        document.getElementById('openNewProfileModal').addEventListener('click', () => {
+            document.getElementById('profileModalTitle').textContent = 'Criar Novo Perfil';
+            document.getElementById('profileModalMode').value = 'create';
+            document.getElementById('profileNameInput').value = '';
+            document.getElementById('profileAvatarInput').value = '👤';
+            profileModal.classList.remove('hidden');
+            setTimeout(() => profileModal.classList.remove('opacity-0'), 10);
+        });
+
+        document.getElementById('openEditProfileModal').addEventListener('click', () => {
+            const current = profilesData.list[currentProfileId];
+            document.getElementById('profileModalTitle').textContent = 'Editar Perfil';
+            document.getElementById('profileModalMode').value = 'edit';
+            document.getElementById('profileNameInput').value = current.name;
+            document.getElementById('profileAvatarInput').value = current.avatar;
+            profileModal.classList.remove('hidden');
+            setTimeout(() => profileModal.classList.remove('opacity-0'), 10);
+        });
+
+        document.getElementById('closeProfileModal').addEventListener('click', () => {
+            profileModal.classList.add('opacity-0');
+            setTimeout(() => profileModal.classList.add('hidden'), 300);
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const mode = document.getElementById('profileModalMode').value;
+            const name = document.getElementById('profileNameInput').value.trim();
+            const avatar = document.getElementById('profileAvatarInput').value;
+
+            if (!name) return;
+
+            if (mode === 'create') {
+                const newId = generateId();
+                profilesData.list[newId] = { id: newId, name, avatar };
+                currentProfileId = newId;
+                saveProfiles();
+                dbData = {
+                    categories: {
+                        'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
+                        'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
+                        'Dívidas': 'savings', 'Outros': 'wants'
+                    },
+                    cards: [],
+                    goals: [],
+                    months: {}
+                };
+                saveDB();
+                showNotification('gain', 'Perfil Criado!', `Bem-vindo ao perfil ${name}.`);
+            } else {
+                profilesData.list[currentProfileId].name = name;
+                profilesData.list[currentProfileId].avatar = avatar;
+                saveProfiles();
+                showNotification('gain', 'Perfil Atualizado!', 'Alterações salvas com sucesso.');
+            }
+
+            profileModal.classList.add('opacity-0');
+            setTimeout(() => profileModal.classList.add('hidden'), 300);
+            renderUserProfileBox();
+            updateDashboard();
+        });
+
+        window.deleteProfile = function(id) {
+            if (Object.keys(profilesData.list).length <= 1) {
+                alert("Você precisa ter pelo menos um perfil cadastrado.");
+                return;
+            }
+            if (confirm("Tem certeza que deseja excluir este perfil e todos os seus dados financeiros?")) {
+                delete profilesData.list[id];
+                localStorage.removeItem(getProfileDbKey(id));
+                currentProfileId = Object.keys(profilesData.list)[0];
+                saveProfiles();
+                
+                dbData = JSON.parse(localStorage.getItem(getProfileDbKey(currentProfileId))) || {
+                    categories: {
+                        'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
+                        'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
+                        'Dívidas': 'savings', 'Outros': 'wants'
+                    },
+                    cards: [],
+                    goals: [],
+                    months: {}
+                };
+                renderUserProfileBox();
+                updateDashboard();
+                showNotification('expense', 'Perfil Excluído', 'O perfil foi removido.');
+            }
+        };
+
         // --- NAVIGATION & VIEWS ---
         const navItems = document.querySelectorAll('.nav-item');
         const viewSections = document.querySelectorAll('.view-section');
@@ -656,6 +979,7 @@
                 if(targetId === 'view-despesas') updateExpensesTabView();
                 if(targetId === 'view-ganhos') updateGainsTabView();
                 if(targetId === 'view-cartoes') renderCardsView();
+                if(targetId === 'view-metas') renderGoalsView();
             });
         });
 
@@ -680,22 +1004,23 @@
             setTimeout(() => novoCartaoModal.classList.add('hidden'), 300);
         });
 
+        const novaMetaModal = document.getElementById('novaMetaModal');
+        document.getElementById('openNewGoalModalBtn').addEventListener('click', () => {
+            novaMetaModal.classList.remove('hidden');
+            setTimeout(() => novaMetaModal.classList.remove('opacity-0'), 10);
+        });
+        document.getElementById('closeNewGoalModalBtn').addEventListener('click', () => {
+            novaMetaModal.classList.add('opacity-0');
+            setTimeout(() => novaMetaModal.classList.add('hidden'), 300);
+        });
+
         let currentMonth = new Date().toISOString().slice(0, 7);
         let activeTab = 'expense';
         let activeSubTab = 'extrato';
         let raioXTab = 'expense';
         let isPrivacyMode = false;
         let isTimeInputFocused = false;
-
-        let dbData = JSON.parse(localStorage.getItem('findash_db')) || {
-            categories: {
-                'Moradia': 'needs', 'Alimentação': 'needs', 'Transporte': 'needs',
-                'Saúde': 'needs', 'Lazer': 'wants', 'Compras': 'wants',
-                'Dívidas': 'savings', 'Outros': 'wants'
-            },
-            cards: [],
-            months: {}
-        };
+        let contribMode = 'deposit'; // 'deposit' or 'withdraw'
 
         let chartInstance = null;
         let timelineChartInstance = null;
@@ -723,6 +1048,7 @@
         const fullGainsList = document.getElementById('fullGainsList');
         const addExpenseForm = document.getElementById('addExpenseForm');
         const addCardForm = document.getElementById('addCardForm');
+        const addGoalForm = document.getElementById('addGoalForm');
         const timeInput = document.getElementById('timeInput');
         const dateInput = document.getElementById('dateInput');
         const searchInput = document.getElementById('searchInput');
@@ -763,7 +1089,7 @@
             setTimeout(() => {
                 const toast = document.createElement('div');
                 const isGain = type === 'gain';
-                const neonStyle = isGain ? 'bg-emerald-500/20 text-emerald-300 border-2 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.4)]' : 'bg-rose-500/20 text-rose-300 border-2 border-rose-500/50 shadow-[0_0_20px_rgba(244,63,94,0.4)]';
+                const neonStyle = isGain ? 'bg-emerald-500/25 text-emerald-200 border-2 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.4)]' : 'bg-rose-500/25 text-rose-200 border-2 border-rose-500/50 shadow-[0_0_20px_rgba(244,63,94,0.4)]';
                 
                 toast.className = `fixed z-[300] flex items-center gap-3 p-4 rounded-2xl backdrop-blur-xl transition-all duration-300 transform -translate-x-1/2 -translate-y-1/2 scale-95 opacity-0 max-w-sm w-[90%] ${neonStyle}`;
                 const iconHtml = isGain ? `<div class="text-2xl animate-bounce">✅</div>` : `<div class="text-2xl animate-pulse">⛔</div>`;
@@ -785,11 +1111,13 @@
         }
 
         function init() {
+            renderUserProfileBox();
             currentMonthInput.value = currentMonth;
             setDefaultDateForCurrentMonth();
             ensureMonthExists(currentMonth);
 
             if (!dbData.cards) dbData.cards = [];
+            if (!dbData.goals) dbData.goals = [];
 
             timeInput.addEventListener('focus', () => { isTimeInputFocused = true; });
             timeInput.addEventListener('blur', () => { if(!timeInput.value) isTimeInputFocused = false; });
@@ -836,7 +1164,6 @@
                 renderRaioXView();
             });
 
-            // Raio-X Sub-Toggle listeners
             const raioXTabExpense = document.getElementById('raioXTabExpense');
             const raioXTabGain = document.getElementById('raioXTabGain');
             raioXTabExpense.addEventListener('click', () => {
@@ -900,6 +1227,43 @@
                 addCard();
                 novoCartaoModal.classList.add('opacity-0');
                 setTimeout(() => novoCartaoModal.classList.add('hidden'), 300);
+            });
+
+            addGoalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                addGoal();
+                novaMetaModal.classList.add('opacity-0');
+                setTimeout(() => novaMetaModal.classList.add('hidden'), 300);
+            });
+
+            const contribTypeDeposit = document.getElementById('contribTypeDeposit');
+            const contribTypeWithdraw = document.getElementById('contribTypeWithdraw');
+            contribTypeDeposit.addEventListener('click', () => {
+                contribMode = 'deposit';
+                contribTypeDeposit.className = "flex-1 py-1.5 rounded-lg bg-emerald-500 text-white text-xs transition shadow-sm";
+                contribTypeWithdraw.className = "flex-1 py-1.5 rounded-lg opacity-70 text-xs transition hover:opacity-100";
+            });
+            contribTypeWithdraw.addEventListener('click', () => {
+                contribMode = 'withdraw';
+                contribTypeWithdraw.className = "flex-1 py-1.5 rounded-lg bg-rose-500 text-white text-xs transition shadow-sm";
+                contribTypeDeposit.className = "flex-1 py-1.5 rounded-lg opacity-70 text-xs transition hover:opacity-100";
+            });
+
+            const contribGoalForm = document.getElementById('contribGoalForm');
+            contribGoalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const goalId = document.getElementById('contribGoalId').value;
+                const val = parseFloat(document.getElementById('contribValInput').value);
+                if (goalId && !isNaN(val) && val > 0) {
+                    processGoalContribution(goalId, val, contribMode);
+                    document.getElementById('contribuirMetaModal').classList.add('opacity-0');
+                    setTimeout(() => document.getElementById('contribuirMetaModal').classList.add('hidden'), 300);
+                }
+            });
+
+            document.getElementById('closeContribModalBtn').addEventListener('click', () => {
+                document.getElementById('contribuirMetaModal').classList.add('opacity-0');
+                setTimeout(() => document.getElementById('contribuirMetaModal').classList.add('hidden'), 300);
             });
 
             document.getElementById('clearMonthBtn').addEventListener('click', clearCurrentMonth);
@@ -971,8 +1335,6 @@
             ensureMonthExists(currentMonth);
             updateDashboard();
         }
-
-        function saveDB() { localStorage.setItem('findash_db', JSON.stringify(dbData)); }
 
         function editTotalIncome() {
             const newval = prompt("Informe o valor total da renda mensal deste mês:", dbData.months[currentMonth].income || 0);
@@ -1064,6 +1426,140 @@
             saveDB();
             setupPaymentMethodsSelect();
             renderCardsView();
+        }
+
+        function addGoal() {
+            const title = document.getElementById('goalTitleInput').value.trim();
+            const targetValue = parseFloat(document.getElementById('goalTargetInput').value);
+            const currentValue = parseFloat(document.getElementById('goalCurrentInput').value) || 0;
+            const deadline = document.getElementById('goalDeadlineInput').value;
+            const icon = document.getElementById('goalIconInput').value;
+
+            if (!title || isNaN(targetValue) || targetValue <= 0 || !deadline) return;
+
+            if (!dbData.goals) dbData.goals = [];
+            dbData.goals.push({
+                id: generateId(),
+                title,
+                targetValue,
+                currentValue,
+                deadline,
+                icon,
+                createdAt: Date.now()
+            });
+
+            saveDB();
+            document.getElementById('goalTitleInput').value = '';
+            document.getElementById('goalTargetInput').value = '';
+            document.getElementById('goalCurrentInput').value = '0';
+            document.getElementById('goalDeadlineInput').value = '';
+            renderGoalsView();
+            showNotification('gain', 'Meta Criada!', `Objetivo "${title}" adicionado.`);
+        }
+
+        window.openContribModal = function(goalId) {
+            document.getElementById('contribGoalId').value = goalId;
+            document.getElementById('contribValInput').value = '';
+            const modal = document.getElementById('contribuirMetaModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function processGoalContribution(goalId, amount, mode) {
+            if (!dbData.goals) return;
+            const goal = dbData.goals.find(g => g.id === goalId);
+            if (!goal) return;
+
+            if (mode === 'deposit') {
+                goal.currentValue += amount;
+                showNotification('gain', 'Depósito Registrado!', `+${formatCurrency(amount)} guardado para "${goal.title}".`);
+            } else {
+                goal.currentValue = Math.max(0, goal.currentValue - amount);
+                showNotification('expense', 'Resgate Realizado', `-${formatCurrency(amount)} retirado de "${goal.title}".`);
+            }
+            saveDB();
+            renderGoalsView();
+            updateDashboard();
+        }
+
+        window.removeGoal = function(goalId) {
+            dbData.goals = (dbData.goals || []).filter(g => g.id !== goalId);
+            saveDB();
+            renderGoalsView();
+            showNotification('expense', 'Meta Removida', 'O objetivo foi excluído.');
+        }
+
+        function renderGoalsView() {
+            const grid = document.getElementById('goalsGrid');
+            const emptyMsg = document.getElementById('emptyGoalsMsg');
+            grid.querySelectorAll('.goal-card-item').forEach(el => el.remove());
+
+            if (!dbData.goals || dbData.goals.length === 0) {
+                emptyMsg.style.display = 'block';
+                return;
+            }
+            emptyMsg.style.display = 'none';
+
+            const today = new Date();
+
+            dbData.goals.forEach(goal => {
+                const pct = goal.targetValue > 0 ? Math.min((goal.currentValue / goal.targetValue) * 100, 100) : 0;
+                const deadlineDate = new Date(goal.deadline + 'T00:00:00');
+                const diffTime = deadlineDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                let deadlineText = `${diffDays} dias restantes`;
+                let deadlineBadgeColor = 'bg-indigo-500/10 text-indigo-500';
+                if (diffDays < 0) {
+                    deadlineText = 'Prazo encerrado';
+                    deadlineBadgeColor = 'bg-rose-500/10 text-rose-500';
+                } else if (diffDays === 0) {
+                    deadlineText = 'Vence hoje!';
+                    deadlineBadgeColor = 'bg-amber-500/10 text-amber-500';
+                }
+
+                const isCompleted = goal.currentValue >= goal.targetValue;
+
+                const card = document.createElement('div');
+                card.className = 'goal-card-item glass-panel p-6 flex flex-col justify-between relative overflow-hidden group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-2xl shadow-sm shrink-0">
+                                    ${goal.icon || '🎯'}
+                                </div>
+                                <div class="overflow-hidden">
+                                    <h3 class="font-bold text-base truncate">${goal.title}</h3>
+                                    <span class="text-xs px-2 py-0.5 rounded-full font-medium ${deadlineBadgeColor}">${deadlineText}</span>
+                                </div>
+                            </div>
+                            <button onclick="removeGoal('${goal.id}')" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center shrink-0"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </div>
+
+                        <div class="space-y-3 my-4">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-sm opacity-70">Progresso</span>
+                                <span class="text-sm font-bold ${isCompleted ? 'text-emerald-500' : ''}">${pct.toFixed(1)}%</span>
+                            </div>
+                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-3 overflow-hidden p-0.5">
+                                <div class="h-full rounded-full transition-all duration-700 ${isCompleted ? 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.6)]' : 'bg-gradient-to-r from-indigo-500 to-cyan-500'}" style="width: ${pct}%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs opacity-70">
+                                <span>Guardado: <strong class="text-emerald-500">${formatCurrency(goal.currentValue)}</strong></span>
+                                <span>Alvo: <strong>${formatCurrency(goal.targetValue)}</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-black/10 dark:border-white/10 flex gap-2">
+                        <button onclick="openContribModal('${goal.id}')" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-xs transition shadow-md flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-plus-circle"></i> Movimentar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
         function addMonthsToDateString(dateStr, monthsToAdd) {
@@ -1213,6 +1709,7 @@
             updateExpensesTabView();
             updateGainsTabView();
             renderCardsView();
+            renderGoalsView();
             if (activeSubTab === 'raiox') renderRaioXView();
             const stats = calculateStats();
             updateKPIs(stats); update503020(stats); updateDynamicStatus(stats);
@@ -1663,7 +2160,7 @@
         function importData(e) {
             const file = e.target.files[0]; if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(event) { try { const parsed = JSON.parse(event.target.result); if (parsed.categories && parsed.months) { dbData = parsed; if(!dbData.cards) dbData.cards = []; saveDB(); setupCategorySelect(); setupPaymentMethodsSelect(); setDefaultDateForCurrentMonth(); ensureMonthExists(currentMonth); updateDashboard(); } } catch(err) { } };
+            reader.onload = function(event) { try { const parsed = JSON.parse(event.target.result); if (parsed.categories && parsed.months) { dbData = parsed; if(!dbData.cards) dbData.cards = []; if(!dbData.goals) dbData.goals = []; saveDB(); setupCategorySelect(); setupPaymentMethodsSelect(); setDefaultDateForCurrentMonth(); ensureMonthExists(currentMonth); updateDashboard(); } } catch(err) { } };
             reader.readAsText(file);
         }
 
