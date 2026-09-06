@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts: Sora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -85,7 +84,7 @@
             backdrop-filter: blur(24px) saturate(160%);
             -webkit-backdrop-filter: blur(24px) saturate(160%);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
+            border-radius: 28px;
             box-shadow: var(--shadow-glass);
             transition: var(--transition);
         }
@@ -100,7 +99,7 @@
             border: 1px solid var(--glass-border);
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.2); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(150,150,150,0.4); }
@@ -111,10 +110,10 @@
             width: 280px;
             height: 100vh;
             position: fixed;
-            padding: 24px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
             border-radius: 0 32px 32px 0;
             z-index: 50;
         }
@@ -138,7 +137,7 @@
 
         .main-content {
             margin-left: 280px;
-            padding: 32px;
+            padding: 24px;
             min-height: 100vh;
         }
         .view-section {
@@ -150,7 +149,7 @@
             display: flex;
         }
         @keyframes fadeInView {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -159,15 +158,16 @@
                 width: 100%; 
                 height: auto; 
                 position: relative; 
-                border-radius: 24px; 
+                border-radius: 20px; 
                 flex-direction: column; 
-                padding: 16px; 
-                gap: 12px;
+                padding: 14px; 
+                gap: 10px;
             }
             .sidebar .nav-menu {
                 width: 100%;
                 overflow-x: auto;
-                padding-bottom: 4px;
+                padding-bottom: 2px;
+                -webkit-overflow-scrolling: touch;
             }
             .sidebar .nav-menu::-webkit-scrollbar {
                 display: none;
@@ -175,15 +175,15 @@
             .sidebar .nav-menu ul {
                 flex-direction: row !important;
                 flex-wrap: nowrap !important;
-                gap: 8px !important;
+                gap: 6px !important;
             }
             .sidebar .nav-item {
                 white-space: nowrap;
-                padding: 8px 14px !important;
-                border-radius: 16px !important;
-                font-size: 13px !important;
+                padding: 8px 12px !important;
+                border-radius: 14px !important;
+                font-size: 12px !important;
             }
-            .main-content { margin-left: 0; padding: 16px; }
+            .main-content { margin-left: 0; padding: 14px; }
         }
     </style>
 </head>
@@ -198,28 +198,23 @@
     <div class="flex flex-col lg:flex-row w-full max-w-[1600px] mx-auto">
         
         <aside class="sidebar glass-panel">
-            <div class="flex flex-col lg:flex-col w-full gap-4 lg:gap-6">
-                <!-- TOP ROW FOR MOBILE: PROFILE + LOGO SIDE BY SIDE -->
-                <div class="flex flex-row lg:flex-col items-center justify-between lg:items-stretch w-full gap-3">
-                    <!-- USER PROFILE BOX (TOP) -->
+            <div class="flex flex-col lg:flex-col w-full gap-3 lg:gap-5">
+                <div class="flex flex-row lg:flex-col items-center justify-between lg:items-stretch w-full gap-2.5">
                     <div class="relative flex-1 lg:flex-none">
-                        <div id="userProfileTrigger" class="flex items-center justify-between p-2.5 lg:p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 cursor-pointer hover:border-indigo-500/50 transition">
-                            <div class="flex items-center gap-2.5 lg:gap-3 overflow-hidden">
-                                <div id="currentUserAvatar" class="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-indigo-600/20 text-indigo-500 flex items-center justify-center font-bold text-base lg:text-lg shrink-0">👤</div>
+                        <div id="userProfileTrigger" class="flex items-center justify-between p-2 lg:p-2.5 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 cursor-pointer hover:border-indigo-500/50 transition">
+                            <div class="flex items-center gap-2 lg:gap-2.5 overflow-hidden">
+                                <div id="currentUserAvatar" class="w-7 h-7 lg:w-9 lg:h-9 rounded-xl bg-indigo-600/20 text-indigo-500 flex items-center justify-center font-bold text-sm lg:text-base shrink-0">👤</div>
                                 <div class="overflow-hidden">
                                     <h4 id="currentUserName" class="text-xs lg:text-sm font-bold truncate">Meu Perfil</h4>
-                                    <p class="text-[9px] lg:text-[10px] opacity-70">Conta Ativa</p>
+                                    <p class="text-[9px] opacity-70">Conta Ativa</p>
                                 </div>
                             </div>
-                            <i class="fa-solid fa-chevron-down text-xs opacity-50 ml-2"></i>
+                            <i class="fa-solid fa-chevron-down text-[10px] opacity-50 ml-1.5"></i>
                         </div>
                         
-                        <!-- PROFILE SWITCHER DROPDOWN -->
                         <div id="userDropdownMenu" class="absolute top-full left-0 right-0 mt-2 glass-panel p-2 hidden z-50 flex flex-col gap-1 shadow-2xl">
                             <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider opacity-60">Alternar Perfil</div>
-                            <div id="profilesListContainer" class="flex flex-col gap-1 max-h-40 overflow-y-auto">
-                                <!-- Dynamic items -->
-                            </div>
+                            <div id="profilesListContainer" class="flex flex-col gap-1 max-h-40 overflow-y-auto"></div>
                             <div class="border-t border-black/10 dark:border-white/10 pt-1 mt-1 flex flex-col gap-1">
                                 <button id="openNewProfileModal" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/5 flex items-center gap-2 text-indigo-500 transition">
                                     <i class="fa-solid fa-user-plus"></i> Novo Perfil
@@ -231,8 +226,8 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2 text-base lg:text-xl font-bold px-1 shrink-0">
-                        <div class="bg-indigo-600/95 text-white p-2 lg:p-2.5 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)]">
+                    <div class="flex items-center gap-2 text-sm lg:text-lg font-bold px-1 shrink-0">
+                        <div class="bg-indigo-600/95 text-white p-2 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)]">
                             <i class="fa-solid fa-chart-pie"></i>
                         </div>
                         <span class="hidden sm:inline">FinDash IA</span>
@@ -241,47 +236,47 @@
 
                 <nav class="nav-menu w-full overflow-x-auto">
                     <ul class="flex flex-row lg:flex-col gap-1.5 font-medium whitespace-nowrap lg:whitespace-normal">
-                        <li><a class="nav-item active flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-painel" data-title="Visão Geral"><i class="fa-solid fa-border-all w-4 lg:w-5 text-center"></i> Painel</a></li>
-                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-despesas" data-title="Gerenciamento de Despesas"><i class="fa-solid fa-arrow-trend-down w-4 lg:w-5 text-center"></i> Despesas</a></li>
-                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-ganhos" data-title="Relatório de Ganhos"><i class="fa-solid fa-arrow-trend-up w-4 lg:w-5 text-center"></i> Ganhos</a></li>
-                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-cartoes" data-title="Gerenciar Cartões"><i class="fa-regular fa-credit-card w-4 lg:w-5 text-center"></i> Cartões</a></li>
-                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-metas" data-title="Metas & Objetivos"><i class="fa-solid fa-bullseye w-4 lg:w-5 text-center"></i> Metas</a></li>
-                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-assinaturas" data-title="Assinaturas & Fixas"><i class="fa-solid fa-file-invoice-dollar w-4 lg:w-5 text-center"></i> Assinaturas</a></li>
-                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2.5 lg:p-3 rounded-2xl text-xs lg:text-sm" data-target="view-orcamentos" data-title="Orçamentos & Limites"><i class="fa-solid fa-sliders w-4 lg:w-5 text-center"></i> Orçamentos</a></li>
+                        <li><a class="nav-item active flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-painel" data-title="Visão Geral"><i class="fa-solid fa-border-all w-4 text-center"></i> Painel</a></li>
+                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-despesas" data-title="Gerenciamento de Despesas"><i class="fa-solid fa-arrow-trend-down w-4 text-center"></i> Despesas</a></li>
+                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-ganhos" data-title="Relatório de Ganhos"><i class="fa-solid fa-arrow-trend-up w-4 text-center"></i> Ganhos</a></li>
+                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-cartoes" data-title="Gerenciar Cartões"><i class="fa-regular fa-credit-card w-4 text-center"></i> Cartões</a></li>
+                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-metas" data-title="Metas & Objetivos"><i class="fa-solid fa-bullseye w-4 text-center"></i> Metas</a></li>
+                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-assinaturas" data-title="Assinaturas & Fixas"><i class="fa-solid fa-file-invoice-dollar w-4 text-center"></i> Assinaturas</a></li>
+                        <li><a class="nav-item flex items-center gap-2 lg:gap-3.5 p-2 lg:p-2.5 rounded-2xl text-xs lg:text-sm" data-target="view-orcamentos" data-title="Orçamentos & Limites"><i class="fa-solid fa-sliders w-4 text-center"></i> Orçamentos</a></li>
                     </ul>
                 </nav>
             </div>
         </aside>
 
-        <main class="main-content flex-1 flex flex-col gap-6">
+        <main class="main-content flex-1 flex flex-col gap-5">
             
-            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-2">
+            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 mb-1">
                 <div>
-                    <h1 id="page-title" class="text-3xl font-bold mb-1">Visão Geral</h1>
-                    <p class="text-sm opacity-70">Controle financeiro com assistente inteligente</p>
+                    <h1 id="page-title" class="text-2xl lg:text-3xl font-bold mb-1">Visão Geral</h1>
+                    <p class="text-xs lg:text-sm opacity-70">Controle financeiro com assistente inteligente</p>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-3">
+                <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-between lg:justify-end">
                     <div class="flex items-center gap-1 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
-                        <button id="prevMonthBtn" class="p-2 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition"><i class="fa-solid fa-chevron-left text-xs"></i></button>
-                        <input type="month" id="currentMonthInput" class="bg-transparent font-semibold text-sm outline-none px-2 cursor-pointer [color-scheme:dark]">
-                        <button id="nextMonthBtn" class="p-2 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        <button id="prevMonthBtn" class="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
+                        <input type="month" id="currentMonthInput" class="bg-transparent font-semibold text-xs lg:text-sm outline-none px-1 cursor-pointer [color-scheme:dark]">
+                        <button id="nextMonthBtn" class="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
                     </div>
 
-                    <div class="flex items-center gap-2 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
-                        <button id="themeToggleBtn" title="Alternar Tema (Claro/Escuro)" class="p-2.5 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
-                        <button id="historyBtn" title="Histórico" class="p-2.5 rounded-xl hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-chart-column"></i></button>
-                        <button id="clearMonthBtn" title="Limpar mês" class="p-2.5 rounded-xl hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash"></i></button>
-                        <button id="exportBtn" title="Backup" class="p-2.5 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-download"></i></button>
-                        <label title="Importar" class="p-2.5 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition cursor-pointer">
-                            <i class="fa-solid fa-upload"></i>
+                    <div class="flex items-center gap-1.5 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
+                        <button id="themeToggleBtn" title="Alternar Tema" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-moon text-xs" id="themeIcon"></i></button>
+                        <button id="historyBtn" title="Histórico" class="p-2 rounded-xl hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-chart-column text-xs"></i></button>
+                        <button id="clearMonthBtn" title="Limpar mês" class="p-2 rounded-xl hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash text-xs"></i></button>
+                        <button id="exportBtn" title="Backup" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-download text-xs"></i></button>
+                        <label title="Importar" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition cursor-pointer">
+                            <i class="fa-solid fa-upload text-xs"></i>
                             <input type="file" id="importFile" accept=".json" class="hidden">
                         </label>
-                        <button id="privacyToggle" title="Privacidade" class="p-2.5 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-eye" id="privacyIcon"></i></button>
+                        <button id="privacyToggle" title="Privacidade" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-eye text-xs" id="privacyIcon"></i></button>
                     </div>
 
-                    <button id="openNewTransactionBtn" class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-semibold shadow-[0_10px_25px_rgba(79,70,229,0.4)] transition flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i> Nova Transação
+                    <button id="openNewTransactionBtn" class="px-4 py-2.5 lg:px-5 lg:py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-semibold shadow-[0_8px_20px_rgba(79,70,229,0.4)] transition flex items-center gap-2 text-xs lg:text-sm">
+                        <i class="fa-solid fa-plus text-xs"></i> <span class="hidden sm:inline">Nova Transação</span><span class="sm:hidden">Novo</span>
                     </button>
                 </div>
             </header>
@@ -289,84 +284,83 @@
             <!-- ==============================================
                  VIEW 1: PAINEL 
             ================================================ -->
-            <div id="view-painel" class="view-section active flex-col gap-6 w-full">
+            <div id="view-painel" class="view-section active flex-col gap-5 w-full">
                 
-                <!-- AI QUICK NATURAL LANGUAGE ENTRY BOX -->
-                <section class="glass-panel p-5 relative overflow-hidden bg-gradient-to-r from-indigo-900/20 via-transparent to-cyan-900/20 border border-indigo-500/30">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <section class="glass-panel p-4 lg:p-5 relative overflow-hidden bg-gradient-to-r from-indigo-900/20 via-transparent to-cyan-900/20 border border-indigo-500/30">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-3">
                         <div class="flex items-center gap-3 w-full md:w-auto">
-                            <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30">
-                                <i class="fa-solid fa-robot text-lg animate-pulse"></i>
+                            <div class="w-9 h-9 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30">
+                                <i class="fa-solid fa-robot text-base animate-pulse"></i>
                             </div>
                             <div>
-                                <h2 class="text-sm font-bold">Adicionar Rápido com IA & Parcelas</h2>
-                                <p class="text-xs opacity-70">Ex: <span class="italic text-indigo-400">"50 diesel"</span>, <span class="italic text-indigo-400">"300 parcelado em 3x no cartao"</span>, <span class="italic text-indigo-400">"salario 3500"</span></p>
+                                <h2 class="text-xs lg:text-sm font-bold">Adicionar Rápido com IA & Parcelas</h2>
+                                <p class="text-[11px] opacity-70">Ex: <span class="italic text-indigo-400">"50 diesel"</span>, <span class="italic text-indigo-400">"300 em 3x"</span></p>
                             </div>
                         </div>
                         <form id="quickAiForm" class="flex items-center gap-2 w-full md:w-auto flex-1 max-w-xl">
                             <div class="relative flex-1">
-                                <input type="text" id="quickAiInput" placeholder="Digite o gasto ou ganho de forma natural..." class="w-full bg-black/10 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition pl-11">
-                                <i class="fa-solid fa-bolt absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400 text-xs"></i>
+                                <input type="text" id="quickAiInput" placeholder="Digite gasto ou ganho naturalmente..." class="w-full bg-black/10 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl px-3.5 py-2.5 text-xs lg:text-sm focus:outline-none focus:border-indigo-500 transition pl-10">
+                                <i class="fa-solid fa-bolt absolute left-3.5 top-1/2 -translate-y-1/2 text-indigo-400 text-[11px]"></i>
                             </div>
-                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-3 rounded-2xl text-sm transition shadow-lg shadow-indigo-600/30 flex items-center gap-2 shrink-0">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2.5 rounded-2xl text-xs lg:text-sm transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 shrink-0">
                                 <span>Lançar</span>
-                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </button>
                         </form>
                     </div>
                 </section>
 
-                <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                    <div class="glass-panel p-6 flex flex-col justify-between">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-sm font-medium opacity-70">Saldo em Conta</span>
-                            <button id="editAccountBalanceBtn" class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-500 hover:bg-cyan-500/20 transition flex items-center justify-center"><i class="fa-solid fa-pen text-xs"></i></button>
+                <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
+                    <div class="glass-panel p-4 lg:p-5 flex flex-col justify-between">
+                        <div class="flex justify-between items-start mb-2 lg:mb-3">
+                            <span class="text-xs font-medium opacity-70 truncate">Saldo em Conta</span>
+                            <button id="editAccountBalanceBtn" class="w-7 h-7 rounded-xl bg-cyan-500/10 text-cyan-500 hover:bg-cyan-500/20 transition flex items-center justify-center shrink-0"><i class="fa-solid fa-pen text-[10px]"></i></button>
                         </div>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-cyan-500 truncate" id="totalAccountBalanceDisplay">R$ 0,00</h2>
+                        <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-cyan-500 truncate" id="totalAccountBalanceDisplay">R$ 0,00</h2>
                     </div>
 
-                    <div class="glass-panel p-6 flex flex-col justify-between">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-sm font-medium opacity-70">Renda Mensal</span>
-                            <button id="editIncomeBtn" class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500/20 transition flex items-center justify-center"><i class="fa-solid fa-pen text-xs"></i></button>
+                    <div class="glass-panel p-4 lg:p-5 flex flex-col justify-between">
+                        <div class="flex justify-between items-start mb-2 lg:mb-3">
+                            <span class="text-xs font-medium opacity-70 truncate">Renda Mensal</span>
+                            <button id="editIncomeBtn" class="w-7 h-7 rounded-xl bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500/20 transition flex items-center justify-center shrink-0"><i class="fa-solid fa-pen text-[10px]"></i></button>
                         </div>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-emerald-500 truncate" id="totalIncomeDisplay">R$ 0,00</h2>
+                        <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-emerald-500 truncate" id="totalIncomeDisplay">R$ 0,00</h2>
                     </div>
 
-                    <div class="glass-panel p-6 flex flex-col justify-between relative overflow-hidden">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-sm font-medium opacity-70">Gastos</span>
-                            <div class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center"><i class="fa-solid fa-arrow-trend-up text-xs"></i></div>
+                    <div class="glass-panel p-4 lg:p-5 flex flex-col justify-between relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-2 lg:mb-3">
+                            <span class="text-xs font-medium opacity-70 truncate">Gastos</span>
+                            <div class="w-7 h-7 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0"><i class="fa-solid fa-arrow-trend-up text-[10px]"></i></div>
                         </div>
-                        <h2 class="text-2xl lg:text-3xl font-bold truncate" id="totalExpensesDisplay">R$ 0,00</h2>
-                        <p class="text-xs mt-1 opacity-75"><span id="expensePercentDisplay" class="font-medium text-rose-500">0%</span> da renda</p>
+                        <h2 class="text-lg sm:text-xl lg:text-2xl font-bold truncate" id="totalExpensesDisplay">R$ 0,00</h2>
+                        <p class="text-[11px] mt-1 opacity-75"><span id="expensePercentDisplay" class="font-medium text-rose-500">0%</span> da renda</p>
                     </div>
 
-                    <div class="glass-panel p-6 flex flex-col justify-between relative overflow-hidden">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-sm font-medium opacity-70">Sobra Livre</span>
-                            <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center"><i class="fa-solid fa-piggy-bank text-xs"></i></div>
+                    <div class="glass-panel p-4 lg:p-5 flex flex-col justify-between relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-2 lg:mb-3">
+                            <span class="text-xs font-medium opacity-70 truncate">Sobra Livre</span>
+                            <div class="w-7 h-7 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0"><i class="fa-solid fa-piggy-bank text-[10px]"></i></div>
                         </div>
-                        <h2 class="text-2xl lg:text-3xl font-bold truncate" id="remainingBalanceDisplay">R$ 0,00</h2>
-                        <p class="text-xs mt-1 opacity-75"><span id="savingsPercentDisplay" class="font-medium text-emerald-500">0%</span> poupada</p>
+                        <h2 class="text-lg sm:text-xl lg:text-2xl font-bold truncate" id="remainingBalanceDisplay">R$ 0,00</h2>
+                        <p class="text-[11px] mt-1 opacity-75"><span id="savingsPercentDisplay" class="font-medium text-emerald-500">0%</span> poupada</p>
                     </div>
                 </section>
 
-                <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="glass-panel p-6">
-                        <h3 class="text-lg font-bold mb-4">Evolução Mensal (Barras)</h3>
-                        <div class="relative h-64 w-full">
+                <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div class="glass-panel p-4 lg:p-5">
+                        <h3 class="text-base font-bold mb-3">Evolução Mensal (Barras)</h3>
+                        <div class="relative h-56 sm:h-64 w-full">
                             <canvas id="timelineChart"></canvas>
                         </div>
                     </div>
-                    <div class="glass-panel p-6 flex flex-col">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-                            <h2 class="text-lg font-bold">Transações Recentes</h2>
+                    <div class="glass-panel p-4 lg:p-5 flex flex-col">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
+                            <h2 class="text-base font-bold">Transações Recentes</h2>
                             <div class="flex items-center gap-2">
-                                <div class="text-xs opacity-70" id="totalItemsCount">0 itens</div>
+                                <div class="text-[11px] opacity-70" id="totalItemsCount">0 itens</div>
                                 <div class="flex bg-black/5 dark:bg-white/5 p-0.5 rounded-xl text-xs">
-                                    <button type="button" id="subTabExtrato" class="px-3 py-1 rounded-lg bg-indigo-600 text-white transition">Extrato</button>
-                                    <button type="button" id="subTabRaioX" class="px-3 py-1 rounded-lg opacity-70 transition hover:opacity-100">Raio-X</button>
+                                    <button type="button" id="subTabExtrato" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white transition">Extrato</button>
+                                    <button type="button" id="subTabRaioX" class="px-2.5 py-1 rounded-lg opacity-70 transition hover:opacity-100">Raio-X</button>
                                 </div>
                             </div>
                         </div>
@@ -376,10 +370,10 @@
                             <input type="text" id="searchInput" placeholder="Buscar lançamento..." class="w-full bg-transparent outline-none">
                         </div>
 
-                        <div id="extratoView" class="overflow-y-auto pr-1" style="max-height: 220px;">
+                        <div id="extratoView" class="overflow-y-auto pr-1" style="max-height: 200px;">
                             <ul id="expensesList" class="space-y-2">
                                 <li class="text-center opacity-50 py-6" id="emptyStateMsg">
-                                    <i class="fa-solid fa-receipt text-2xl mb-2 opacity-35"></i>
+                                    <i class="fa-solid fa-receipt text-xl mb-2 opacity-35"></i>
                                     <p class="text-xs">Nenhum lançamento encontrado.</p>
                                 </li>
                             </ul>
@@ -392,50 +386,50 @@
                                     <button type="button" id="raioXTabGain" class="px-3 py-1 rounded-lg opacity-70 text-[10px] transition hover:opacity-100">Ganhos</button>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 gap-3 max-h-[220px] overflow-y-auto pr-1" id="raioXCardsContainer"></div>
+                            <div class="grid grid-cols-1 gap-3 max-h-[200px] overflow-y-auto pr-1" id="raioXCardsContainer"></div>
                         </div>
                     </div>
                 </section>
 
-                <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 lg:col-span-2 flex flex-col justify-between">
-                        <h3 class="text-lg font-bold mb-4">Gastos por Categoria</h3>
-                        <div class="relative h-64 w-full flex justify-center items-center">
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <div class="glass-panel p-4 lg:p-5 lg:col-span-2 flex flex-col justify-between">
+                        <h3 class="text-base font-bold mb-3">Gastos por Categoria</h3>
+                        <div class="relative h-56 sm:h-64 w-full flex justify-center items-center">
                             <canvas id="categoryChart"></canvas>
                             <div id="chartEmptyState" class="absolute inset-0 flex items-center justify-center bg-black/10 dark:bg-black/60 backdrop-blur-sm rounded-xl transition-opacity duration-300">
-                                <p class="text-sm opacity-70">Adicione gastos</p>
+                                <p class="text-xs opacity-70">Adicione gastos</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-6 lg:col-span-1">
-                        <div class="glass-panel p-6 flex-1">
-                            <div class="flex justify-between items-center mb-6">
-                                <h2 class="text-lg font-bold">Objetivos (50/30/20)</h2>
-                                <button id="infoBtn" class="opacity-70 hover:text-indigo-500 transition"><i class="fa-solid fa-circle-info"></i></button>
+                    <div class="flex flex-col gap-5 lg:col-span-1">
+                        <div class="glass-panel p-4 lg:p-5 flex-1">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-base font-bold">Objetivos (50/30/20)</h2>
+                                <button id="infoBtn" class="opacity-70 hover:text-indigo-500 transition"><i class="fa-solid fa-circle-info text-xs"></i></button>
                             </div>
-                            <div class="space-y-5">
+                            <div class="space-y-4">
                                 <div>
-                                    <div class="flex justify-between mb-2 text-sm"><span class="opacity-80">Necessidades</span><span id="needsPercent" class="opacity-70">0%</span></div>
+                                    <div class="flex justify-between mb-1 text-xs"><span class="opacity-80">Necessidades</span><span id="needsPercent" class="opacity-70">0%</span></div>
                                     <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2"><div id="needsBar" class="bg-blue-400 h-2 rounded-full transition-all duration-500 w-0 shadow-[0_0_10px_rgba(96,165,250,0.6)]"></div></div>
-                                    <div class="flex justify-between text-xs mt-2 opacity-60"><span id="needsSpent">R$ 0,00</span><span id="needsIdeal">R$ 0,00</span></div>
+                                    <div class="flex justify-between text-[10px] mt-1 opacity-60"><span id="needsSpent">R$ 0,00</span><span id="needsIdeal">R$ 0,00</span></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between mb-2 text-sm"><span class="opacity-80">Desejos</span><span id="wantsPercent" class="opacity-70">0%</span></div>
+                                    <div class="flex justify-between mb-1 text-xs"><span class="opacity-80">Desejos</span><span id="wantsPercent" class="opacity-70">0%</span></div>
                                     <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2"><div id="wantsBar" class="bg-amber-400 h-2 rounded-full transition-all duration-500 w-0 shadow-[0_0_10px_rgba(251,191,36,0.6)]"></div></div>
-                                    <div class="flex justify-between text-xs mt-2 opacity-60"><span id="wantsSpent">R$ 0,00</span><span id="wantsIdeal">R$ 0,00</span></div>
+                                    <div class="flex justify-between text-[10px] mt-1 opacity-60"><span id="wantsSpent">R$ 0,00</span><span id="wantsIdeal">R$ 0,00</span></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between mb-2 text-sm"><span class="opacity-80">Poupança/Metas</span><span id="savingsBarPercent" class="opacity-70">0%</span></div>
+                                    <div class="flex justify-between mb-1 text-xs"><span class="opacity-80">Poupança/Metas</span><span id="savingsBarPercent" class="opacity-70">0%</span></div>
                                     <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2"><div id="savingBar" class="bg-emerald-400 h-2 rounded-full transition-all duration-500 w-0 shadow-[0_0_10px_rgba(52,211,153,0.6)]"></div></div>
-                                    <div class="flex justify-between text-xs mt-2 opacity-60"><span id="savingsCurrent">R$ 0,00</span><span id="savingsIdeal">R$ 0,00</span></div>
+                                    <div class="flex justify-between text-[10px] mt-1 opacity-60"><span id="savingsCurrent">R$ 0,00</span><span id="savingsIdeal">R$ 0,00</span></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="glass-panel p-6 flex flex-col justify-center items-center text-center">
-                            <div class="text-4xl mb-3 drop-shadow-lg" id="statusEmojiIcon">🎯</div>
-                            <h3 class="text-xl font-bold mb-1" id="budgetStatusText">Aguardando</h3>
-                            <p class="text-sm opacity-70" id="budgetStatusSub">Iniciando ciclo</p>
+                        <div class="glass-panel p-4 lg:p-5 flex flex-col justify-center items-center text-center">
+                            <div class="text-3xl mb-2 drop-shadow-lg" id="statusEmojiIcon">🎯</div>
+                            <h3 class="text-base font-bold mb-0.5" id="budgetStatusText">Aguardando</h3>
+                            <p class="text-xs opacity-70" id="budgetStatusSub">Iniciando ciclo</p>
                         </div>
                     </div>
                 </section>
@@ -444,29 +438,29 @@
             <!-- ==============================================
                  VIEW 2: DESPESAS 
             ================================================ -->
-            <div id="view-despesas" class="view-section flex-col gap-6 w-full">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 lg:col-span-2 flex flex-col gap-4">
+            <div id="view-despesas" class="view-section flex-col gap-5 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <div class="glass-panel p-4 lg:p-5 lg:col-span-2 flex flex-col gap-3">
                         <div class="flex justify-between items-center">
-                            <h2 class="text-lg font-bold">Todas as Despesas do Mês</h2>
-                            <span class="text-sm opacity-70" id="totalExpensesTabCount">0 despesas</span>
+                            <h2 class="text-base font-bold">Todas as Despesas do Mês</h2>
+                            <span class="text-xs opacity-70" id="totalExpensesTabCount">0 despesas</span>
                         </div>
-                        <div class="overflow-y-auto pr-2" style="max-height: 450px;">
-                            <ul id="fullExpensesList" class="space-y-3">
+                        <div class="overflow-y-auto pr-2" style="max-height: 420px;">
+                            <ul id="fullExpensesList" class="space-y-2.5">
                                 <li class="text-center opacity-50 py-10" id="emptyFullExpensesMsg">
-                                    <i class="fa-solid fa-receipt text-3xl mb-3 opacity-30"></i>
-                                    <p>Nenhuma despesa registrada neste mês.</p>
+                                    <i class="fa-solid fa-receipt text-2xl mb-2 opacity-30"></i>
+                                    <p class="text-xs">Nenhuma despesa registrada neste mês.</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="glass-panel p-6 lg:col-span-1 flex flex-col justify-between">
-                        <h3 class="text-lg font-bold mb-4">Despesas por Categoria</h3>
-                        <div class="relative h-64 w-full flex justify-center items-center">
+                    <div class="glass-panel p-4 lg:p-5 lg:col-span-1 flex flex-col justify-between">
+                        <h3 class="text-base font-bold mb-3">Despesas por Categoria</h3>
+                        <div class="relative h-56 w-full flex justify-center items-center">
                             <canvas id="expensesCategoryChart"></canvas>
                             <div id="expensesChartEmptyState" class="absolute inset-0 flex items-center justify-center bg-black/10 dark:bg-black/60 backdrop-blur-sm rounded-xl transition-opacity duration-300">
-                                <p class="text-sm opacity-70">Sem despesas no período</p>
+                                <p class="text-xs opacity-70">Sem despesas no período</p>
                             </div>
                         </div>
                     </div>
@@ -476,29 +470,29 @@
             <!-- ==============================================
                  VIEW 3: GANHOS 
             ================================================ -->
-            <div id="view-ganhos" class="view-section flex-col gap-6 w-full">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 lg:col-span-2 flex flex-col gap-4">
+            <div id="view-ganhos" class="view-section flex-col gap-5 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <div class="glass-panel p-4 lg:p-5 lg:col-span-2 flex flex-col gap-3">
                         <div class="flex justify-between items-center">
-                            <h2 class="text-lg font-bold">Todos os Ganhos do Mês</h2>
-                            <span class="text-sm opacity-70" id="totalGainsTabCount">0 ganhos</span>
+                            <h2 class="text-base font-bold">Todos os Ganhos do Mês</h2>
+                            <span class="text-xs opacity-70" id="totalGainsTabCount">0 ganhos</span>
                         </div>
-                        <div class="overflow-y-auto pr-2" style="max-height: 450px;">
-                            <ul id="fullGainsList" class="space-y-3">
+                        <div class="overflow-y-auto pr-2" style="max-height: 420px;">
+                            <ul id="fullGainsList" class="space-y-2.5">
                                 <li class="text-center opacity-50 py-10" id="emptyFullGainsMsg">
-                                    <i class="fa-solid fa-wallet text-3xl mb-3 opacity-30"></i>
-                                    <p>Nenhum ganho registrado neste mês.</p>
+                                    <i class="fa-solid fa-wallet text-2xl mb-2 opacity-30"></i>
+                                    <p class="text-xs">Nenhum ganho registrado neste mês.</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="glass-panel p-6 lg:col-span-1 flex flex-col justify-between">
-                        <h3 class="text-lg font-bold mb-4">Ganhos por Categoria</h3>
-                        <div class="relative h-64 w-full flex justify-center items-center">
+                    <div class="glass-panel p-4 lg:p-5 lg:col-span-1 flex flex-col justify-between">
+                        <h3 class="text-base font-bold mb-3">Ganhos por Categoria</h3>
+                        <div class="relative h-56 w-full flex justify-center items-center">
                             <canvas id="gainsCategoryChart"></canvas>
                             <div id="gainsChartEmptyState" class="absolute inset-0 flex items-center justify-center bg-black/10 dark:bg-black/60 backdrop-blur-sm rounded-xl transition-opacity duration-300">
-                                <p class="text-sm opacity-70">Sem ganhos no período</p>
+                                <p class="text-xs opacity-70">Sem ganhos no período</p>
                             </div>
                         </div>
                     </div>
@@ -508,21 +502,21 @@
             <!-- ==============================================
                  VIEW 4: CARTÕES 
             ================================================ -->
-            <div id="view-cartoes" class="view-section flex-col gap-6 w-full">
+            <div id="view-cartoes" class="view-section flex-col gap-5 w-full">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="text-xl font-bold">Meus Cartões de Crédito</h2>
-                        <p class="text-sm opacity-70">Gerencie limites e acompanhe suas faturas</p>
+                        <h2 class="text-lg font-bold">Meus Cartões de Crédito</h2>
+                        <p class="text-xs opacity-70">Gerencie limites e acompanhe suas faturas</p>
                     </div>
-                    <button id="openNewCardModalBtn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-2 text-sm">
-                        <i class="fa-solid fa-plus"></i> Novo Cartão
+                    <button id="openNewCardModalBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-1.5 text-xs">
+                        <i class="fa-solid fa-plus text-[10px]"></i> Novo Cartão
                     </button>
                 </div>
 
-                <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div class="glass-panel p-8 col-span-full text-center opacity-50" id="emptyCardsMsg">
-                        <i class="fa-regular fa-credit-card text-4xl mb-3 opacity-30"></i>
-                        <p>Nenhum cartão cadastrado ainda.</p>
+                        <i class="fa-regular fa-credit-card text-3xl mb-2 opacity-30"></i>
+                        <p class="text-xs">Nenhum cartão cadastrado ainda.</p>
                     </div>
                 </div>
             </div>
@@ -530,67 +524,67 @@
             <!-- ==============================================
                  VIEW 5: METAS 
             ================================================ -->
-            <div id="view-metas" class="view-section flex-col gap-6 w-full">
+            <div id="view-metas" class="view-section flex-col gap-5 w-full">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="text-xl font-bold">Metas & Objetivos</h2>
-                        <p class="text-sm opacity-70">Construa seu futuro e acompanhe suas conquistas de longo prazo</p>
+                        <h2 class="text-lg font-bold">Metas & Objetivos</h2>
+                        <p class="text-xs opacity-70">Construa seu futuro e acompanhe suas conquistas</p>
                     </div>
-                    <button id="openNewGoalModalBtn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-2 text-sm">
-                        <i class="fa-solid fa-plus"></i> Nova Meta
+                    <button id="openNewGoalModalBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-1.5 text-xs">
+                        <i class="fa-solid fa-plus text-[10px]"></i> Nova Meta
                     </button>
                 </div>
 
-                <div id="goalsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="glass-panel p-10 col-span-full text-center opacity-50" id="emptyGoalsMsg">
-                        <div class="w-16 h-16 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-                            <i class="fa-solid fa-bullseye text-2xl text-cyan-500"></i>
+                <div id="goalsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="glass-panel p-8 col-span-full text-center opacity-50" id="emptyGoalsMsg">
+                        <div class="w-14 h-14 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                            <i class="fa-solid fa-bullseye text-xl text-cyan-500"></i>
                         </div>
-                        <h3 class="font-bold text-lg mb-1">Nenhuma meta cadastrada</h3>
-                        <p class="text-sm opacity-70">Crie seu primeiro objetivo (ex: Viagem, Carro Novo, Reserva de Emergência) e comece a poupar.</p>
+                        <h3 class="font-bold text-base mb-1">Nenhuma meta cadastrada</h3>
+                        <p class="text-xs opacity-70">Crie seu primeiro objetivo e comece a poupar.</p>
                     </div>
                 </div>
             </div>
 
             <!-- ==============================================
-                 VIEW 6: ASSINATURAS & FIXAS (Item 1)
+                 VIEW 6: ASSINATURAS & FIXAS 
             ================================================ -->
-            <div id="view-assinaturas" class="view-section flex-col gap-6 w-full">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div id="view-assinaturas" class="view-section flex-col gap-5 w-full">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                        <h2 class="text-xl font-bold">Assinaturas & Despesas Fixas</h2>
-                        <p class="text-sm opacity-70">Monitore serviços recorrentes (Netflix, Spotify, Aluguel, Academia)</p>
+                        <h2 class="text-lg font-bold">Assinaturas & Despesas Fixas</h2>
+                        <p class="text-xs opacity-70">Monitore serviços recorrentes</p>
                     </div>
-                    <button id="openNewSubscriptionModalBtn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-2 text-sm">
-                        <i class="fa-solid fa-plus"></i> Nova Despesa Fixa
+                    <button id="openNewSubscriptionModalBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold shadow-lg transition flex items-center gap-1.5 text-xs">
+                        <i class="fa-solid fa-plus text-[10px]"></i> Nova Despesa Fixa
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 flex flex-col justify-between">
-                        <span class="text-sm font-medium opacity-70">Total Comprometido / Mês</span>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-indigo-400 mt-2" id="totalSubscriptionsDisplay">R$ 0,00</h2>
-                        <p class="text-xs opacity-60 mt-1">Soma de todas as contas e assinaturas recorrentes ativas</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="glass-panel p-5 flex flex-col justify-between">
+                        <span class="text-xs font-medium opacity-70">Total Comprometido / Mês</span>
+                        <h2 class="text-xl lg:text-2xl font-bold text-indigo-400 mt-2" id="totalSubscriptionsDisplay">R$ 0,00</h2>
+                        <p class="text-[11px] opacity-60 mt-1">Soma de contas recorrentes ativas</p>
                     </div>
-                    <div class="glass-panel p-6 flex flex-col justify-between">
-                        <span class="text-sm font-medium opacity-70">Serviços Ativos</span>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-emerald-400 mt-2" id="activeSubscriptionsCountDisplay">0</h2>
-                        <p class="text-xs opacity-60 mt-1">Lançamentos fixos recorrentes programados</p>
+                    <div class="glass-panel p-5 flex flex-col justify-between">
+                        <span class="text-xs font-medium opacity-70">Serviços Ativos</span>
+                        <h2 class="text-xl lg:text-2xl font-bold text-emerald-400 mt-2" id="activeSubscriptionsCountDisplay">0</h2>
+                        <p class="text-[11px] opacity-60 mt-1">Lançamentos fixos programados</p>
                     </div>
-                    <div class="glass-panel p-6 flex flex-col justify-between">
-                        <span class="text-sm font-medium opacity-70">Impacto na Renda</span>
-                        <h2 class="text-2xl lg:text-3xl font-bold text-amber-400 mt-2" id="subscriptionsIncomeImpactDisplay">0%</h2>
-                        <p class="text-xs opacity-60 mt-1">Porcentagem da renda comprometida com fixas</p>
+                    <div class="glass-panel p-5 flex flex-col justify-between">
+                        <span class="text-xs font-medium opacity-70">Impacto na Renda</span>
+                        <h2 class="text-xl lg:text-2xl font-bold text-amber-400 mt-2" id="subscriptionsIncomeImpactDisplay">0%</h2>
+                        <p class="text-[11px] opacity-60 mt-1">Porcentagem comprometida com fixas</p>
                     </div>
                 </div>
 
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold mb-4">Lista de Assinaturas e Contas Fixas</h3>
-                    <div class="overflow-y-auto pr-2" style="max-height: 400px;">
-                        <ul id="subscriptionsList" class="space-y-3">
-                            <li class="text-center opacity-50 py-10" id="emptySubscriptionsMsg">
-                                <i class="fa-solid fa-file-invoice-dollar text-3xl mb-3 opacity-30"></i>
-                                <p>Nenhuma assinatura ou despesa fixa cadastrada.</p>
+                <div class="glass-panel p-5">
+                    <h3 class="text-base font-bold mb-3">Lista de Assinaturas e Contas Fixas</h3>
+                    <div class="overflow-y-auto pr-2" style="max-height: 380px;">
+                        <ul id="subscriptionsList" class="space-y-2.5">
+                            <li class="text-center opacity-50 py-8" id="emptySubscriptionsMsg">
+                                <i class="fa-solid fa-file-invoice-dollar text-2xl mb-2 opacity-30"></i>
+                                <p class="text-xs">Nenhuma assinatura ou despesa fixa cadastrada.</p>
                             </li>
                         </ul>
                     </div>
@@ -598,21 +592,19 @@
             </div>
 
             <!-- ==============================================
-                 VIEW 7: ORÇAMENTOS & LIMITES (Item 2)
+                 VIEW 7: ORÇAMENTOS & LIMITES 
             ================================================ -->
-            <div id="view-orcamentos" class="view-section flex-col gap-6 w-full">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div id="view-orcamentos" class="view-section flex-col gap-5 w-full">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                        <h2 class="text-xl font-bold">Orçamentos & Limites por Categoria</h2>
-                        <p class="text-sm opacity-70">Defina tetos de gastos mensais para evitar estouros no orçamento</p>
+                        <h2 class="text-lg font-bold">Orçamentos & Limites por Categoria</h2>
+                        <p class="text-xs opacity-70">Defina tetos de gastos mensais</p>
                     </div>
                 </div>
 
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold mb-4">Configurar Tetos de Gastos por Categoria</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="budgetsConfigGrid">
-                        <!-- Dynamic items -->
-                    </div>
+                <div class="glass-panel p-5">
+                    <h3 class="text-base font-bold mb-3">Configurar Tetos de Gastos por Categoria</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="budgetsConfigGrid"></div>
                 </div>
             </div>
 
@@ -621,22 +613,21 @@
         </main>
     </div>
 
-    <!-- MODAL: GERENCIAR PERFIL -->
     <div id="profileModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 id="profileModalTitle" class="text-xl font-bold">Novo Perfil</h3>
-                <button id="closeProfileModal" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-panel w-full max-w-sm p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-5">
+                <h3 id="profileModalTitle" class="text-lg font-bold">Novo Perfil</h3>
+                <button id="closeProfileModal" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <form id="profileForm" class="space-y-4">
+            <form id="profileForm" class="space-y-3.5">
                 <input type="hidden" id="profileModalMode" value="create">
                 <div>
                     <label class="block text-xs opacity-70 mb-1">Nome do Perfil / Conta</label>
-                    <input type="text" id="profileNameInput" required placeholder="Ex: Finanças da Família, Pessoal..." class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    <input type="text" id="profileNameInput" required placeholder="Ex: Finanças da Família..." class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                 </div>
                 <div>
                     <label class="block text-xs opacity-70 mb-1">Avatar / Ícone</label>
-                    <select id="profileAvatarInput" class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                    <select id="profileAvatarInput" class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                         <option value="👤">👤 Pessoa</option>
                         <option value="💼">💼 Trabalho</option>
                         <option value="🏠">🏠 Família</option>
@@ -645,43 +636,42 @@
                         <option value="🌟">🌟 Estrela</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Perfil</button>
+                <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Salvar Perfil</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: NOVA META -->
     <div id="novaMetaModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-md p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Criar Nova Meta</h3>
-                <button id="closeNewGoalModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-panel w-full max-w-md p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-lg font-bold">Criar Nova Meta</h3>
+                <button id="closeNewGoalModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <form id="addGoalForm" class="space-y-4">
+            <form id="addGoalForm" class="space-y-3.5">
                 <div>
-                    <input type="text" id="goalTitleInput" required placeholder="Título da Meta (Ex: Viagem para Europa)" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    <input type="text" id="goalTitleInput" required placeholder="Título da Meta (Ex: Viagem)" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div class="relative">
-                        <span class="absolute left-4 top-3 opacity-50">R$</span>
-                        <input type="number" id="goalTargetInput" required min="1" step="0.01" placeholder="Valor Alvo" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                        <span class="absolute left-3.5 top-2.5 text-xs opacity-50">R$</span>
+                        <input type="number" id="goalTargetInput" required min="1" step="0.01" placeholder="Valor Alvo" class="w-full pl-9 pr-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                     </div>
                     <div class="relative">
-                        <span class="absolute left-4 top-3 opacity-50">R$</span>
-                        <input type="number" id="goalCurrentInput" min="0" step="0.01" value="0" placeholder="Já guardado" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                        <span class="absolute left-3.5 top-2.5 text-xs opacity-50">R$</span>
+                        <input type="number" id="goalCurrentInput" min="0" step="0.01" value="0" placeholder="Já guardado" class="w-full pl-9 pr-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs opacity-70 mb-1">Prazo Limite</label>
-                        <input type="date" id="goalDeadlineInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none [color-scheme:dark]">
+                        <input type="date" id="goalDeadlineInput" required class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none [color-scheme:dark]">
                     </div>
                     <div>
-                        <label class="block text-xs opacity-70 mb-1">Ícone / Categoria</label>
-                        <select id="goalIconInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                        <label class="block text-xs opacity-70 mb-1">Ícone</label>
+                        <select id="goalIconInput" required class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                             <option value="✈️">✈️ Viagem</option>
                             <option value="🚗">🚗 Veículo</option>
                             <option value="🏠">🏠 Imóvel</option>
@@ -693,54 +683,52 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Meta</button>
+                <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Salvar Meta</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: DEPOSITAR / RETIRAR DE META -->
     <div id="contribuirMetaModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold" id="contribModalTitle">Movimentar Meta</h3>
-                <button id="closeContribModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-panel w-full max-w-sm p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-lg font-bold" id="contribModalTitle">Movimentar Meta</h3>
+                <button id="closeContribModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <form id="contribGoalForm" class="space-y-4">
+            <form id="contribGoalForm" class="space-y-3.5">
                 <input type="hidden" id="contribGoalId">
-                <div class="flex gap-2 bg-black/5 dark:bg-white/5 p-1 rounded-xl mb-4 font-medium">
+                <div class="flex gap-1.5 bg-black/5 dark:bg-white/5 p-1 rounded-xl mb-3 font-medium">
                     <button type="button" id="contribTypeDeposit" class="flex-1 py-1.5 rounded-lg bg-emerald-500 text-white text-xs transition shadow-sm">Depositar</button>
                     <button type="button" id="contribTypeWithdraw" class="flex-1 py-1.5 rounded-lg opacity-70 text-xs transition hover:opacity-100">Retirar</button>
                 </div>
                 <div class="relative">
-                    <span class="absolute left-4 top-3 opacity-50">R$</span>
-                    <input type="number" id="contribValInput" required min="0.01" step="0.01" placeholder="0.00" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    <span class="absolute left-3.5 top-2.5 text-xs opacity-50">R$</span>
+                    <input type="number" id="contribValInput" required min="0.01" step="0.01" placeholder="0.00" class="w-full pl-9 pr-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                 </div>
-                <button type="submit" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Confirmar Movimentação</button>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Confirmar Movimentação</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: NOVO CARTÃO -->
     <div id="novoCartaoModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-md p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Cadastrar Cartão</h3>
-                <button id="closeNewCardModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-panel w-full max-w-md p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-lg font-bold">Cadastrar Cartão</h3>
+                <button id="closeNewCardModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <form id="addCardForm" class="space-y-4">
+            <form id="addCardForm" class="space-y-3.5">
                 <div>
-                    <input type="text" id="cardNameInput" required placeholder="Nome do Cartão (Ex: Nubank, Visa Infinite)" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    <input type="text" id="cardNameInput" required placeholder="Nome do Cartão (Ex: Nubank)" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div class="relative">
-                        <span class="absolute left-4 top-3 opacity-50">R$</span>
-                        <input type="number" id="cardLimitInput" required min="0" step="0.01" placeholder="Limite Total" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                        <span class="absolute left-3.5 top-2.5 text-xs opacity-50">R$</span>
+                        <input type="number" id="cardLimitInput" required min="0" step="0.01" placeholder="Limite Total" class="w-full pl-9 pr-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                     </div>
                     <div>
-                        <select id="cardBrandInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                        <select id="cardBrandInput" required class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                             <option value="Visa">Visa</option>
                             <option value="Mastercard">Mastercard</option>
                             <option value="Elo">Elo</option>
@@ -750,68 +738,67 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs opacity-70 mb-1">Dia de Fechamento</label>
-                        <input type="number" id="cardClosingDay" required min="1" max="31" value="10" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none">
+                        <label class="block text-xs opacity-70 mb-1">Fechamento</label>
+                        <input type="number" id="cardClosingDay" required min="1" max="31" value="10" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs opacity-70 mb-1">Dia de Vencimento</label>
-                        <input type="number" id="cardDueDay" required min="1" max="31" value="17" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none">
+                        <label class="block text-xs opacity-70 mb-1">Vencimento</label>
+                        <input type="number" id="cardDueDay" required min="1" max="31" value="17" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none">
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Cartão</button>
+                <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Salvar Cartão</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: NOVA TRANSAÇÃO -->
     <div id="novaTransacaoModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-lg p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Novo Lançamento</h3>
-                <button id="closeNewTransactionBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-panel w-full max-w-lg p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">Novo Lançamento</h3>
+                <button id="closeNewTransactionBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <div class="flex gap-2 mb-6 bg-black/5 dark:bg-white/5 p-1.5 rounded-2xl w-fit font-medium">
-                <button type="button" id="tabExpense" class="px-6 py-2 rounded-xl bg-rose-500 text-white transition shadow-sm">Despesa</button>
-                <button type="button" id="tabGain" class="px-6 py-2 rounded-xl opacity-70 transition hover:opacity-100">Ganho</button>
+            <div class="flex gap-2 mb-4 bg-black/5 dark:bg-white/5 p-1 rounded-2xl w-fit font-medium">
+                <button type="button" id="tabExpense" class="px-5 py-1.5 rounded-xl bg-rose-500 text-white text-xs transition shadow-sm">Despesa</button>
+                <button type="button" id="tabGain" class="px-5 py-1.5 rounded-xl text-xs opacity-70 transition hover:opacity-100">Ganho</button>
             </div>
 
-            <form id="addExpenseForm" class="space-y-4">
+            <form id="addExpenseForm" class="space-y-3.5">
                 <div>
-                    <input type="text" id="descInput" required placeholder="Descrição (Ex: Supermercado)" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    <input type="text" id="descInput" required placeholder="Descrição (Ex: Supermercado)" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div class="relative">
-                        <span class="absolute left-4 top-3 opacity-50">R$</span>
-                        <input type="number" id="valInput" required min="0.01" step="0.01" placeholder="0.00" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                        <span class="absolute left-3.5 top-2.5 text-xs opacity-50">R$</span>
+                        <input type="number" id="valInput" required min="0.01" step="0.01" placeholder="0.00" class="w-full pl-9 pr-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                     </div>
-                    <div class="flex gap-2">
-                        <select id="categoryInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                    <div class="flex gap-1.5">
+                        <select id="categoryInput" required class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                             <option value="" disabled selected>Categoria...</option>
                         </select>
-                        <button type="button" id="newCategoryBtn" class="px-4 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 rounded-2xl transition"><i class="fa-solid fa-plus"></i></button>
+                        <button type="button" id="newCategoryBtn" class="px-3 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 rounded-2xl transition"><i class="fa-solid fa-plus text-xs"></i></button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="date" id="dateInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none [color-scheme:dark]">
-                    <input type="time" id="timeInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none [color-scheme:dark]">
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="date" id="dateInput" required class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none [color-scheme:dark]">
+                    <input type="time" id="timeInput" required class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none [color-scheme:dark]">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div id="paymentMethodWrapper">
-                        <select id="paymentMethodInput" class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                        <select id="paymentMethodInput" class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                             <option value="Pix">💠 Pix</option>
                             <option value="Débito">💳 Débito</option>
                             <option value="Dinheiro">💵 Dinheiro</option>
                         </select>
                     </div>
                     <div id="installmentWrapper">
-                        <select id="installmentInput" class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                        <select id="installmentInput" class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                             <option value="1">À vista (1x)</option>
                             <option value="2">2x parcelas</option>
                             <option value="3">3x parcelas</option>
@@ -824,60 +811,58 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3 pt-2" id="recurrentWrapper">
-                    <input type="checkbox" id="recurrentCheck" class="w-5 h-5 rounded border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 accent-indigo-500 cursor-pointer">
-                    <label for="recurrentCheck" class="text-sm opacity-80 cursor-pointer">Despesa Fixa (repetir mensalmente)</label>
+                <div class="flex items-center gap-2.5 pt-1" id="recurrentWrapper">
+                    <input type="checkbox" id="recurrentCheck" class="w-4 h-4 rounded border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 accent-indigo-500 cursor-pointer">
+                    <label for="recurrentCheck" class="text-xs opacity-80 cursor-pointer">Despesa Fixa (repetir mensalmente)</label>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Confirmar Lançamento</button>
+                <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Confirmar Lançamento</button>
             </form>
         </div>
     </div>
 
-    <!-- Modais de Histórico e Edição -->
     <div id="historyModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-2xl p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold">Histórico</h3><button id="closeHistoryModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-            <div class="overflow-y-auto max-h-80"><table class="w-full text-left text-sm"><thead class="border-b border-black/10 dark:border-white/10 opacity-70"><tr><th class="py-2">Mês</th><th class="py-2">Renda</th><th class="py-2">Gastos</th><th class="py-2">Sobra</th><th class="py-2">Conta</th></tr></thead><tbody id="historyTableBody"></tbody></table></div>
+        <div class="glass-panel w-full max-w-2xl p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4"><h3 class="text-lg font-bold">Histórico</h3><button id="closeHistoryModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+            <div class="overflow-y-auto max-h-72"><table class="w-full text-left text-xs"><thead class="border-b border-black/10 dark:border-white/10 opacity-70"><tr><th class="py-2">Mês</th><th class="py-2">Renda</th><th class="py-2">Gastos</th><th class="py-2">Sobra</th><th class="py-2">Conta</th></tr></thead><tbody id="historyTableBody"></tbody></table></div>
         </div>
     </div>
 
     <div id="editModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-md p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold">Editar</h3><button id="closeEditModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-            <form id="editExpenseForm" class="space-y-4">
+        <div class="glass-panel w-full max-w-md p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4"><h3 class="text-lg font-bold">Editar</h3><button id="closeEditModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+            <form id="editExpenseForm" class="space-y-3.5">
                 <input type="hidden" id="editIdInput"><input type="hidden" id="editTypeInput">
-                <input type="text" id="editDescInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl">
-                <select id="editCategoryInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl appearance-none"></select>
-                <div id="editPaymentWrapper"><select id="editPaymentMethodInput" class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl appearance-none"><option value="Pix">💠 Pix</option><option value="Débito">💳 Débito</option><option value="Dinheiro">💵 Dinheiro</option></select></div>
-                <div class="grid grid-cols-2 gap-4"><input type="date" id="editDateInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl [color-scheme:dark]"><input type="time" id="editTimeInput" required class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl [color-scheme:dark]"></div>
-                <input type="number" id="editValInput" required min="0.01" step="0.01" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl">
-                <div class="flex items-center gap-3" id="editRecurrentWrapper"><input type="checkbox" id="editRecurrentCheck" class="w-5 h-5 rounded border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 accent-indigo-500"><label for="editRecurrentCheck" class="text-sm opacity-80">Despesa fixa</label></div>
-                <button type="submit" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold">Salvar</button>
+                <input type="text" id="editDescInput" required class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs">
+                <select id="editCategoryInput" required class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs appearance-none"></select>
+                <div id="editPaymentWrapper"><select id="editPaymentMethodInput" class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs appearance-none"><option value="Pix">💠 Pix</option><option value="Débito">💳 Débito</option><option value="Dinheiro">💵 Dinheiro</option></select></div>
+                <div class="grid grid-cols-2 gap-3"><input type="date" id="editDateInput" required class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs [color-scheme:dark]"><input type="time" id="editTimeInput" required class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs [color-scheme:dark]"></div>
+                <input type="number" id="editValInput" required min="0.01" step="0.01" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs">
+                <div class="flex items-center gap-2.5" id="editRecurrentWrapper"><input type="checkbox" id="editRecurrentCheck" class="w-4 h-4 rounded border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 accent-indigo-500"><label for="editRecurrentCheck" class="text-xs opacity-80">Despesa fixa</label></div>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs">Salvar</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: NOVA ASSINATURA / FIXA -->
     <div id="novaAssinaturaModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-md p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Nova Despesa Fixa / Assinatura</h3>
-                <button id="closeNewSubscriptionModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+        <div class="glass-panel w-full max-w-md p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-lg font-bold">Nova Despesa Fixa / Assinatura</h3>
+                <button id="closeNewSubscriptionModalBtn" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
-            <form id="addSubscriptionForm" class="space-y-4">
+            <form id="addSubscriptionForm" class="space-y-3.5">
                 <div>
-                    <input type="text" id="subNameInput" required placeholder="Nome (Ex: Netflix, Academia, Aluguel)" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                    <input type="text" id="subNameInput" required placeholder="Nome (Ex: Netflix, Academia)" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div class="relative">
-                        <span class="absolute left-4 top-3 opacity-50">R$</span>
-                        <input type="number" id="subValInput" required min="0.01" step="0.01" placeholder="Valor Mensal" class="w-full pl-10 pr-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:border-indigo-500 transition">
+                        <span class="absolute left-3.5 top-2.5 text-xs opacity-50">R$</span>
+                        <input type="number" id="subValInput" required min="0.01" step="0.01" placeholder="Valor Mensal" class="w-full pl-9 pr-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
                     </div>
                     <div>
-                        <select id="subCategoryInput" required class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl outline-none appearance-none">
+                        <select id="subCategoryInput" required class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none appearance-none">
                             <option value="Lazer">🎮 Lazer</option>
                             <option value="Moradia">🏡 Moradia</option>
                             <option value="Saúde">🩺 Saúde</option>
@@ -886,27 +871,27 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold shadow-lg transition">Salvar Assinatura</button>
+                <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Salvar Assinatura</button>
             </form>
         </div>
     </div>
 
     <div id="categoryModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-sm p-6 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold">Nova Categoria</h3><button id="closeModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-            <div class="space-y-4">
-                <input type="text" id="newCatName" placeholder="Nome" class="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl">
-                <select id="newCatType" class="w-full px-4 py-3 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl appearance-none"><option value="needs">Necessidade (50%)</option><option value="wants">Desejo/Lazer (30%)</option><option value="savings">Poupança/Dívida (20%)</option></select>
-                <button id="saveCategoryBtn" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold">Salvar</button>
+        <div class="glass-panel w-full max-w-sm p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4"><h3 class="text-lg font-bold">Nova Categoria</h3><button id="closeModalBtn" class="opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+            <div class="space-y-3.5">
+                <input type="text" id="newCatName" placeholder="Nome" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs">
+                <select id="newCatType" class="w-full px-3.5 py-2.5 bg-white dark:bg-[#1e293b] border border-black/10 dark:border-white/10 rounded-2xl text-xs appearance-none"><option value="needs">Necessidade (50%)</option><option value="wants">Desejo/Lazer (30%)</option><option value="savings">Poupança/Dívida (20%)</option></select>
+                <button id="saveCategoryBtn" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs">Salvar</button>
             </div>
         </div>
     </div>
     
     <div id="infoModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="glass-panel w-full max-w-sm p-6 relative">
-            <button id="closeInfoBtn" class="absolute top-6 right-6 opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-4">O Método 50/30/20</h3>
-            <ul class="space-y-3 text-sm opacity-80"><li><strong class="text-blue-400">50% Necessidades:</strong> Moradia, alimentação.</li><li><strong class="text-amber-400">30% Desejos:</strong> Lazer, streaming.</li><li><strong class="text-emerald-400">20% Metas:</strong> Investimentos e reserva.</li></ul>
+        <div class="glass-panel w-full max-w-sm p-5 relative">
+            <button id="closeInfoBtn" class="absolute top-5 right-5 opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-lg font-bold mb-3">O Método 50/30/20</h3>
+            <ul class="space-y-2 text-xs opacity-80"><li><strong class="text-blue-400">50% Necessidades:</strong> Moradia, alimentação.</li><li><strong class="text-amber-400">30% Desejos:</strong> Lazer, streaming.</li><li><strong class="text-emerald-400">20% Metas:</strong> Investimentos e reserva.</li></ul>
         </div>
     </div>
 
@@ -1011,10 +996,10 @@
             Object.values(profilesData.list).forEach(p => {
                 const isActive = p.id === currentProfileId;
                 const item = document.createElement('div');
-                item.className = `flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition ${isActive ? 'bg-indigo-500/20 text-indigo-500 font-semibold border border-indigo-500/30' : 'hover:bg-black/5 dark:hover:bg-white/5 opacity-80'}`;
+                item.className = `flex items-center justify-between p-2 rounded-xl cursor-pointer transition ${isActive ? 'bg-indigo-500/20 text-indigo-500 font-semibold border border-indigo-500/30' : 'hover:bg-black/5 dark:hover:bg-white/5 opacity-80'}`;
                 item.innerHTML = `
-                    <div class="flex items-center gap-2.5 overflow-hidden w-full" onclick="switchProfile('${p.id}')">
-                        <span class="text-base">${p.avatar}</span>
+                    <div class="flex items-center gap-2 overflow-hidden w-full" onclick="switchProfile('${p.id}')">
+                        <span class="text-sm">${p.avatar}</span>
                         <span class="text-xs truncate">${p.name}</span>
                     </div>
                     ${Object.keys(profilesData.list).length > 1 ? `<button onclick="event.stopPropagation(); deleteProfile('${p.id}')" class="text-xs opacity-50 hover:text-rose-500 p-1"><i class="fa-solid fa-trash-can"></i></button>` : ''}
@@ -1499,8 +1484,8 @@
 
             subTabExtrato.addEventListener('click', () => {
                 activeSubTab = 'extrato';
-                subTabExtrato.className = "px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-sm transition";
-                subTabRaioX.className = "px-4 py-1.5 rounded-lg opacity-70 text-sm transition hover:opacity-100";
+                subTabExtrato.className = "px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-xs transition";
+                subTabRaioX.className = "px-2.5 py-1 rounded-lg opacity-70 text-xs transition hover:opacity-100";
                 extratoView.classList.remove('hidden');
                 searchWrapper.style.display = 'flex';
                 raioXView.classList.add('hidden');
@@ -1508,8 +1493,8 @@
 
             subTabRaioX.addEventListener('click', () => {
                 activeSubTab = 'raiox';
-                subTabRaioX.className = "px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-sm transition";
-                subTabExtrato.className = "px-4 py-1.5 rounded-lg opacity-70 text-sm transition hover:opacity-100";
+                subTabRaioX.className = "px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-xs transition";
+                subTabExtrato.className = "px-2.5 py-1 rounded-lg opacity-70 text-xs transition hover:opacity-100";
                 extratoView.classList.add('hidden');
                 searchWrapper.style.display = 'none';
                 raioXView.classList.remove('hidden');
@@ -1521,14 +1506,14 @@
             const raioXTabGain = document.getElementById('raioXTabGain');
             raioXTabExpense.addEventListener('click', () => {
                 raioXTab = 'expense';
-                raioXTabExpense.className = "px-4 py-1.5 rounded-xl bg-rose-500 text-white text-xs transition shadow-sm";
-                raioXTabGain.className = "px-4 py-1.5 rounded-xl opacity-70 text-xs transition hover:opacity-100";
+                raioXTabExpense.className = "px-3 py-1 rounded-xl bg-rose-500 text-white text-[10px] transition shadow-sm";
+                raioXTabGain.className = "px-3 py-1 rounded-xl opacity-70 text-[10px] transition hover:opacity-100";
                 renderRaioXView();
             });
             raioXTabGain.addEventListener('click', () => {
                 raioXTab = 'gain';
-                raioXTabGain.className = "px-4 py-1.5 rounded-xl bg-emerald-500 text-white text-xs transition shadow-sm";
-                raioXTabExpense.className = "px-4 py-1.5 rounded-xl opacity-70 text-xs transition hover:opacity-100";
+                raioXTabGain.className = "px-3 py-1 rounded-xl bg-emerald-500 text-white text-[10px] transition shadow-sm";
+                raioXTabExpense.className = "px-3 py-1 rounded-xl opacity-70 text-[10px] transition hover:opacity-100";
                 renderRaioXView();
             });
 
@@ -1539,7 +1524,7 @@
 
             document.getElementById('privacyToggle').addEventListener('click', () => {
                 isPrivacyMode = !isPrivacyMode;
-                document.getElementById('privacyIcon').className = isPrivacyMode ? "fa-solid fa-eye-slash text-indigo-500" : "fa-solid fa-eye";
+                document.getElementById('privacyIcon').className = isPrivacyMode ? "fa-solid fa-eye-slash text-indigo-500 text-xs" : "fa-solid fa-eye text-xs";
                 updateDashboard();
             });
 
@@ -1548,8 +1533,8 @@
 
             tabExpense.addEventListener('click', () => {
                 activeTab = 'expense';
-                tabExpense.className = "px-6 py-2 rounded-xl bg-rose-500 text-white transition shadow-sm";
-                tabGain.className = "px-6 py-2 rounded-xl opacity-70 transition hover:opacity-100";
+                tabExpense.className = "px-5 py-1.5 rounded-xl bg-rose-500 text-white text-xs transition shadow-sm";
+                tabGain.className = "px-5 py-1.5 rounded-xl text-xs opacity-70 transition hover:opacity-100";
                 document.getElementById('paymentMethodWrapper').style.display = 'block';
                 document.getElementById('installmentWrapper').style.display = 'block';
                 document.getElementById('recurrentWrapper').style.display = 'flex';
@@ -1558,8 +1543,8 @@
 
             tabGain.addEventListener('click', () => {
                 activeTab = 'gain';
-                tabGain.className = "px-6 py-2 rounded-xl bg-emerald-500 text-white transition shadow-sm";
-                tabExpense.className = "px-6 py-2 rounded-xl opacity-70 transition hover:opacity-100";
+                tabGain.className = "px-5 py-1.5 rounded-xl bg-emerald-500 text-white text-xs transition shadow-sm";
+                tabExpense.className = "px-5 py-1.5 rounded-xl text-xs opacity-70 transition hover:opacity-100";
                 document.getElementById('paymentMethodWrapper').style.display = 'none';
                 document.getElementById('installmentWrapper').style.display = 'none';
                 document.getElementById('recurrentWrapper').style.display = 'none';
@@ -1849,7 +1834,6 @@
             showNotification('expense', 'Meta Removida', 'O objetivo foi excluído.');
         }
 
-        // --- ITEM 1: ASSINATURAS & FIXAS LOGIC ---
         function addSubscription() {
             const name = document.getElementById('subNameInput').value.trim();
             const val = parseFloat(document.getElementById('subValInput').value);
@@ -1910,27 +1894,26 @@
 
             recurrentExpenses.forEach(exp => {
                 const li = document.createElement('li');
-                li.className = 'sub-item flex justify-between items-center p-4 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl border border-black/10 dark:border-white/10 transition';
+                li.className = 'sub-item flex justify-between items-center p-3.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl border border-black/10 dark:border-white/10 transition';
                 li.innerHTML = `
-                    <div class="flex items-center gap-4 overflow-hidden">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
                         </div>
                         <div class="overflow-hidden">
-                            <h4 class="font-bold text-sm truncate">${exp.description}</h4>
-                            <p class="text-xs opacity-70">${categoryIcons[exp.category] || '📁'} ${exp.category} • Recorrência Mensal Ativa</p>
+                            <h4 class="font-bold text-xs truncate">${exp.description}</h4>
+                            <p class="text-[11px] opacity-70">${categoryIcons[exp.category] || '📁'} ${exp.category} • Recorrência Mensal</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-4 shrink-0">
-                        <span class="font-bold text-rose-500 text-sm">${formatCurrency(exp.value)}</span>
-                        <button onclick="removeItem('${exp.id}', 'expense')" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center"><i class="fa-solid fa-trash text-xs"></i></button>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <span class="font-bold text-rose-500 text-xs">${formatCurrency(exp.value)}</span>
+                        <button onclick="removeItem('${exp.id}', 'expense')" class="w-7 h-7 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center"><i class="fa-solid fa-trash text-[10px]"></i></button>
                     </div>
                 `;
                 listContainer.appendChild(li);
             });
         }
 
-        // --- ITEM 2: ORÇAMENTOS & LIMITES POR CATEGORIA LOGIC ---
         function renderBudgetsView() {
             const grid = document.getElementById('budgetsConfigGrid');
             grid.innerHTML = '';
@@ -1951,29 +1934,29 @@
                 const isExceeded = limit > 0 && spent > limit;
 
                 const card = document.createElement('div');
-                card.className = 'glass-panel p-5 flex flex-col justify-between gap-4';
+                card.className = 'glass-panel p-4 flex flex-col justify-between gap-3';
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-center mb-2">
-                            <div class="flex items-center gap-2.5">
-                                <span class="text-xl">${categoryIcons[cat] || '📁'}</span>
-                                <h4 class="font-bold text-sm">${cat}</h4>
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">${categoryIcons[cat] || '📁'}</span>
+                                <h4 class="font-bold text-xs">${cat}</h4>
                             </div>
-                            <span class="text-xs px-2 py-0.5 rounded-full font-semibold ${isExceeded ? 'bg-rose-500/20 text-rose-500' : 'bg-black/5 dark:bg-white/5 opacity-70'}">${isExceeded ? 'Estourado!' : `${pct.toFixed(0)}%`}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold ${isExceeded ? 'bg-rose-500/20 text-rose-500' : 'bg-black/5 dark:bg-white/5 opacity-70'}">${isExceeded ? 'Estourado!' : `${pct.toFixed(0)}%`}</span>
                         </div>
-                        <div class="space-y-1.5 my-3">
-                            <div class="flex justify-between text-xs opacity-70">
+                        <div class="space-y-1 my-2">
+                            <div class="flex justify-between text-[11px] opacity-70">
                                 <span>Gasto: <strong class="${isExceeded ? 'text-rose-500' : ''}">${formatCurrency(spent)}</strong></span>
                                 <span>Teto: <strong>${limit > 0 ? formatCurrency(limit) : 'Não definido'}</strong></span>
                             </div>
-                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2 overflow-hidden">
+                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-1.5 overflow-hidden">
                                 <div class="h-full rounded-full transition-all duration-500 ${isExceeded ? 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)]' : 'bg-indigo-500'}" style="width: ${pct}%"></div>
                             </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 pt-2 border-t border-black/10 dark:border-white/10">
-                        <input type="number" id="budgetInput_${cat}" min="0" step="50" value="${limit > 0 ? limit : ''}" placeholder="Definir teto (R$)" class="w-full px-3 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-xs outline-none focus:border-indigo-500">
-                        <button onclick="saveCategoryBudget('${cat}')" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shrink-0">Salvar</button>
+                        <input type="number" id="budgetInput_${cat}" min="0" step="50" value="${limit > 0 ? limit : ''}" placeholder="Teto (R$)" class="w-full px-2.5 py-1.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-xs outline-none focus:border-indigo-500">
+                        <button onclick="saveCategoryBudget('${cat}')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shrink-0">Salvar</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -2014,53 +1997,53 @@
                 const diffTime = deadlineDate - today;
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 
-                let deadlineText = `${diffDays} dias restantes`;
+                let deadlineText = `${diffDays} dias`;
                 let deadlineBadgeColor = 'bg-indigo-500/10 text-indigo-500';
                 if (diffDays < 0) {
-                    deadlineText = 'Prazo encerrado';
+                    deadlineText = 'Expirada';
                     deadlineBadgeColor = 'bg-rose-500/10 text-rose-500';
                 } else if (diffDays === 0) {
-                    deadlineText = 'Vence hoje!';
+                    deadlineText = 'Hoje!';
                     deadlineBadgeColor = 'bg-amber-500/10 text-amber-500';
                 }
 
                 const isCompleted = goal.currentValue >= goal.targetValue;
 
                 const card = document.createElement('div');
-                card.className = 'goal-card-item glass-panel p-6 flex flex-col justify-between relative overflow-hidden group';
+                card.className = 'goal-card-item glass-panel p-5 flex flex-col justify-between relative overflow-hidden group';
                 card.innerHTML = `
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-2xl shadow-sm shrink-0">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-10 h-10 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-xl shadow-sm shrink-0">
                                     ${goal.icon || '🎯'}
                                 </div>
                                 <div class="overflow-hidden">
-                                    <h3 class="font-bold text-base truncate">${goal.title}</h3>
-                                    <span class="text-xs px-2 py-0.5 rounded-full font-medium ${deadlineBadgeColor}">${deadlineText}</span>
+                                    <h3 class="font-bold text-sm truncate">${goal.title}</h3>
+                                    <span class="text-[10px] px-2 py-0.5 rounded-full font-medium ${deadlineBadgeColor}">${deadlineText}</span>
                                 </div>
                             </div>
-                            <button onclick="removeGoal('${goal.id}')" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center shrink-0"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <button onclick="removeGoal('${goal.id}')" class="w-7 h-7 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center shrink-0"><i class="fa-solid fa-trash text-[10px]"></i></button>
                         </div>
 
-                        <div class="space-y-3 my-4">
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-sm opacity-70">Progresso</span>
-                                <span class="text-sm font-bold ${isCompleted ? 'text-emerald-500' : ''}">${pct.toFixed(1)}%</span>
+                        <div class="space-y-2.5 my-3">
+                            <div class="flex justify-between items-baseline text-xs">
+                                <span class="opacity-70">Progresso</span>
+                                <span class="font-bold ${isCompleted ? 'text-emerald-500' : ''}">${pct.toFixed(1)}%</span>
                             </div>
-                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-3 overflow-hidden p-0.5">
+                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2.5 overflow-hidden p-0.5">
                                 <div class="h-full rounded-full transition-all duration-700 ${isCompleted ? 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.6)]' : 'bg-gradient-to-r from-indigo-500 to-cyan-500'}" style="width: ${pct}%"></div>
                             </div>
-                            <div class="flex justify-between text-xs opacity-70">
+                            <div class="flex justify-between text-[11px] opacity-70">
                                 <span>Guardado: <strong class="text-emerald-500">${formatCurrency(goal.currentValue)}</strong></span>
                                 <span>Alvo: <strong>${formatCurrency(goal.targetValue)}</strong></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-black/10 dark:border-white/10 flex gap-2">
-                        <button onclick="openContribModal('${goal.id}')" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-xs transition shadow-md flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-plus-circle"></i> Movimentar
+                    <div class="pt-3 border-t border-black/10 dark:border-white/10 flex gap-2">
+                        <button onclick="openContribModal('${goal.id}')" class="flex-1 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-xs transition shadow-md flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-plus-circle text-[10px]"></i> Movimentar
                         </button>
                     </div>
                 `;
@@ -2260,7 +2243,7 @@
 
             filtered.forEach(item => {
                 const li = document.createElement('li');
-                li.className = 'expense-item flex justify-between items-center p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl border border-transparent hover:border-black/10 dark:hover:border-white/10 transition-colors cursor-default';
+                li.className = 'expense-item flex justify-between items-center p-2.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl border border-transparent hover:border-black/10 dark:hover:border-white/10 transition-colors cursor-default';
                 let iconClass = 'fa-arrow-trend-up text-emerald-500', valColor = 'text-emerald-500', sign = '+ ';
                 const dateTimeStr = (item.date ? item.date.split('-').reverse().join('/') : '') + (item.time ? ` • 🕒 ${item.time.slice(0, 5)}` : '');
                 let subtitle = `${categoryIcons[item.category] || '📁'} ${item.category} (Ganho) • ${dateTimeStr}`;
@@ -2273,18 +2256,18 @@
                 }
 
                 li.innerHTML = `
-                    <div class="flex items-center gap-4 overflow-hidden">
-                        <div class="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0"><i class="fa-solid ${iconClass}"></i></div>
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="w-9 h-9 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0"><i class="fa-solid ${iconClass} text-xs"></i></div>
                         <div class="overflow-hidden">
-                            <p class="text-sm font-semibold flex items-center gap-2 truncate"><span class="truncate">${item.description}</span>${item.recurrent ? '<span class="text-[10px] bg-indigo-500/20 text-indigo-500 px-2 py-0.5 rounded-full">Fixa</span>' : ''}</p>
-                            <p class="text-xs opacity-70 truncate mt-0.5">${subtitle}</p>
+                            <p class="text-xs font-semibold flex items-center gap-1.5 truncate"><span class="truncate">${item.description}</span>${item.recurrent ? '<span class="text-[9px] bg-indigo-500/20 text-indigo-500 px-1.5 py-0.5 rounded-full">Fixa</span>' : ''}</p>
+                            <p class="text-[11px] opacity-70 truncate mt-0.5">${subtitle}</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-3 shrink-0">
-                        <span class="text-sm font-bold ${valColor}">${sign}${formatCurrency(item.value)}</span>
+                    <div class="flex items-center gap-2.5 shrink-0">
+                        <span class="text-xs font-bold ${valColor}">${sign}${formatCurrency(item.value)}</span>
                         <div class="flex gap-1">
-                            <button onclick="openEditModal('${item.id}')" class="w-7 h-7 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-pen text-[10px]"></i></button>
-                            <button onclick="removeItem('${item.id}', '${item.typeItem}')" class="w-7 h-7 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
+                            <button onclick="openEditModal('${item.id}')" class="w-6 h-6 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-pen text-[9px]"></i></button>
+                            <button onclick="removeItem('${item.id}', '${item.typeItem}')" class="w-6 h-6 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash-can text-[9px]"></i></button>
                         </div>
                     </div>`;
                 expensesList.appendChild(li);
@@ -2304,25 +2287,25 @@
                 emptyFullExpensesMsg.style.display = 'none';
                 expenses.forEach(item => {
                     const li = document.createElement('li');
-                    li.className = 'expense-tab-item flex justify-between items-center p-3.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl border border-transparent hover:border-black/10 dark:hover:border-white/10 transition-colors';
+                    li.className = 'expense-tab-item flex justify-between items-center p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl border border-transparent hover:border-black/10 dark:hover:border-white/10 transition-colors';
                     const dateTimeStr = (item.date ? item.date.split('-').reverse().join('/') : '') + (item.time ? ` • 🕒 ${item.time.slice(0, 5)}` : '');
                     const iconClass = item.type === 'wants' ? 'fa-martini-glass-citrus text-amber-500' : (item.type === 'savings' ? 'fa-credit-card text-emerald-500' : 'fa-house text-blue-500');
                     const payMethodDisplay = paymentIcons[item.paymentMethod] || `💳 ${item.paymentMethod || 'Pix'}`;
                     const subtitle = `${categoryIcons[item.category] || '📁'} ${item.category} • <span class="opacity-80">${payMethodDisplay}</span> • ${dateTimeStr}`;
 
                     li.innerHTML = `
-                        <div class="flex items-center gap-4 overflow-hidden">
-                            <div class="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0"><i class="fa-solid ${iconClass}"></i></div>
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0"><i class="fa-solid ${iconClass} text-xs"></i></div>
                             <div class="overflow-hidden">
-                                <p class="text-sm font-semibold flex items-center gap-2 truncate"><span class="truncate">${item.description}</span>${item.recurrent ? '<span class="text-[10px] bg-indigo-500/20 text-indigo-500 px-2 py-0.5 rounded-full">Fixa</span>' : ''}</p>
-                                <p class="text-xs opacity-70 truncate mt-0.5">${subtitle}</p>
+                                <p class="text-xs font-semibold flex items-center gap-1.5 truncate"><span class="truncate">${item.description}</span>${item.recurrent ? '<span class="text-[9px] bg-indigo-500/20 text-indigo-500 px-1.5 py-0.5 rounded-full">Fixa</span>' : ''}</p>
+                                <p class="text-[11px] opacity-70 truncate mt-0.5">${subtitle}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 shrink-0">
-                            <span class="text-sm font-bold text-rose-500">- ${formatCurrency(item.value)}</span>
+                        <div class="flex items-center gap-2.5 shrink-0">
+                            <span class="text-xs font-bold text-rose-500">- ${formatCurrency(item.value)}</span>
                             <div class="flex gap-1">
-                                <button onclick="openEditModal('${item.id}')" class="w-7 h-7 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-pen text-[10px]"></i></button>
-                                <button onclick="removeItem('${item.id}', 'expense')" class="w-7 h-7 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
+                                <button onclick="openEditModal('${item.id}')" class="w-6 h-6 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-pen text-[9px]"></i></button>
+                                <button onclick="removeItem('${item.id}', 'expense')" class="w-6 h-6 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash-can text-[9px]"></i></button>
                             </div>
                         </div>`;
                     fullExpensesList.appendChild(li);
@@ -2352,7 +2335,7 @@
                 expensesCategoryChartInstance = new Chart(ctx, {
                     type: 'doughnut',
                     data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] },
-                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'right', labels: { color: htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569', font: { size: 11 }, usePointStyle: true, boxWidth: 6, padding: 15 } } } }
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'right', labels: { color: htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569', font: { size: 10 }, usePointStyle: true, boxWidth: 5, padding: 10 } } } }
                 });
             }
         }
@@ -2370,23 +2353,23 @@
                 emptyFullGainsMsg.style.display = 'none';
                 gains.forEach(item => {
                     const li = document.createElement('li');
-                    li.className = 'gain-tab-item flex justify-between items-center p-3.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl border border-transparent hover:border-black/10 dark:hover:border-white/10 transition-colors';
+                    li.className = 'gain-tab-item flex justify-between items-center p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl border border-transparent hover:border-black/10 dark:border-white/10 transition-colors';
                     const dateTimeStr = (item.date ? item.date.split('-').reverse().join('/') : '') + (item.time ? ` • 🕒 ${item.time.slice(0, 5)}` : '');
                     const subtitle = `${categoryIcons[item.category] || '📁'} ${item.category} • ${dateTimeStr}`;
 
                     li.innerHTML = `
-                        <div class="flex items-center gap-4 overflow-hidden">
-                            <div class="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-arrow-trend-up text-emerald-500"></i></div>
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div class="w-9 h-9 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-arrow-trend-up text-emerald-500 text-xs"></i></div>
                             <div class="overflow-hidden">
-                                <p class="text-sm font-semibold truncate"><span class="truncate">${item.description}</span></p>
-                                <p class="text-xs opacity-70 truncate mt-0.5">${subtitle}</p>
+                                <p class="text-xs font-semibold truncate"><span class="truncate">${item.description}</span></p>
+                                <p class="text-[11px] opacity-70 truncate mt-0.5">${subtitle}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 shrink-0">
-                            <span class="text-sm font-bold text-emerald-500">+ ${formatCurrency(item.value)}</span>
+                        <div class="flex items-center gap-2.5 shrink-0">
+                            <span class="text-xs font-bold text-emerald-500">+ ${formatCurrency(item.value)}</span>
                             <div class="flex gap-1">
-                                <button onclick="openEditModal('${item.id}')" class="w-7 h-7 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-pen text-[10px]"></i></button>
-                                <button onclick="removeItem('${item.id}', 'gain')" class="w-7 h-7 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
+                                <button onclick="openEditModal('${item.id}')" class="w-6 h-6 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-pen text-[9px]"></i></button>
+                                <button onclick="removeItem('${item.id}', 'gain')" class="w-6 h-6 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash-can text-[9px]"></i></button>
                             </div>
                         </div>`;
                     fullGainsList.appendChild(li);
@@ -2416,7 +2399,7 @@
                 gainsCategoryChartInstance = new Chart(ctx, {
                     type: 'doughnut',
                     data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] },
-                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'right', labels: { color: htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569', font: { size: 11 }, usePointStyle: true, boxWidth: 6, padding: 15 } } } }
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'right', labels: { color: htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569', font: { size: 10 }, usePointStyle: true, boxWidth: 5, padding: 10 } } } }
                 });
             }
         }
@@ -2447,34 +2430,34 @@
                 const pct = card.limit > 0 ? Math.min((spent / card.limit) * 100, 100) : 0;
 
                 const cardDiv = document.createElement('div');
-                cardDiv.className = 'card-item glass-panel p-6 flex flex-col justify-between relative overflow-hidden group';
+                cardDiv.className = 'card-item glass-panel p-5 flex flex-col justify-between relative overflow-hidden group';
                 cardDiv.innerHTML = `
-                    <div class="absolute -right-6 -bottom-6 opacity-5 text-8xl font-bold pointer-events-none group-hover:scale-110 transition duration-500">
+                    <div class="absolute -right-6 -bottom-6 opacity-5 text-7xl font-bold pointer-events-none">
                         <i class="fa-regular fa-credit-card"></i>
                     </div>
                     <div>
-                        <div class="flex justify-between items-start mb-6">
+                        <div class="flex justify-between items-start mb-4">
                             <div>
-                                <span class="text-xs uppercase tracking-wider text-indigo-500 font-semibold">${card.brand}</span>
-                                <h3 class="text-xl font-bold mt-0.5">${card.name}</h3>
+                                <span class="text-[10px] uppercase tracking-wider text-indigo-500 font-semibold">${card.brand}</span>
+                                <h3 class="text-base font-bold mt-0.5">${card.name}</h3>
                             </div>
-                            <button onclick="removeCard('${card.id}')" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <button onclick="removeCard('${card.id}')" class="w-7 h-7 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition flex items-center justify-center"><i class="fa-solid fa-trash text-[10px]"></i></button>
                         </div>
-                        <div class="space-y-3 mb-6">
-                            <div class="flex justify-between text-sm">
+                        <div class="space-y-2.5 mb-4">
+                            <div class="flex justify-between text-xs">
                                 <span class="opacity-70">Fatura Atual:</span>
                                 <span class="font-bold text-rose-500">${formatCurrency(spent)}</span>
                             </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="opacity-70">Limite Disponível:</span>
+                            <div class="flex justify-between text-xs">
+                                <span class="opacity-70">Disponível:</span>
                                 <span class="font-bold text-emerald-500">${formatCurrency(available)}</span>
                             </div>
-                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-2 mt-2">
-                                <div class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+                            <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-1.5 mt-1">
+                                <div class="bg-indigo-500 h-1.5 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="pt-4 border-t border-black/10 dark:border-white/10 flex justify-between text-xs opacity-70">
+                    <div class="pt-3 border-t border-black/10 dark:border-white/10 flex justify-between text-[11px] opacity-70">
                         <span>Fechamento: Dia ${card.closingDay}</span>
                         <span>Vencimento: Dia ${card.dueDay}</span>
                     </div>
@@ -2489,7 +2472,7 @@
             const m = dbData.months[currentMonth];
 
             if (raioXTab === 'gain') {
-                container.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+                container.className = 'grid grid-cols-1 gap-2.5';
                 const gains = m.gains || [];
                 let byCategory = {};
                 let totalSum = 0;
@@ -2499,24 +2482,24 @@
                 });
 
                 if (Object.keys(byCategory).length === 0) {
-                    container.innerHTML = `<div class="p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 col-span-full text-center opacity-70"><p>Nenhum ganho registrado neste mês.</p></div>`;
+                    container.innerHTML = `<div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 col-span-full text-center opacity-70 text-xs"><p>Nenhum ganho registrado.</p></div>`;
                     return;
                 }
 
                 Object.entries(byCategory).forEach(([cat, val]) => {
                     const pct = totalSum > 0 ? ((val / totalSum) * 100).toFixed(1) : 0;
                     container.innerHTML += `
-                        <div class="p-4 rounded-2xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex flex-col justify-between">
-                            <div class="flex justify-between items-center mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-wallet text-emerald-500"></i></div>
-                                    <span class="font-semibold text-sm">${cat}</span>
+                        <div class="p-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-2.5">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0"><i class="fa-solid fa-wallet text-emerald-500 text-xs"></i></div>
+                                    <span class="font-semibold text-xs">${cat}</span>
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between items-baseline mb-2">
-                                    <span class="text-base font-bold text-emerald-500">${formatCurrency(val)}</span>
-                                    <span class="text-xs opacity-70">${pct}%</span>
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <span class="text-xs font-bold text-emerald-500">${formatCurrency(val)}</span>
+                                    <span class="text-[11px] opacity-70">${pct}%</span>
                                 </div>
                                 <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-1.5">
                                     <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
@@ -2526,7 +2509,7 @@
                     `;
                 });
             } else {
-                container.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+                container.className = 'grid grid-cols-1 gap-2.5';
                 const totals = { 
                     'Pix': { label: '💠 Pix', total: 0, count: 0, icon: 'fa-bolt', color: 'text-teal-500', bg: 'bg-teal-500/10' }, 
                     'Débito': { label: '💳 Débito', total: 0, count: 0, icon: 'fa-wallet', color: 'text-blue-500', bg: 'bg-blue-500/10' }, 
@@ -2552,27 +2535,27 @@
 
                 const activeTotals = Object.values(totals).filter(d => d.count > 0);
                 if (activeTotals.length === 0) {
-                    container.innerHTML = `<div class="p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 col-span-full text-center opacity-70"><p>Nenhuma despesa registrada neste mês.</p></div>`;
+                    container.innerHTML = `<div class="p-4 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 col-span-full text-center opacity-70 text-xs"><p>Nenhuma despesa registrada.</p></div>`;
                     return;
                 }
 
                 activeTotals.forEach(data => {
                     const pct = totalSum > 0 ? ((data.total / totalSum) * 100).toFixed(1) : 0;
                     container.innerHTML += `
-                        <div class="p-4 rounded-2xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex flex-col justify-between">
-                            <div class="flex justify-between items-center mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-xl ${data.bg} flex items-center justify-center shrink-0">
-                                        <i class="fa-solid ${data.icon} ${data.color}"></i>
+                        <div class="p-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-2.5">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-7 h-7 rounded-lg ${data.bg} flex items-center justify-center shrink-0">
+                                        <i class="fa-solid ${data.icon} ${data.color} text-xs"></i>
                                     </div>
-                                    <span class="font-semibold text-sm">${data.label}</span>
+                                    <span class="font-semibold text-xs">${data.label}</span>
                                 </div>
-                                <span class="text-xs font-medium opacity-70">${data.count} itens</span>
+                                <span class="text-[10px] font-medium opacity-70">${data.count} itens</span>
                             </div>
                             <div>
-                                <div class="flex justify-between items-baseline mb-2">
-                                    <span class="text-base font-bold text-rose-500">${formatCurrency(data.total)}</span>
-                                    <span class="text-xs opacity-70">${pct}%</span>
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <span class="text-xs font-bold text-rose-500">${formatCurrency(data.total)}</span>
+                                    <span class="text-[11px] opacity-70">${pct}%</span>
                                 </div>
                                 <div class="w-full bg-black/10 dark:bg-white/10 rounded-full h-1.5">
                                     <div class="bg-indigo-500 h-1.5 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
@@ -2595,11 +2578,11 @@
 
         function updateDynamicStatus(stats) {
             const expRatio = stats.income > 0 ? stats.total / stats.income : 0, dayOfMonth = new Date().getDate();
-            let emoji = '☕', mainText = 'Aguardando', subText = 'Café na mesa, inicie!';
+            let emoji = '☕', mainText = 'Aguardando', subText = 'Inicie o ciclo!';
             if ((dbData.months[currentMonth].expenses || []).length > 0) {
                 if (stats.total > stats.income) { emoji = '🚨'; mainText = 'Estourado'; subText = 'Alerta vermelho no caixa!'; }
                 else if (expRatio > 0.85) { emoji = '👀'; mainText = 'Atenção'; subText = 'Ritmo acelerado, freia!'; }
-                else if (dayOfMonth >= 15 && expRatio < 0.45) { emoji = '🚀'; mainText = 'Voando Alto'; subText = 'Caixa blindado e livre!'; }
+                else if (dayOfMonth >= 15 && expRatio < 0.45) { emoji = '🚀'; mainText = 'Voando Alto'; subText = 'Caixa blindado!'; }
                 else if (dayOfMonth >= 20 && expRatio < 0.7) { emoji = '💎'; mainText = 'Diamante'; subText = 'Gestão impecável!'; }
                 else { emoji = '🎯'; mainText = 'Na Rota'; subText = 'Controle equilibrado'; }
             }
@@ -2626,7 +2609,7 @@
             emptyState.style.opacity = '0';
             if (chartInstance) { chartInstance.data.labels = labels; chartInstance.data.datasets[0].data = data; chartInstance.update(); }
             else {
-                chartInstance = new Chart(ctx, { type: 'doughnut', data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'right', labels: { color: htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569', font: { size: 11 }, usePointStyle: true, boxWidth: 6, padding: 15 } } } } });
+                chartInstance = new Chart(ctx, { type: 'doughnut', data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'right', labels: { color: htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569', font: { size: 10 }, usePointStyle: true, boxWidth: 5, padding: 10 } } } } });
             }
         }
 
@@ -2645,7 +2628,7 @@
                 timelineChartInstance = new Chart(ctx, {
                     type: 'bar',
                     data: { labels, datasets: [{ label: 'Gastos Acumulados', data, backgroundColor: '#6366f1', borderRadius: 4, barPercentage: 0.5 }] },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: tickColor }, grid: { display: false } }, y: { ticks: { color: tickColor }, grid: { color: htmlElement.classList.contains('dark') ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' } } } }
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: tickColor, font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: tickColor, font: { size: 10 } }, grid: { color: htmlElement.classList.contains('dark') ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' } } } }
                 });
             }
         }
@@ -2657,7 +2640,7 @@
             sortedMonths.forEach(mStr => {
                 const inc = getMonthTotalIncome(mStr), exp = (dbData.months[mStr].expenses || []).reduce((a, b) => a + b.value, 0), rem = inc - exp, accBal = getMonthFinalAccountBalance(mStr);
                 const monthName = new Date(mStr.split('-')[0], mStr.split('-')[1] - 1).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
-                tbody.innerHTML += `<tr class="border-b border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition"><td class="py-3 px-2 capitalize">${monthName}</td><td class="py-3 px-2 text-emerald-500 font-medium">${formatCurrency(inc)}</td><td class="py-3 px-2 text-rose-500 font-medium">${formatCurrency(exp)}</td><td class="py-3 px-2 font-bold ${rem >= 0 ? 'text-emerald-500' : 'text-rose-500'}">${formatCurrency(rem)}</td><td class="py-3 px-2 font-bold text-cyan-500">${formatCurrency(accBal)}</td></tr>`;
+                tbody.innerHTML += `<tr class="border-b border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition"><td class="py-2.5 px-2 capitalize">${monthName}</td><td class="py-2.5 px-2 text-emerald-500 font-medium">${formatCurrency(inc)}</td><td class="py-2.5 px-2 text-rose-500 font-medium">${formatCurrency(exp)}</td><td class="py-2.5 px-2 font-bold ${rem >= 0 ? 'text-emerald-500' : 'text-rose-500'}">${formatCurrency(rem)}</td><td class="py-2.5 px-2 font-bold text-cyan-500">${formatCurrency(accBal)}</td></tr>`;
             });
         }
 
