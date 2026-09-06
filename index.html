@@ -6,7 +6,7 @@
     <title>Dashboard Financeiro Pessoal | Liquid Glass</title>
     
     <!-- Apple PWA & Home Screen Icon Configuration ("F de Fluxo") -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e1b4b'/%3E%3Cstop offset='50%25' stop-color='%234c1d95'/%3E%3Cstop offset='100%25' stop-color='%230891b2'/%3E%3C/linearGradient%3E%3ClinearGradient id='glass' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='rgba(255,255,255,0.9)'/%3E%3Cstop offset='100%25' stop-color='rgba(255,255,255,0.25)'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='8' result='blur'/%3E%3CfeMerge%3E%3CfeMergeNode in='blur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Cpath d='M70 380 L180 270 L280 320 L390 190 L450 130' fill='none' stroke='%2322d3ee' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' filter='url(%23glow)' opacity='0.9'/%3E%3Ctext x='360' y='360' fill='%23c084fc' font-size='96' font-weight='bold' font-family='sans-serif' filter='url(%23glow)' opacity='0.85'%3E%24%3C/text%3E%3Cpath d='M160 110 H370 V180 H235 V235 H350 V305 H235 V420 H160 Z' fill='url(%23glass)' stroke='rgba(255,255,255,0.8)' stroke-width='6' filter='url(%23glow)'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e1b4b'/%3E%3Cstop offset='50%25' stop-color='%234c1d95'/%3E%3Cstop offset='100%25' stop-color='%230891b2'/%3E%3C/linearGradient%3E%3ClinearGradient id='glass' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='rgba(255,255,255,0.9)'/%3E%3Cstop offset='100%25' stop-color='rgba(255,255,255,0.25)'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='8' result='blur'/%3E%3CfeMerge%3E%3CfeMergeNode in='blur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Cpath d='M70 380 L180 270 L280 320 L390 190 L450 130' fill='none' stroke='%2322d3ee' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' filter='url(%23glow)' opacity='0.9'/%3E%3Ctext x='360' y='360' fill='%23c084fc' font-size='96' font-weight='bold' font-family='sans-serif' filter='url(%23glow)' opacity='0.85'%3E%24%3E%24%3C/text%3E%3Cpath d='M160 110 H370 V180 H235 V235 H350 V305 H235 V420 H160 Z' fill='url(%23glass)' stroke='rgba(255,255,255,0.8)' stroke-width='6' filter='url(%23glow)'/%3E%3C/svg%3E">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FinDash IA">
@@ -1535,7 +1535,98 @@
             }
         }
 
+        // Generate Apple Touch Icon dynamically via canvas to ensure iOS Safari renders it perfectly as PNG
+        function generateAppleTouchIcon() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            const bgGrad = ctx.createLinearGradient(0, 0, 512, 512);
+            bgGrad.addColorStop(0, '#1e1b4b');
+            bgGrad.addColorStop(0.5, '#4c1d95');
+            bgGrad.addColorStop(1, '#0891b2');
+
+            ctx.save();
+            ctx.beginPath();
+            const rx = 115;
+            ctx.moveTo(rx, 0);
+            ctx.lineTo(512 - rx, 0);
+            ctx.quadraticCurveTo(512, 0, 512, rx);
+            ctx.lineTo(512, 512 - rx);
+            ctx.quadraticCurveTo(512, 512, 512 - rx, 512);
+            ctx.lineTo(rx, 512);
+            ctx.quadraticCurveTo(0, 512, 0, 512 - rx);
+            ctx.lineTo(0, rx);
+            ctx.quadraticCurveTo(0, 0, rx, 0);
+            ctx.closePath();
+            ctx.fillStyle = bgGrad;
+            ctx.fill();
+            ctx.restore();
+
+            ctx.save();
+            ctx.shadowColor = '#22d3ee';
+            ctx.shadowBlur = 16;
+            ctx.strokeStyle = '#22d3ee';
+            ctx.lineWidth = 12;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.moveTo(70, 380);
+            ctx.lineTo(180, 270);
+            ctx.lineTo(280, 320);
+            ctx.lineTo(390, 190);
+            ctx.lineTo(450, 130);
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.save();
+            ctx.shadowColor = '#c084fc';
+            ctx.shadowBlur = 16;
+            ctx.fillStyle = '#c084fc';
+            ctx.font = 'bold 96px sans-serif';
+            ctx.fillText('$', 330, 380);
+            ctx.restore();
+
+            ctx.save();
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
+            ctx.shadowBlur = 16;
+            const glassGrad = ctx.createLinearGradient(160, 110, 370, 420);
+            glassGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+            glassGrad.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
+            
+            ctx.fillStyle = glassGrad;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.lineWidth = 6;
+            
+            ctx.beginPath();
+            ctx.moveTo(160, 110);
+            ctx.lineTo(370, 110);
+            ctx.lineTo(370, 180);
+            ctx.lineTo(235, 180);
+            ctx.lineTo(235, 235);
+            ctx.lineTo(350, 235);
+            ctx.lineTo(350, 305);
+            ctx.lineTo(235, 305);
+            ctx.lineTo(235, 420);
+            ctx.lineTo(160, 420);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+
+            const dataUrl = canvas.toDataURL('image/png');
+            let appleIconLink = document.querySelector('link[rel="apple-touch-icon"]');
+            if (!appleIconLink) {
+                appleIconLink = document.createElement('link');
+                appleIconLink.rel = 'apple-touch-icon';
+                document.head.appendChild(appleIconLink);
+            }
+            appleIconLink.href = dataUrl;
+        }
+
         function init() {
+            generateAppleTouchIcon();
             renderUserProfileBox();
             currentMonthInput.value = currentMonth;
             setDefaultDateForCurrentMonth();
