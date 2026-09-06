@@ -93,7 +93,6 @@
             border-color: rgba(99, 102, 241, 0.3);
         }
 
-        /* High blur and opaque backing for profile dropdown menu */
         #userDropdownMenu {
             backdrop-filter: blur(40px) saturate(200%);
             -webkit-backdrop-filter: blur(40px) saturate(200%);
@@ -187,7 +186,7 @@
                     <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
                 </div>
                 
-                <!-- PROFILE SWITCHER DROPDOWN (HIGH BLUR) -->
+                <!-- PROFILE SWITCHER DROPDOWN -->
                 <div id="userDropdownMenu" class="absolute top-full left-0 right-0 mt-2 glass-panel p-2 hidden z-50 flex flex-col gap-1 shadow-2xl">
                     <div class="px-2 py-1 text-[10px] uppercase font-bold tracking-wider opacity-60">Alternar Perfil</div>
                     <div id="profilesListContainer" class="flex flex-col gap-1 max-h-40 overflow-y-auto">
@@ -208,7 +207,7 @@
                 <div class="bg-indigo-600/95 text-white p-2.5 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.5)]">
                     <i class="fa-solid fa-chart-pie"></i>
                 </div>
-                <span>FinDash</span>
+                <span>FinDash IA</span>
             </div>
 
             <nav class="nav-menu flex-1">
@@ -227,7 +226,7 @@
             <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-2">
                 <div>
                     <h1 id="page-title" class="text-3xl font-bold mb-1">Visão Geral</h1>
-                    <p class="text-sm opacity-70">Controle financeiro inteligente</p>
+                    <p class="text-sm opacity-70">Controle financeiro com assistente inteligente</p>
                 </div>
 
                 <div class="flex flex-wrap items-center gap-3">
@@ -259,6 +258,32 @@
                  VIEW 1: PAINEL 
             ================================================ -->
             <div id="view-painel" class="view-section active flex-col gap-6 w-full">
+                
+                <!-- AI QUICK NATURAL LANGUAGE ENTRY BOX -->
+                <section class="glass-panel p-5 relative overflow-hidden bg-gradient-to-r from-indigo-900/20 via-transparent to-cyan-900/20 border border-indigo-500/30">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3 w-full md:w-auto">
+                            <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30">
+                                <i class="fa-solid fa-robot text-lg animate-pulse"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-sm font-bold">Adicionar Rápido com IA & Parcelas</h2>
+                                <p class="text-xs opacity-70">Ex: <span class="italic text-indigo-400">"50 diesel"</span>, <span class="italic text-indigo-400">"300 parcelado em 3x no cartao"</span>, <span class="italic text-indigo-400">"salario 3500"</span></p>
+                            </div>
+                        </div>
+                        <form id="quickAiForm" class="flex items-center gap-2 w-full md:w-auto flex-1 max-w-xl">
+                            <div class="relative flex-1">
+                                <input type="text" id="quickAiInput" placeholder="Digite o gasto ou ganho de forma natural..." class="w-full bg-black/10 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition pl-11">
+                                <i class="fa-solid fa-bolt absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400 text-xs"></i>
+                            </div>
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-3 rounded-2xl text-sm transition shadow-lg shadow-indigo-600/30 flex items-center gap-2 shrink-0">
+                                <span>Lançar</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
                 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     <div class="glass-panel p-6 flex flex-col justify-between">
                         <div class="flex justify-between items-start mb-4">
@@ -867,7 +892,6 @@
             });
         }
 
-        // Profile Modal triggers
         const profileModal = document.getElementById('profileModal');
         const userDropdownMenu = document.getElementById('userDropdownMenu');
 
@@ -1117,6 +1141,175 @@
             }, 250);
         }
 
+        // --- ENHANCED AI NATURAL LANGUAGE PARSER & INSTALLMENTS ENGINE ---
+        function processNaturalLanguageAI(text) {
+            text = text.trim();
+            if (!text) return null;
+
+            let lowerText = text.toLowerCase();
+
+            // Detect installments (e.g. "3x", "parcelado em 3x", "vezes 3")
+            let installments = 1;
+            const instRegex1 = /(\d+)\s*x/i;
+            const instRegex2 = /parcelado(?:\s+em)?\s*(\d+)/i;
+            const instRegex3 = /(\d+)\s*vezes/i;
+
+            let instMatch = text.match(instRegex1) || text.match(instRegex2) || text.match(instRegex3);
+            if (instMatch) {
+                let parsedInst = parseInt(instMatch[1]);
+                if (parsedInst > 1 && parsedInst <= 48) {
+                    installments = parsedInst;
+                }
+            }
+
+            let cleanTextForNumber = text.replace(/\./g, '').replace(',', '.');
+            let numberMatch = cleanTextForNumber.match(/(\d+(\.\d+)?)/);
+            
+            let val = 0;
+            if (numberMatch) {
+                val = parseFloat(numberMatch[0]);
+            } else {
+                let commaMatch = text.match(/(\d+[\d\.,]*)/);
+                if (commaMatch) {
+                    val = parseFloat(commaMatch[0].replace('.', '').replace(',', '.'));
+                }
+            }
+
+            if (isNaN(val) || val <= 0) {
+                val = 0.00;
+            }
+
+            let desc = text;
+            if (numberMatch) desc = desc.replace(numberMatch[0], '');
+            if (instMatch) desc = desc.replace(instMatch[0], '');
+            desc = desc.replace(/parcelado|em|x|vezes|no|cartão|cartao|credito|crédito/gi, '').trim();
+            if (!desc) desc = "Lançamento Rápido IA";
+            desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+
+            let category = "Outros";
+            let type = "expense";
+
+            // Expanded Keywords Dictionary
+            const gainKeywords = ["salario", "salário", "pix", "recebi", "ganho", "freela", "vendas", "venda", "cashback", "dividendo", "rendimento", "bônus", "13º"];
+            if (gainKeywords.some(kw => lowerText.includes(kw))) {
+                type = "gain";
+                category = "Vendas";
+            } else {
+                if (/(diesel|gasolina|posto|uber|99|táxi|taxi|pedágio|pedagio|ônibus|onibus|metrô|metro|estacionamento|carro|moto)/i.test(lowerText)) {
+                    category = "Transporte";
+                } else if (/(mercado|supermercado|padaria|ifood|restaurante|lanche|almoço|almoco|jantar|café|cafe|pizza|burger|hamburguer|feira)/i.test(lowerText)) {
+                    category = "Alimentação";
+                } else if (/(aluguel|luz|água|agua|internet|gás|gas|condomínio|condominio|iptv)/i.test(lowerText)) {
+                    category = "Moradia";
+                } else if (/(farmácia|farmacia|remédio|remedio|médico|medico|dentista|hospital|academia|pilates|crossfit)/i.test(lowerText)) {
+                    category = "Saúde";
+                } else if (/(netflix|spotify|amazon|disney|cinema|jogo|steam|bar|cerveja|viagem|hotel|lazer|passeio)/i.test(lowerText)) {
+                    category = "Lazer";
+                } else if (/(roupa|tênis|tenis|shopee|mercado livre|eletrônico|eletronico|celular|compras)/i.test(lowerText)) {
+                    category = "Compras";
+                } else if (/(petshop|ração|racao|veterinário|veterinario|pet)/i.test(lowerText)) {
+                    category = "Outros";
+                }
+            }
+
+            // Payment Method & Credit Card matching
+            let paymentMethod = 'Pix';
+            if (type === 'expense') {
+                const hasCardMention = /(cartão|cartao|crédito|credito)/i.test(lowerText);
+                let matchedCard = null;
+                if (dbData.cards && dbData.cards.length > 0) {
+                    matchedCard = dbData.cards.find(c => lowerText.includes(c.name.toLowerCase()));
+                }
+
+                if (matchedCard) {
+                    paymentMethod = `Cartão: ${matchedCard.name}`;
+                } else if (hasCardMention || installments > 1) {
+                    if (dbData.cards && dbData.cards.length > 0) {
+                        paymentMethod = `Cartão: ${dbData.cards[0].name}`;
+                    } else {
+                        paymentMethod = 'Cartão: Crédito';
+                    }
+                }
+            }
+
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const timeStr = now.toTimeString().split(' ')[0].slice(0, 5);
+
+            return {
+                id: generateId(),
+                typeItem: type,
+                description: desc,
+                category: category,
+                paymentMethod: paymentMethod,
+                date: dateStr,
+                time: timeStr,
+                value: val || 10.00,
+                installments: type === 'expense' ? installments : 1,
+                type: type === 'expense' ? (dbData.categories[category] || 'wants') : 'gain',
+                recurrent: false,
+                createdAt: Date.now()
+            };
+        }
+
+        function addAiItem(textInput) {
+            const item = processNaturalLanguageAI(textInput);
+            if (!item) return;
+
+            const numInstallments = item.installments || 1;
+            const totalVal = item.value;
+            const installmentGroupId = numInstallments > 1 ? generateId() : null;
+            const baseVal = Math.floor((totalVal / numInstallments) * 100) / 100;
+
+            for (let i = 0; i < numInstallments; i++) {
+                let currentVal = baseVal;
+                if (i === numInstallments - 1) {
+                    const sumPrevious = baseVal * (numInstallments - 1);
+                    currentVal = Math.round((totalVal - sumPrevious) * 100) / 100;
+                }
+
+                const installmentDate = addMonthsToDateString(item.date, i);
+                const targetMonth = installmentDate.slice(0, 7);
+                ensureMonthExists(targetMonth);
+
+                const installmentDesc = numInstallments > 1 ? `${item.description} (${i + 1}/${numInstallments})` : item.description;
+
+                const finalObj = {
+                    id: generateId(),
+                    installmentGroupId: installmentGroupId,
+                    typeItem: item.typeItem,
+                    description: installmentDesc,
+                    category: item.category,
+                    paymentMethod: item.paymentMethod,
+                    date: installmentDate,
+                    time: item.time,
+                    value: currentVal,
+                    type: item.type,
+                    recurrent: false,
+                    createdAt: Date.now() + i
+                };
+
+                if (item.typeItem === 'gain') {
+                    dbData.months[targetMonth].gains.push(finalObj);
+                } else {
+                    dbData.months[targetMonth].expenses.push(finalObj);
+                }
+            }
+
+            const targetMonth = item.date.slice(0, 7);
+            currentMonth = targetMonth;
+            currentMonthInput.value = currentMonth;
+
+            saveDB();
+            updateDashboard();
+
+            if (item.typeItem === 'gain') {
+                showNotification('gain', `IA: +${formatCurrency(totalVal)}`, `Ganho registrado em "${item.category}".`);
+            } else {
+                showNotification('expense', `IA: -${formatCurrency(totalVal)}`, numInstallments > 1 ? `Parcelado em ${numInstallments}x no ${item.paymentMethod}.` : `Despesa categorizada em "${item.category}".`);
+            }
+        }
+
         function init() {
             renderUserProfileBox();
             currentMonthInput.value = currentMonth;
@@ -1135,6 +1328,16 @@
                     timeInput.value = now.toTimeString().slice(0, 5);
                 }
             }, 1000);
+
+            // AI Quick Input Form Listener
+            document.getElementById('quickAiForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = document.getElementById('quickAiInput');
+                if (input.value.trim()) {
+                    addAiItem(input.value);
+                    input.value = '';
+                }
+            });
 
             currentMonthInput.addEventListener('change', (e) => {
                 currentMonth = e.target.value;
