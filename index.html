@@ -2,11 +2,14 @@
 <html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0d16">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
     <title>Dashboard Financeiro Pessoal | Liquid Glass</title>
     
     <!-- Apple PWA & Home Screen Icon Configuration ("F de Fluxo") -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e1b4b'/%3E%3Cstop offset='50%25' stop-color='%234c1d95'/%3E%3Cstop offset='100%25' stop-color='%230891b2'/%3E%3C/linearGradient%3E%3ClinearGradient id='glass' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='rgba(255,255,255,0.9)'/%3E%3Cstop offset='100%25' stop-color='rgba(255,255,255,0.25)'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='8' result='blur'/%3E%3CfeMerge%3E%3CfeMergeNode in='blur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Cpath d='M70 380 L180 270 L280 320 L390 190 L450 130' fill='none' stroke='%2322d3ee' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' filter='url(%23glow)' opacity='0.9'/%3E%3Ctext x='360' y='360' fill='%23c084fc' font-size='96' font-weight='bold' font-family='sans-serif' filter='url(%23glow)' opacity='0.85'%3E%24%3E%24%3C/text%3E%3Cpath d='M160 110 H370 V180 H235 V235 H350 V305 H235 V420 H160 Z' fill='url(%23glass)' stroke='rgba(255,255,255,0.8)' stroke-width='6' filter='url(%23glow)'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e1b4b'/%3E%3Cstop offset='50%25' stop-color='%234c1d95'/%3E%3Cstop offset='100%25' stop-color='%230891b2'/%3E%3C/linearGradient%3E%3ClinearGradient id='glass' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='rgba(255,255,255,0.9)'/%3E%3Cstop offset='100%25' stop-color='rgba(255,255,255,0.25)'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='8' result='blur'/%3E%3CfeMerge%3E%3CfeMergeNode in='blur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Cpath d='M70 380 L180 270 L280 320 L390 190 L450 130' fill='none' stroke='%2322d3ee' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' filter='url(%23glow)' opacity='0.9'/%3E%3Ctext x='360' y='360' fill='%23c084fc' font-size='96' font-weight='bold' font-family='sans-serif' filter='url(%23glow)' opacity='0.85'%3E%24%3C/text%3E%3Cpath d='M160 110 H370 V180 H235 V235 H350 V305 H235 V420 H160 Z' fill='url(%23glass)' stroke='rgba(255,255,255,0.8)' stroke-width='6' filter='url(%23glow)'/%3E%3C/svg%3E">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FinDash IA">
@@ -191,6 +194,254 @@
             }
             .main-content { margin-left: 0; padding: 14px; }
         }
+
+        /* ==================================================================
+           OTIMIZAÇÕES PARA MOBILE / iOS (Safari, PWA em tela de início)
+        ================================================================== */
+
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            min-height: 100dvh; /* considera a barra dinâmica do Safari no iOS */
+            overscroll-behavior-y: none; /* evita o "puxão" de recarregar/mostrar fundo no bounce */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Remove o retângulo cinza que o iOS mostra ao tocar em links/botões */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a, button, .nav-item, label {
+            touch-action: manipulation; /* resposta mais rápida ao toque, sem zoom de duplo-tap */
+        }
+
+        /* O Safari no iOS dá zoom automático ao focar em <input>/<select> com fonte < 16px.
+           Forçamos 16px apenas em telas pequenas para impedir esse zoom indesejado. */
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        /* Scroll nativo (inercial) e sem "vazamento" de rolagem para o fundo da página,
+           dentro de listas, tabelas e modais */
+        [class~="overflow-y-auto"],
+        [class~="overflow-x-auto"] {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        /* Respeita a área segura (notch, Dynamic Island e barra de gestos) do iPhone */
+        .sidebar {
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-left: max(20px, env(safe-area-inset-left));
+        }
+        .main-content {
+            padding-bottom: max(24px, env(safe-area-inset-bottom));
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                padding-top: max(14px, env(safe-area-inset-top));
+                padding-left: max(14px, env(safe-area-inset-left));
+                padding-right: max(14px, env(safe-area-inset-right));
+            }
+            .main-content {
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+                padding-left: max(14px, env(safe-area-inset-left));
+                padding-right: max(14px, env(safe-area-inset-right));
+            }
+        }
+
+        /* Modais: respeitam a área segura e não deixam a página de fundo rolar/"vazar"
+           quando o teclado do iOS abre ou durante o bounce de rolagem */
+        #profileModal, #profileLoginModal, #novaMetaModal, #contribuirMetaModal,
+        #novoCartaoModal, #novaTransacaoModal, #historyModal, #editModal,
+        #novaAssinaturaModal, #categoryModal, #infoModal, #githubSyncModal {
+            padding-top: max(16px, env(safe-area-inset-top));
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+            overscroll-behavior: contain;
+        }
+        #profileModal > .glass-panel, #profileLoginModal > .glass-panel, #novaMetaModal > .glass-panel,
+        #contribuirMetaModal > .glass-panel, #novoCartaoModal > .glass-panel, #novaTransacaoModal > .glass-panel,
+        #historyModal > .glass-panel, #editModal > .glass-panel, #novaAssinaturaModal > .glass-panel,
+        #categoryModal > .glass-panel, #infoModal > .glass-panel, #githubSyncModal > .glass-panel {
+            max-height: 90dvh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* ==================================================================
+           DOCK DE NAVEGAÇÃO INFERIOR (estilo "dock" para mobile/tablet),
+           reaproveitando as cores do projeto (glass-panel / nav-item)
+        ================================================================== */
+        .bottom-dock {
+            display: none; /* só aparece em telas <= 1024px, ver media query abaixo */
+        }
+
+        @media (max-width: 1024px) {
+            /* O menu horizontal antigo (dentro da sidebar) some, pois vira a dock inferior */
+            .sidebar .nav-menu {
+                display: none;
+            }
+
+            .bottom-dock {
+                display: flex;
+                position: fixed;
+                left: 50%;
+                bottom: max(14px, env(safe-area-inset-bottom));
+                transform: translateX(-50%);
+                z-index: 60;
+                max-width: calc(100vw - 24px);
+                padding: 8px 10px;
+                border-radius: 26px;
+            }
+            .bottom-dock-list {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 4px;
+                list-style: none;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .bottom-dock-list::-webkit-scrollbar { display: none; }
+            .bottom-dock .nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3px;
+                min-width: 56px;
+                padding: 7px 6px;
+                border-radius: 18px;
+                white-space: nowrap;
+            }
+            .bottom-dock .nav-item i {
+                font-size: 15px;
+            }
+            .bottom-dock .nav-item span {
+                font-size: 9px;
+                font-weight: 600;
+            }
+
+            /* Garante espaço no fim da página para a dock flutuante não cobrir conteúdo */
+            .main-content {
+                padding-bottom: max(96px, calc(env(safe-area-inset-bottom) + 84px)) !important;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .bottom-dock .nav-item {
+                min-width: 50px;
+                padding: 6px 5px;
+            }
+            .bottom-dock .nav-item span {
+                font-size: 8.5px;
+            }
+        }
+
+        /* ==================================================================
+           MENU DE AÇÕES DO CABEÇALHO (Tema/Histórico/Limpar/Backup/Importar/Privacidade)
+           Desktop: barra de ícones (como antes). Mobile: menu "kebab" compacto.
+        ================================================================== */
+        .header-more-btn {
+            display: none; /* só aparece em telas menores, ver media query abaixo */
+        }
+
+        .header-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5px;
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+        .dark .header-actions-group {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .header-action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 12px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .header-action-btn:hover { background: rgba(150, 150, 150, 0.12); }
+        .header-action-btn i { font-size: 12px; }
+        .header-action-btn span { display: none; } /* rótulos só aparecem no dropdown mobile */
+
+        @media (max-width: 1023px) {
+            .header-more-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 14px;
+                background: rgba(0, 0, 0, 0.05);
+                border: 1px solid var(--glass-border);
+                cursor: pointer;
+            }
+            .dark .header-more-btn { background: rgba(255, 255, 255, 0.05); }
+            .header-more-btn:hover { background: rgba(150, 150, 150, 0.15); }
+
+            .header-actions-group {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                flex-direction: column;
+                align-items: stretch;
+                width: 200px;
+                background: var(--dropdown-bg);
+                backdrop-filter: blur(40px) saturate(200%);
+                -webkit-backdrop-filter: blur(40px) saturate(200%);
+                border-radius: 20px;
+                padding: 8px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+                z-index: 200;
+                gap: 2px;
+            }
+            .header-actions-group.open { display: flex; }
+
+            .header-action-btn {
+                justify-content: flex-start;
+                gap: 10px;
+                padding: 10px 12px;
+                width: 100%;
+            }
+            .header-action-btn i { width: 16px; text-align: center; font-size: 13px; }
+            .header-action-btn span { display: inline; font-size: 12px; font-weight: 500; }
+        }
+
+        /* Alvos de toque maiores em telas pequenas — Apple recomenda mín. 44x44px */
+        @media (max-width: 640px) {
+            header button,
+            header label,
+            #userProfileTrigger,
+            .nav-item {
+                min-height: 40px;
+            }
+            #openNewTransactionBtn {
+                min-height: 44px;
+            }
+            #quickAiForm button[type="submit"] {
+                min-height: 44px;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -272,6 +523,19 @@
             </div>
         </aside>
 
+        <!-- DOCK DE NAVEGAÇÃO INFERIOR (somente mobile/tablet) -->
+        <nav id="bottomDock" class="bottom-dock glass-panel">
+            <ul class="bottom-dock-list">
+                <li><a class="nav-item active" data-target="view-painel" data-title="Visão Geral"><i class="fa-solid fa-border-all"></i><span>Painel</span></a></li>
+                <li><a class="nav-item" data-target="view-despesas" data-title="Gerenciamento de Despesas"><i class="fa-solid fa-arrow-trend-down"></i><span>Despesas</span></a></li>
+                <li><a class="nav-item" data-target="view-ganhos" data-title="Relatório de Ganhos"><i class="fa-solid fa-arrow-trend-up"></i><span>Ganhos</span></a></li>
+                <li><a class="nav-item" data-target="view-cartoes" data-title="Gerenciar Cartões"><i class="fa-regular fa-credit-card"></i><span>Cartões</span></a></li>
+                <li><a class="nav-item" data-target="view-metas" data-title="Metas & Objetivos"><i class="fa-solid fa-bullseye"></i><span>Metas</span></a></li>
+                <li><a class="nav-item" data-target="view-assinaturas" data-title="Assinaturas & Fixas"><i class="fa-solid fa-file-invoice-dollar"></i><span>Assinaturas</span></a></li>
+                <li><a class="nav-item" data-target="view-orcamentos" data-title="Orçamentos & Limites"><i class="fa-solid fa-sliders"></i><span>Orçamentos</span></a></li>
+            </ul>
+        </nav>
+
         <main class="main-content flex-1 flex flex-col gap-5">
             
             <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 mb-1">
@@ -280,26 +544,32 @@
                     <p class="text-xs lg:text-sm opacity-70">Controle financeiro com assistente inteligente</p>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-between lg:justify-end">
-                    <div class="flex items-center gap-1 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
-                        <button id="prevMonthBtn" class="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
-                        <input type="month" id="currentMonthInput" class="bg-transparent font-semibold text-xs lg:text-sm outline-none px-1 cursor-pointer [color-scheme:dark]">
-                        <button id="nextMonthBtn" class="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                <div class="flex flex-col lg:flex-row lg:items-center gap-2 w-full lg:w-auto">
+                    <div class="flex items-center justify-between lg:justify-start gap-2 w-full lg:w-auto">
+                        <div class="flex items-center gap-1 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm flex-1 lg:flex-none min-w-0">
+                            <button id="prevMonthBtn" class="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition shrink-0"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
+                            <input type="month" id="currentMonthInput" class="bg-transparent font-semibold text-xs lg:text-sm outline-none px-1 cursor-pointer [color-scheme:dark] w-full lg:w-auto min-w-0 text-center lg:text-left">
+                            <button id="nextMonthBtn" class="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition shrink-0"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                        </div>
+
+                        <div class="relative shrink-0">
+                            <button id="moreActionsBtn" title="Mais ações" class="header-more-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            <div id="actionsGroup" class="header-actions-group">
+                                <button id="themeToggleBtn" title="Alternar Tema" class="header-action-btn"><i class="fa-solid fa-moon" id="themeIcon"></i><span>Alternar Tema</span></button>
+                                <button id="historyBtn" title="Histórico" class="header-action-btn text-indigo-500"><i class="fa-solid fa-chart-column"></i><span>Histórico</span></button>
+                                <button id="clearMonthBtn" title="Limpar mês" class="header-action-btn text-rose-500"><i class="fa-solid fa-trash"></i><span>Limpar mês</span></button>
+                                <button id="exportBtn" title="Backup" class="header-action-btn"><i class="fa-solid fa-download"></i><span>Backup (exportar)</span></button>
+                                <label title="Importar" class="header-action-btn">
+                                    <i class="fa-solid fa-upload"></i><span>Importar</span>
+                                    <input type="file" id="importFile" accept=".json" class="hidden">
+                                </label>
+                                <button id="githubSyncBtn" title="Sincronizar com GitHub" class="header-action-btn"><i class="fa-brands fa-github"></i><span>Sincronizar GitHub</span></button>
+                                <button id="privacyToggle" title="Privacidade" class="header-action-btn"><i class="fa-solid fa-eye" id="privacyIcon"></i><span>Privacidade</span></button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="flex items-center gap-1.5 bg-black/5 dark:bg-white/5 backdrop-blur-md p-1.5 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm">
-                        <button id="themeToggleBtn" title="Alternar Tema" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-moon text-xs" id="themeIcon"></i></button>
-                        <button id="historyBtn" title="Histórico" class="p-2 rounded-xl hover:bg-indigo-500/20 text-indigo-500 transition"><i class="fa-solid fa-chart-column text-xs"></i></button>
-                        <button id="clearMonthBtn" title="Limpar mês" class="p-2 rounded-xl hover:bg-rose-500/20 text-rose-500 transition"><i class="fa-solid fa-trash text-xs"></i></button>
-                        <button id="exportBtn" title="Backup" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-download text-xs"></i></button>
-                        <label title="Importar" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition cursor-pointer">
-                            <i class="fa-solid fa-upload text-xs"></i>
-                            <input type="file" id="importFile" accept=".json" class="hidden">
-                        </label>
-                        <button id="privacyToggle" title="Privacidade" class="p-2 rounded-xl hover:bg-black/10 dark:hover:bg-white/10 transition"><i class="fa-solid fa-eye text-xs" id="privacyIcon"></i></button>
-                    </div>
-
-                    <button id="openNewTransactionBtn" class="px-4 py-2.5 lg:px-5 lg:py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-semibold shadow-[0_8px_20px_rgba(79,70,229,0.4)] transition flex items-center gap-2 text-xs lg:text-sm">
+                    <button id="openNewTransactionBtn" class="w-full lg:w-auto px-4 py-2.5 lg:px-5 lg:py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-semibold shadow-[0_8px_20px_rgba(79,70,229,0.4)] transition flex items-center justify-center gap-2 text-xs lg:text-sm shrink-0">
                         <i class="fa-solid fa-plus text-xs"></i> <span class="hidden sm:inline">Nova Transação</span><span class="sm:hidden">Novo</span>
                     </button>
                 </div>
@@ -666,6 +936,56 @@
                 </div>
                 <button type="submit" class="w-full py-3 mt-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition">Salvar Perfil</button>
             </form>
+        </div>
+    </div>
+
+    <!-- GITHUB SYNC MODAL -->
+    <div id="githubSyncModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] hidden flex justify-center items-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="glass-panel w-full max-w-sm p-5 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-brands fa-github"></i> Sincronizar com GitHub</h3>
+                <button id="closeGithubSyncModal" class="opacity-70 hover:opacity-100 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <p class="text-[11px] opacity-70 mb-4 leading-relaxed">
+                Seus dados são salvos como um arquivo JSON num repositório seu no GitHub. Use um <strong>token de acesso pessoal (fine-grained)</strong>, com permissão de "Contents: Read and write" restrita apenas a esse repositório. O token fica salvo somente neste navegador — não use em computadores/celulares compartilhados.
+            </p>
+
+            <form id="githubSyncForm" class="space-y-3">
+                <div>
+                    <label class="block text-xs opacity-70 mb-1">Personal Access Token</label>
+                    <input type="password" id="ghToken" placeholder="ghp_..." class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs opacity-70 mb-1">Usuário/Org</label>
+                        <input type="text" id="ghOwner" placeholder="seu-usuario" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs opacity-70 mb-1">Repositório</label>
+                        <input type="text" id="ghRepo" placeholder="meus-backups" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs opacity-70 mb-1">Branch</label>
+                        <input type="text" id="ghBranch" placeholder="main" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs opacity-70 mb-1">Caminho do arquivo</label>
+                        <input type="text" id="ghPath" placeholder="findash-backup.json" class="w-full px-3.5 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl text-xs outline-none focus:border-indigo-500 transition">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-2.5 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 rounded-2xl font-semibold text-xs transition">Salvar configurações</button>
+            </form>
+
+            <div class="grid grid-cols-2 gap-2 mt-3">
+                <button id="ghPushBtn" class="py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-lg transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-cloud-arrow-up"></i> Enviar agora</button>
+                <button id="ghPullBtn" class="py-3 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 rounded-2xl font-bold text-xs transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-cloud-arrow-down"></i> Baixar agora</button>
+            </div>
+
+            <p id="githubSyncStatus" class="text-xs mt-3 opacity-70"></p>
         </div>
     </div>
 
@@ -1113,6 +1433,38 @@
             userDropdownMenu.classList.add('hidden');
         });
 
+        // Menu "mais ações" do cabeçalho (versão compacta para mobile)
+        const headerActionsGroup = document.getElementById('actionsGroup');
+        const moreActionsBtn = document.getElementById('moreActionsBtn');
+
+        function positionHeaderActionsGroup() {
+            if (window.innerWidth >= 1024) return; // no desktop o menu é uma barra estática, não precisa posicionar
+            const rect = moreActionsBtn.getBoundingClientRect();
+            const menuWidth = headerActionsGroup.offsetWidth || 200;
+            const margin = 12;
+            let left = rect.right - menuWidth;
+            if (left < margin) left = margin;
+            if (left + menuWidth > window.innerWidth - margin) left = window.innerWidth - margin - menuWidth;
+            headerActionsGroup.style.top = (rect.bottom + 8) + 'px';
+            headerActionsGroup.style.left = left + 'px';
+        }
+
+        moreActionsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const willOpen = !headerActionsGroup.classList.contains('open');
+            headerActionsGroup.classList.toggle('open');
+            if (willOpen) positionHeaderActionsGroup();
+        });
+        document.addEventListener('click', () => {
+            headerActionsGroup.classList.remove('open');
+        });
+        window.addEventListener('resize', () => {
+            if (headerActionsGroup.classList.contains('open')) positionHeaderActionsGroup();
+        });
+        window.addEventListener('scroll', () => {
+            if (headerActionsGroup.classList.contains('open')) positionHeaderActionsGroup();
+        }, true);
+
         document.getElementById('openNewProfileModal').addEventListener('click', () => {
             document.getElementById('profileModalTitle').textContent = 'Criar Novo Perfil';
             document.getElementById('profileModalMode').value = 'create';
@@ -1214,11 +1566,10 @@
         navItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
-                navItems.forEach(nav => nav.classList.remove('active'));
                 viewSections.forEach(view => view.classList.remove('active'));
                 
-                this.classList.add('active');
                 const targetId = this.getAttribute('data-target');
+                navItems.forEach(nav => nav.classList.toggle('active', nav.getAttribute('data-target') === targetId));
                 document.getElementById(targetId).classList.add('active');
                 pageTitle.innerText = this.getAttribute('data-title');
 
@@ -1535,98 +1886,7 @@
             }
         }
 
-        // Generate Apple Touch Icon dynamically via canvas to ensure iOS Safari renders it perfectly as PNG
-        function generateAppleTouchIcon() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 512;
-            const ctx = canvas.getContext('2d');
-
-            const bgGrad = ctx.createLinearGradient(0, 0, 512, 512);
-            bgGrad.addColorStop(0, '#1e1b4b');
-            bgGrad.addColorStop(0.5, '#4c1d95');
-            bgGrad.addColorStop(1, '#0891b2');
-
-            ctx.save();
-            ctx.beginPath();
-            const rx = 115;
-            ctx.moveTo(rx, 0);
-            ctx.lineTo(512 - rx, 0);
-            ctx.quadraticCurveTo(512, 0, 512, rx);
-            ctx.lineTo(512, 512 - rx);
-            ctx.quadraticCurveTo(512, 512, 512 - rx, 512);
-            ctx.lineTo(rx, 512);
-            ctx.quadraticCurveTo(0, 512, 0, 512 - rx);
-            ctx.lineTo(0, rx);
-            ctx.quadraticCurveTo(0, 0, rx, 0);
-            ctx.closePath();
-            ctx.fillStyle = bgGrad;
-            ctx.fill();
-            ctx.restore();
-
-            ctx.save();
-            ctx.shadowColor = '#22d3ee';
-            ctx.shadowBlur = 16;
-            ctx.strokeStyle = '#22d3ee';
-            ctx.lineWidth = 12;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.beginPath();
-            ctx.moveTo(70, 380);
-            ctx.lineTo(180, 270);
-            ctx.lineTo(280, 320);
-            ctx.lineTo(390, 190);
-            ctx.lineTo(450, 130);
-            ctx.stroke();
-            ctx.restore();
-
-            ctx.save();
-            ctx.shadowColor = '#c084fc';
-            ctx.shadowBlur = 16;
-            ctx.fillStyle = '#c084fc';
-            ctx.font = 'bold 96px sans-serif';
-            ctx.fillText('$', 330, 380);
-            ctx.restore();
-
-            ctx.save();
-            ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
-            ctx.shadowBlur = 16;
-            const glassGrad = ctx.createLinearGradient(160, 110, 370, 420);
-            glassGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-            glassGrad.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
-            
-            ctx.fillStyle = glassGrad;
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-            ctx.lineWidth = 6;
-            
-            ctx.beginPath();
-            ctx.moveTo(160, 110);
-            ctx.lineTo(370, 110);
-            ctx.lineTo(370, 180);
-            ctx.lineTo(235, 180);
-            ctx.lineTo(235, 235);
-            ctx.lineTo(350, 235);
-            ctx.lineTo(350, 305);
-            ctx.lineTo(235, 305);
-            ctx.lineTo(235, 420);
-            ctx.lineTo(160, 420);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-            ctx.restore();
-
-            const dataUrl = canvas.toDataURL('image/png');
-            let appleIconLink = document.querySelector('link[rel="apple-touch-icon"]');
-            if (!appleIconLink) {
-                appleIconLink = document.createElement('link');
-                appleIconLink.rel = 'apple-touch-icon';
-                document.head.appendChild(appleIconLink);
-            }
-            appleIconLink.href = dataUrl;
-        }
-
         function init() {
-            generateAppleTouchIcon();
             renderUserProfileBox();
             currentMonthInput.value = currentMonth;
             setDefaultDateForCurrentMonth();
@@ -1806,6 +2066,7 @@
             setupCategorySelect();
             setupPaymentMethodsSelect();
             setupModals();
+            setupGithubSync();
             
             Chart.defaults.color = htmlElement.classList.contains('dark') ? '#cbd5e1' : '#475569';
             Chart.defaults.font.family = "'Sora', sans-serif";
@@ -2832,8 +3093,33 @@
             });
         }
 
-        function exportData() {
-            const dl = document.createElement('a'); dl.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dbData, null, 2))); dl.setAttribute("download", `findash_backup_${currentMonth}.json`); document.body.appendChild(dl); dl.click(); dl.remove();
+        async function exportData() {
+            const fileName = `findash_backup_${currentMonth}.json`;
+            const blob = new Blob([JSON.stringify(dbData, null, 2)], { type: 'application/json' });
+
+            // No iOS, quando o site é adicionado à Tela de Início (modo "standalone"), não existe
+            // interface do Safari para processar downloads — por isso usamos a folha de
+            // compartilhamento nativa (Web Share API), que permite "Salvar em Arquivos".
+            try {
+                const file = new File([blob], fileName, { type: 'application/json' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ files: [file], title: 'Backup FinDash' });
+                    return;
+                }
+            } catch (err) {
+                if (err && err.name === 'AbortError') return; // usuário cancelou o compartilhamento
+                // qualquer outro erro cai no fallback abaixo
+            }
+
+            // Fallback para navegadores comuns (Safari em aba normal, Chrome, etc.)
+            const url = URL.createObjectURL(blob);
+            const dl = document.createElement('a');
+            dl.href = url;
+            dl.download = fileName;
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         }
 
         function importData(e) {
@@ -2841,6 +3127,136 @@
             const reader = new FileReader();
             reader.onload = function(event) { try { const parsed = JSON.parse(event.target.result); if (parsed.categories && parsed.months) { dbData = parsed; if(!dbData.cards) dbData.cards = []; if(!dbData.goals) dbData.goals = []; if(!dbData.categoryBudgets) dbData.categoryBudgets = {}; saveDB(); setupCategorySelect(); setupPaymentMethodsSelect(); setDefaultDateForCurrentMonth(); ensureMonthExists(currentMonth); updateDashboard(); } } catch(err) { } };
             reader.readAsText(file);
+        }
+
+        // --- SINCRONIZAÇÃO COM GITHUB (armazena o backup como um arquivo JSON num repositório) ---
+        function getGithubConfig() {
+            return JSON.parse(localStorage.getItem('findash_github_config')) || {};
+        }
+        function saveGithubConfig(cfg) {
+            localStorage.setItem('findash_github_config', JSON.stringify(cfg));
+        }
+        function setGithubStatus(msg, isError) {
+            const el = document.getElementById('githubSyncStatus');
+            if (!el) return;
+            el.textContent = msg;
+            el.className = 'text-xs mt-3 ' + (isError ? 'text-rose-500' : 'text-emerald-500');
+        }
+        // Codifica/decodifica em Base64 preservando acentos e caracteres especiais (UTF-8)
+        function b64EncodeUnicode(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode('0x' + p1)));
+        }
+        function b64DecodeUnicode(str) {
+            return decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        }
+        function githubApiUrl(cfg) {
+            const cleanPath = cfg.path.replace(/^\/+/, '');
+            return `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${cleanPath.split('/').map(encodeURIComponent).join('/')}`;
+        }
+
+        async function pushToGithub() {
+            const cfg = getGithubConfig();
+            if (!cfg.token || !cfg.owner || !cfg.repo || !cfg.path) { setGithubStatus('Preencha e salve as configurações antes de sincronizar.', true); return; }
+            setGithubStatus('Enviando para o GitHub...');
+            try {
+                const headers = { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' };
+                let sha;
+                const getRes = await fetch(`${githubApiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch || 'main')}`, { headers });
+                if (getRes.status === 200) {
+                    sha = (await getRes.json()).sha;
+                } else if (getRes.status !== 404) {
+                    const errJson = await getRes.json().catch(() => ({}));
+                    throw new Error(errJson.message || `Erro ${getRes.status} ao consultar o arquivo`);
+                }
+
+                const putRes = await fetch(githubApiUrl(cfg), {
+                    method: 'PUT',
+                    headers: { ...headers, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: `Backup FinDash - ${new Date().toLocaleString('pt-BR')}`,
+                        content: b64EncodeUnicode(JSON.stringify(dbData, null, 2)),
+                        branch: cfg.branch || 'main',
+                        ...(sha ? { sha } : {})
+                    })
+                });
+                if (!putRes.ok) {
+                    const errJson = await putRes.json().catch(() => ({}));
+                    throw new Error(errJson.message || `Erro ${putRes.status} ao enviar o arquivo`);
+                }
+                cfg.lastSync = new Date().toLocaleString('pt-BR');
+                saveGithubConfig(cfg);
+                setGithubStatus(`Backup enviado com sucesso em ${cfg.lastSync}.`);
+            } catch (err) {
+                setGithubStatus(`Falha ao enviar: ${err.message}`, true);
+            }
+        }
+
+        async function pullFromGithub() {
+            const cfg = getGithubConfig();
+            if (!cfg.token || !cfg.owner || !cfg.repo || !cfg.path) { setGithubStatus('Preencha e salve as configurações antes de sincronizar.', true); return; }
+            if (!confirm('Isso vai substituir os dados atuais deste perfil pelos dados salvos no GitHub. Deseja continuar?')) return;
+            setGithubStatus('Baixando do GitHub...');
+            try {
+                const headers = { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' };
+                const getRes = await fetch(`${githubApiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch || 'main')}`, { headers });
+                if (!getRes.ok) {
+                    const errJson = await getRes.json().catch(() => ({}));
+                    throw new Error(errJson.message || `Erro ${getRes.status} ao baixar o arquivo`);
+                }
+                const fileJson = await getRes.json();
+                const parsed = JSON.parse(b64DecodeUnicode(fileJson.content.replace(/\n/g, '')));
+                if (!parsed.categories || !parsed.months) throw new Error('Arquivo inválido: não parece um backup do FinDash.');
+                dbData = parsed;
+                if (!dbData.cards) dbData.cards = [];
+                if (!dbData.goals) dbData.goals = [];
+                if (!dbData.categoryBudgets) dbData.categoryBudgets = {};
+                saveDB();
+                setupCategorySelect(); setupPaymentMethodsSelect(); setDefaultDateForCurrentMonth(); ensureMonthExists(currentMonth); updateDashboard();
+                cfg.lastSync = new Date().toLocaleString('pt-BR');
+                saveGithubConfig(cfg);
+                setGithubStatus(`Dados baixados com sucesso em ${cfg.lastSync}.`);
+            } catch (err) {
+                setGithubStatus(`Falha ao baixar: ${err.message}`, true);
+            }
+        }
+
+        function setupGithubSync() {
+            const modal = document.getElementById('githubSyncModal');
+            const openModal = () => {
+                const cfg = getGithubConfig();
+                document.getElementById('ghToken').value = cfg.token || '';
+                document.getElementById('ghOwner').value = cfg.owner || '';
+                document.getElementById('ghRepo').value = cfg.repo || '';
+                document.getElementById('ghBranch').value = cfg.branch || 'main';
+                document.getElementById('ghPath').value = cfg.path || 'findash-backup.json';
+                setGithubStatus(cfg.lastSync ? `Última sincronização: ${cfg.lastSync}` : '');
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            };
+            const closeModal = () => {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            };
+
+            document.getElementById('githubSyncBtn').addEventListener('click', openModal);
+            document.getElementById('closeGithubSyncModal').addEventListener('click', closeModal);
+
+            document.getElementById('githubSyncForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const cfg = {
+                    token: document.getElementById('ghToken').value.trim(),
+                    owner: document.getElementById('ghOwner').value.trim(),
+                    repo: document.getElementById('ghRepo').value.trim(),
+                    branch: document.getElementById('ghBranch').value.trim() || 'main',
+                    path: document.getElementById('ghPath').value.trim() || 'findash-backup.json',
+                    lastSync: getGithubConfig().lastSync
+                };
+                saveGithubConfig(cfg);
+                setGithubStatus('Configurações salvas.');
+            });
+
+            document.getElementById('ghPushBtn').addEventListener('click', pushToGithub);
+            document.getElementById('ghPullBtn').addEventListener('click', pullFromGithub);
         }
 
         function setupModals() {
